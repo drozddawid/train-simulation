@@ -1,0 +1,175 @@
+digraph G {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+
+    node [
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+        shape = "record"
+    ]
+
+    edge [
+        arrowtail = "empty"
+        fontname = "Bitstream Vera Sans"
+        fontsize = 8
+    ]
+
+    MainWindow [ label = "{MainWindow|
+        - map : Map\l
+        - routeManagerWindow : RouteManagerWindow\l
+        |
+        + main()\l
+        - showRouteManagerWindow()\l
+        }" ]
+
+    RouteManagerWindow [ label = "{RouteManagerWindow|
+        - routeManager : RouteManager\l
+        - stationsDatabase : StationsDatabase\l
+        |
+        + open()\l
+        }" ]
+
+
+    Map [ label = "{Map|
+        - objects : ArrayList\<MapObject\>\l
+        - stationDatabase : StationDatabase\l
+        - routeManager : RouteManager\l
+        - currentTime : RouteTime\l
+        - statisticsLogger : StatisticsLogger\l
+        |
+        + draw()\l
+        + fillStationsFromDatabase()\l
+        + advanceTime()\l
+        }" ]
+
+    MapObject [ label = "{MapObject|
+        + coordX : float\l
+        + coordY : float\l
+        |
+        + draw() (abstract)\l
+        }" ]
+
+    Station [ label = "{Station|
+        + name : String\l
+        + profitablity : float\l
+        + connectingStations : ArrayList\<Station\>\l
+        |
+        + draw()\l
+        }" ]
+
+    Train [ label = "{Train|
+        + name : String\l
+        + currentLink : StationLink\l
+        + linkProgress : float\l
+        |
+        + draw()\l
+        }" ]
+
+    StationLink [
+        label = "{StationLink|
+        + from : Station\l
+        + to : Station\l
+        |
+        + draw()\l
+        }" ]
+
+    RouteManager [ label = "{RouteManager|
+        + routes : ArrayList\<TrainRoute\>\l
+        |
+        + getRouteForTrain(String trainName)\l
+        + getRouteForStation(Station c)\l
+        }" ]
+
+    TrainRoute [ label = "{TrainRoute|
+        + trainName : String\l
+        + stops : ArrayList\<RouteStop\>\l
+        + costPerKilometer : float\l
+        |
+        + getNextStop(RouteTime currentTime)\l
+        + getPreviousStop(RouteTime currentTime)\l
+        }" ]
+
+    RouteStop [ label = "{RouteStop|
+        + city : Station\l
+        + arriveTime : RouteTime\l
+        + departTime : RouteTime\l
+        |
+        }" ]
+
+    RouteTime [ label = "{RouteTime|
+        + secondsSinceMidnight : int\l
+        |
+        + getMinutes()\l
+        + getHours()\l
+        + set(int hours, int minutes)\l
+        }" ]
+
+    StationDatabase [ label = "{StationDatabase|
+        + stations : ArrayList\<Station\>\l
+        + stationLinks : ArrayLink\<StationLink\>\l
+        |
+        + loadFromFile()\l
+        }" ]
+    
+    StatisticsLogger [
+        label = "{StatisticsLogger|
+        |
+        + logArrival(RouteTime, Train, Station)\l
+        + logDeparture(RouteTime, Train, Station)\l
+        }" ]
+
+    edge [
+        arrowsize = 1.5
+    ]
+
+    MapObject:sw -> Station [dir=back]
+    MapObject:se -> Train [dir=back]
+    MapObject:s -> StationLink [dir=back]
+
+    edge [
+        arrowsize = 0.8
+        arrowhead = "open"
+        headlabel = "0..*"
+        taillabel = "1"
+        labeldistance = 1.5 // Place the asteriks further away from the arrow head
+    ]
+
+
+    Station -> Station
+
+    Map -> MapObject
+    RouteManager -> TrainRoute
+    TrainRoute -> RouteStop
+    StationDatabase -> Station
+    StationDatabase -> StationLink
+
+    edge [
+        headlabel = "2"
+        taillabel = "1"
+    ]
+    StationLink -> Station
+
+    RouteStop -> RouteTime
+
+    edge [
+        headlabel = "1"
+        taillabel = "1"
+    ]
+
+
+    Train -> StationLink
+
+    Map -> StatisticsLogger
+
+    Map -> StationDatabase
+
+    MainWindow -> Map
+    Map -> RouteManager
+    Map -> RouteTime
+    MainWindow -> RouteManagerWindow
+
+    RouteManagerWindow -> RouteManager
+    RouteManagerWindow -> StationDatabase
+
+
+}
