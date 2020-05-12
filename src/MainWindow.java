@@ -9,7 +9,7 @@ public class MainWindow {
         Station station2 = new Station ("station2",2, emptyList);
 
         StationLink link = new StationLink (station1,station2);
-
+//testtestetest
         System.out.println(link.getLink());
         int i = 0;
         while(i<1000) {
