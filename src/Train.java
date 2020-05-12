@@ -1,4 +1,5 @@
 public class Train extends MapObject{
+    public int trainID;
     public String name;
     public StationLink currentLink;
     double linkProgress;
