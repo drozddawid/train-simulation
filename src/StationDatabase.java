@@ -24,10 +24,10 @@ public class StationDatabase {
                         case 2:
                             stations.get(j).profitability = Double.parseDouble(line);
                         case 3:
-                            //tu zrobie coś żeby zapisywało ID stacji do listy StationLink
 
 
-                                    0 
+
+
                     }
 
                 }
