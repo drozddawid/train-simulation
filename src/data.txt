@@ -1,5 +1,0 @@
-stationID
-name
-profitability
-connected-with-by-stationID - czyli między myślnikami id stacji z którymi jest połączone
-001-004-005/ - znak "/" kończy zapis

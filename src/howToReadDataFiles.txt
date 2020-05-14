@@ -1,0 +1,49 @@
+trzeba będzie jeszcze dodać koordynaty stacji i połączeń
+chociaż w sumie dla połączeń można zrobić tak że będą tylko koordy początku i końca i będą to koordy stacji po prostu
+-------------------STATION DATABASE-------------------
+stationID zaczynamy od 001 i w górę co jeden, indeks stacji na liście stations w klasie StationDatabase to (StationID-1) bo tam numeruje od zera a tu jest numerowane od 1
+name
+profitability
+coordX
+coordY
+connected-with-by-stationID - czyli między myślnikami id stacji z którymi jest połączone
+001-004-005-/ - znak "/" kończy zapis
+"/" kończy zapis łączących stacji np 002-094-/ oznacza że stacja jest połączona ze stacjami o ID 002 i 094
+koniecznie trzeba dać na końcu całego zapisu "-/", bo jak dasz samo  "/" to nie zadziała
+i na końcu nie może być żadnych białych linii ani nic bo wywali błąd niezgodności typów
+czyli trzeba pisać po kolei:
+StationID
+name
+profitability
+connected-with-by-stationID
+
+np:
+001
+Warszawa
+1
+002-004-/
+002
+Wroclaw
+3
+001-004-/
+003
+Gdansk
+2
+004-/
+004
+Lublin
+0
+003-002-001-/
+-------------------TRAIN DATA---------------------
+trainID
+name
+costPerKM
+profitPerPassenger - zysk na jednego pasażera na kilometr trasy, wtedy zysk (lub stratę) z przejazdu liczymy tak: (profitPerPassenger*passengers*dlugoscTrasy)-(costPerKM*dlugoscTrasy)
+seats
+currentLinkID - początkowa trasa
+
+------------------LINK DATA------------------------
+linkID
+lengthKM
+fromStationID
+toStationID
