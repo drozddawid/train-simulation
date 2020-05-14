@@ -7,9 +7,9 @@ public class StationDatabase {
     public ArrayList<StationLink> stationLinks;
     public ArrayList<Train> trains;
 
-    StationDatabase(File stationData, File linkData){ //tworzy bazę stacji, pociągów i połączeń na podstawie danych w podanym pliku
+    StationDatabase(File stationData, File linkData, File trainData){ //tworzy bazę stacji, pociągów i połączeń na podstawie danych w podanym pliku
             try { //wczytywanie bazy stacji
-                System.out.println("Reading stations database");
+                System.out.println("Reading stations database ...");
                 FileReader scan = new FileReader(stationData);
                 BufferedReader buffer = new BufferedReader(scan);
 
@@ -64,11 +64,10 @@ public class StationDatabase {
                 buffer.close();
             } catch (IOException e){
                 e.printStackTrace();
-
             }
 
             try{
-                System.out.println("Reading links datafile");
+                System.out.println("Reading links datafile ...");
                 FileReader scan = new FileReader(linkData);
                 BufferedReader buffer = new BufferedReader(scan);
 
@@ -107,7 +106,52 @@ public class StationDatabase {
 
             } catch (IOException e){
                 e.printStackTrace();
+            }
 
+            try {
+                System.out.println("Reading trains datafile ...");
+                FileReader scan = new FileReader(trainData);
+                BufferedReader buffer = new BufferedReader(scan);
+                int i = 0; //licznik czytanych linii
+                int j = 0; //licznik obiektów Train w liście trains
+                String line;
+                trains = new ArrayList<Train>();
+                trains.add(new Train());
+
+                while((line = buffer.readLine()) != null){
+                    switch (i){
+                        case 0:
+                            this.trains.get(j).trainID = Integer.parseInt(line);
+                            break;
+                        case 1:
+                            this.trains.get(j).name = line;
+                            break;
+                        case 2:
+                            this.trains.get(j).costPerKM = Integer.parseInt(line);
+                            break;
+                        case 3:
+                            this.trains.get(j).profitPerPassenger = Double.parseDouble(line);
+                            break;
+                        case 4:
+                            this.trains.get(j).seats = Integer.parseInt(line);
+                            break;
+                        case 5:
+                            this.trains.get(j).currentLink = stationLinks.get(Integer.parseInt(line)-1);
+                            break;
+                    }
+                    i++;
+                    if (i == 6) {
+                        j++;
+                        i = 0;
+                        this.trains.add(new Train());
+                    }
+
+                }
+                scan.close();
+                buffer.close();
+
+            } catch (IOException e){
+                e.printStackTrace();
             }
 
     }}

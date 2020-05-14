@@ -9,7 +9,7 @@ coordY
 connected-with-by-stationID - czyli między myślnikami id stacji z którymi jest połączone
 001-004-005-/ - znak "/" kończy zapis
 "/" kończy zapis łączących stacji np 002-094-/ oznacza że stacja jest połączona ze stacjami o ID 002 i 094
-koniecznie trzeba dać na końcu całego zapisu "-/", bo jak dasz samo  "/" to nie zadziała
+koniecznie trzeba dać na końcu całego zapisu "-/", bo jak dasz samo  "/" to nie zadziała (wyrzuci błąd wyjścia poza zakres tablicy czy czegośtam czego użyłem)
 i na końcu nie może być żadnych białych linii ani nic bo wywali błąd niezgodności typów
 czyli trzeba pisać po kolei:
 StationID
@@ -35,7 +35,7 @@ Lublin
 0
 003-002-001-/
 -------------------TRAIN DATA---------------------
-trainID
+trainID zaczynamy od 001 i w górę co jeden, indeks pociągu na liście trains w klasie StationDatabase to (trainID-1) bo tam numeruje od zera a tu jest numerowane od 1
 name
 costPerKM
 profitPerPassenger - zysk na jednego pasażera na kilometr trasy, wtedy zysk (lub stratę) z przejazdu liczymy tak: (profitPerPassenger*passengers*dlugoscTrasy)-(costPerKM*dlugoscTrasy)
@@ -43,7 +43,7 @@ seats
 currentLinkID - początkowa trasa
 
 ------------------LINK DATA------------------------
-linkID
+linkID zaczynamy od 001 i w górę co jeden, indeks połączenia na liście stationLinks w klasie StationDatabase to (linkID-1) bo tam numeruje od zera a tu jest numerowane od 1
 lengthKM
 fromStationID
 toStationID

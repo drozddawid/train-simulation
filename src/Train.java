@@ -22,12 +22,14 @@ public class Train extends MapObject{
     public Train(){
         this(0,"defaultTrainName",0,0, 0,new StationLink());
     }
+
     public String getTrain(){
-        return "\nTrain ID: " + this.trainID + "\n Name: " + this.name + "\n Cost (per KM): " + this.costPerKM
-                + "\n Profit per passenger for KM: " + this.profitPerPassenger + "\nSeats: " + this.seats
-                + "\nCurrent link ID: " + this.currentLink + "\nLink Progress (%): " + (this.linkProgress*100)
+        return "\nTrain ID: " + this.trainID + "\nName: " + this.name + "\nCost (per KM): " + this.costPerKM
+                + "\nProfit per passenger for KM: " + this.profitPerPassenger + "\nSeats: " + this.seats
+                + "\nCurrent link ID: " + this.currentLink.linkID + "\nLink Progress (%): " + (this.linkProgress*100)
                 + "\nCoordX: " + this.coordX + "\nCoordY: " + this.coordY;
     }
+
     @Override
     public void draw(){
         //draws Train
