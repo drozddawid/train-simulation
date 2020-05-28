@@ -1,3 +1,5 @@
+package projekt;
+
 public class Train extends MapObject{
     public int trainID;
     public String name;
@@ -24,7 +26,7 @@ public class Train extends MapObject{
     }
 
     public String getTrain(){
-        return "\nTrain ID: " + this.trainID + "\nName: " + this.name + "\nCost (per KM): " + this.costPerKM
+        return "\nprojekt.Train ID: " + this.trainID + "\nName: " + this.name + "\nCost (per KM): " + this.costPerKM
                 + "\nProfit per passenger for KM: " + this.profitPerPassenger + "\nSeats: " + this.seats
                 + "\nCurrent link ID: " + this.currentLink.linkID + "\nLink Progress (%): " + (this.linkProgress*100)
                 + "\nCoordX: " + this.coordX + "\nCoordY: " + this.coordY;
@@ -32,6 +34,6 @@ public class Train extends MapObject{
 
     @Override
     public void draw(){
-        //draws Train
+        //draws projekt.Train
     }
 }

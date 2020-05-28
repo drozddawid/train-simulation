@@ -1,3 +1,5 @@
+package projekt;
+
 import java.util.ArrayList;
 
 public class TrainRoute {
@@ -6,10 +8,10 @@ public class TrainRoute {
     public double costPerKilometer;
 
 /*
-    public RouteStop getNextStop(){
+    public projekt.RouteStop getNextStop(){
         //returns next stop
     }
-    public RouteStop getPrevStop(){
+    public projekt.RouteStop getPrevStop(){
         //returns previous stop
     }*/
 }

@@ -1,3 +1,5 @@
+package projekt;
+
 public class StationLink extends MapObject{
     public int linkID;
     public int lengthKM;
@@ -22,6 +24,6 @@ public class StationLink extends MapObject{
     }
     @Override
     public void draw(){
-        //draws StationLink
+        //draws projekt.StationLink
     }
 }

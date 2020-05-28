@@ -1,7 +1,7 @@
 trzeba będzie jeszcze dodać koordynaty stacji i połączeń
 chociaż w sumie dla połączeń można zrobić tak że będą tylko koordy początku i końca i będą to koordy stacji po prostu
 -------------------STATION DATABASE-------------------
-stationID zaczynamy od 001 i w górę co jeden, indeks stacji na liście stations w klasie StationDatabase to (StationID-1) bo tam numeruje od zera a tu jest numerowane od 1
+stationID zaczynamy od 001 i w górę co jeden, indeks stacji na liście stations w klasie projekt.StationDatabase to (StationID-1) bo tam numeruje od zera a tu jest numerowane od 1
 name
 profitability
 coordX
@@ -35,7 +35,7 @@ Lublin
 0
 003-002-001-/
 -------------------TRAIN DATA---------------------
-trainID zaczynamy od 001 i w górę co jeden, indeks pociągu na liście trains w klasie StationDatabase to (trainID-1) bo tam numeruje od zera a tu jest numerowane od 1
+trainID zaczynamy od 001 i w górę co jeden, indeks pociągu na liście trains w klasie projekt.StationDatabase to (trainID-1) bo tam numeruje od zera a tu jest numerowane od 1
 name
 costPerKM
 profitPerPassenger - zysk na jednego pasażera na kilometr trasy, wtedy zysk (lub stratę) z przejazdu liczymy tak: (profitPerPassenger*passengers*dlugoscTrasy)-(costPerKM*dlugoscTrasy)
@@ -43,7 +43,7 @@ seats
 currentLinkID - początkowa trasa
 
 ------------------LINK DATA------------------------
-linkID zaczynamy od 001 i w górę co jeden, indeks połączenia na liście stationLinks w klasie StationDatabase to (linkID-1) bo tam numeruje od zera a tu jest numerowane od 1
+linkID zaczynamy od 001 i w górę co jeden, indeks połączenia na liście stationLinks w klasie projekt.StationDatabase to (linkID-1) bo tam numeruje od zera a tu jest numerowane od 1
 lengthKM
 fromStationID
 toStationID

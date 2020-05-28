@@ -1,3 +1,5 @@
+package projekt;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -74,7 +76,7 @@ public class StationDatabase {
                 this.stationLinks = new ArrayList<StationLink>();
                 this.stationLinks.add(new StationLink());
                 int i = 0; //licznik linii
-                int j = 0; //licznik obiektów StationLink w liście stationLinks
+                int j = 0; //licznik obiektów projekt.StationLink w liście stationLinks
                 String line;
 
                 while ((line = buffer.readLine()) != null){
@@ -113,7 +115,7 @@ public class StationDatabase {
                 FileReader scan = new FileReader(trainData);
                 BufferedReader buffer = new BufferedReader(scan);
                 int i = 0; //licznik czytanych linii
-                int j = 0; //licznik obiektów Train w liście trains
+                int j = 0; //licznik obiektów projekt.Train w liście trains
                 String line;
                 trains = new ArrayList<Train>();
                 trains.add(new Train());

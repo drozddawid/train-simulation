@@ -1,3 +1,5 @@
+package projekt;
+
 import java.util.ArrayList;
 
 public class Station extends MapObject {
@@ -18,12 +20,12 @@ public class Station extends MapObject {
         this(0,"null", 0, 0, 0, new ArrayList<Integer>());
     }
     public String getStation(){
-        return "\nStation ID: " + this.stationID +  "\nname: " + this.name + "\nProfitability: "
+        return "\nprojekt.Station ID: " + this.stationID +  "\nname: " + this.name + "\nProfitability: "
                 + this.profitability + "\ncoordX: " + this.coordX + "\ncoordY: " + this.coordY
                 + "\nConnected with (ID's): " + connectedWith.toString();
     }
     @Override
     public void draw(){
-        //draws Station
+        //draws projekt.Station
     }
 }
