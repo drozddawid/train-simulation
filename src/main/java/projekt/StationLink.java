@@ -13,6 +13,11 @@ public class StationLink extends MapObject{
     }
 
     @Override
+    public void tick() {
+
+    }
+
+    @Override
     public void draw(GraphicsContext gc){
         gc.setStroke(Paint.valueOf("#a0a0a0"));
         gc.setLineWidth(1);
