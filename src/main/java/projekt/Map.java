@@ -4,10 +4,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
 
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Properties;
 
 public class Map {
     private ArrayList<MapObject> objects = new ArrayList<>();
@@ -19,10 +16,12 @@ public class Map {
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     private String loadedCountrySvgPath;
 
-    public Map() {
-        advanceTime();
+    public Map(StationDatabase sDB) {
+        stationDatabase = sDB;
 
-        objects.add(new Train());
+        // Add stationLinks first so they get drawn first
+        objects.addAll(stationDatabase.getStationLinks());
+        objects.addAll(stationDatabase.getStations().values());
     }
 
     public Canvas getCanvas() {

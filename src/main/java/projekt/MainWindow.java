@@ -15,30 +15,10 @@ import java.util.TimerTask;
 public class MainWindow extends Application {
     private Map map;
     private Timer advancingTimeTimer;
+    private StationDatabase stationDatabase = new StationDatabase();
 
     public static void main (String[] args){
         launch(args);
-/*
-        RouteTime time = new RouteTime();
-
-        File stationData = new File ("src/stationData.txt");
-        File linkData = new File("src/linkData.txt");
-        File trainData = new File("src/trainData.txt");
-        StationDatabase dataBase = new StationDatabase(stationData, linkData, trainData);
-        System.out.println("===========STACJE=========");
-        for(int i = 0; i<4;i++) {
-            System.out.println(dataBase.stations.get(i).getStation());
-        }
-        System.out.println("===========POLACZENIA=========");
-        for(int i = 0; i<4;i++) {
-            System.out.println(dataBase.stationLinks.get(i).getLink());
-        }
-        System.out.println("===========POCIAGI=========");
-        for(int i = 0; i<5;i++) {
-            System.out.println(dataBase.trains.get(i).getTrain());
-        }
-        System.out.println("Minelo " + RouteTime.getTime() + " ms");
-        */
     }
 
     private void startAdvancingTimeTimer() {
@@ -53,13 +33,13 @@ public class MainWindow extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) {
         primaryStage.setMinHeight(870);
         primaryStage.setMinWidth(900);
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Symulacja PKP");
         primaryStage.setOnCloseRequest(e -> System.exit(0));
 
-        map = new Map();
+        map = new Map(stationDatabase);
 
         BorderPane root = new BorderPane();
         root.setBottom(bottomHBox());
@@ -69,15 +49,11 @@ public class MainWindow extends Application {
         primaryStage.show();
 
         startAdvancingTimeTimer();
-
     }
 
     private HBox bottomHBox() {
         HBox hBox = new HBox();
         hBox.setSpacing(10);
-
-        Region filler = new Region();
-        HBox.setHgrow(filler, Priority.ALWAYS);
 
         Label time = new Label("Czas w symulacji: 9:15");
         Label speed = new Label("Prędkość symulacji: 5m/1s");
@@ -86,6 +62,12 @@ public class MainWindow extends Application {
         hBox.setStyle("-fx-background-color: #6699bb; -fx-padding: 0.5em");
         time.setStyle("-fx-background-color: #99ccee; -fx-padding: 0.5em");
         speed.setStyle("-fx-background-color: #99ccee; -fx-padding: 0.5em");
+
+        // A filler is used to make the timetableEdit button appear on the right side
+        // [time] [speed] <-------filler--------> [timetableEdit]
+        Region filler = new Region();
+        HBox.setHgrow(filler, Priority.ALWAYS);
+
         hBox.getChildren().addAll(time, speed, filler, timetableEdit);
         return hBox;
     }

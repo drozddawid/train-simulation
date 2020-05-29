@@ -16,26 +16,26 @@ public class Train extends MapObject{
     public StationLink currentLink;
     double linkProgress;
 
-    Train(int trainID, String name, int costPerKM, double profitPerPassenger, int seats, StationLink currentLink){
+    Train(int trainID, String name, int costPerKM, double profitPerPassenger, int seats/*, StationLink currentLink*/){
         this.trainID = trainID;
         this.name = name;
         this.costPerKM = costPerKM;
         this.profitPerPassenger = profitPerPassenger;
         this.seats = seats;
-        this.currentLink = currentLink;
+//        this.currentLink = currentLink;
         this.linkProgress = 0;
-        this.coordX = currentLink.from.coordX;
-        this.coordY = currentLink.from.coordY;
+//        this.coordX = currentLink.from.coordX;
+//        this.coordY = currentLink.from.coordY;
 
     }
     public Train(){
-        this(0,"defaultTrainName",0,0, 0,new StationLink());
+        this(0,"defaultTrainName",0,0, 0);
     }
 
     public String getTrain(){
         return "\nprojekt.Train ID: " + this.trainID + "\nName: " + this.name + "\nCost (per KM): " + this.costPerKM
                 + "\nProfit per passenger for KM: " + this.profitPerPassenger + "\nSeats: " + this.seats
-                + "\nCurrent link ID: " + this.currentLink.linkID + "\nLink Progress (%): " + (this.linkProgress*100)
+                + "\nLink Progress (%): " + (this.linkProgress*100)
                 + "\nCoordX: " + this.coordX + "\nCoordY: " + this.coordY;
     }
 

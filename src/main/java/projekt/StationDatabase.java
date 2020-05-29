@@ -1,160 +1,103 @@
 package projekt;
 
-import java.io.*;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class StationDatabase {
-    public ArrayList<Station> stations;
-    public ArrayList<StationLink> stationLinks;
-    public ArrayList<Train> trains;
+    private HashMap<Integer, Station> stations = new HashMap<>();
+    private ArrayList<StationLink> stationLinks = new ArrayList<>();
 
-    StationDatabase(File stationData, File linkData, File trainData){ //tworzy bazę stacji, pociągów i połączeń na podstawie danych w podanym pliku
-            try { //wczytywanie bazy stacji
-                System.out.println("Reading stations database ...");
-                FileReader scan = new FileReader(stationData);
-                BufferedReader buffer = new BufferedReader(scan);
+    StationDatabase(){ //tworzy bazę stacji, pociągów i połączeń na podstawie danych w podanym pliku
+        JSONObject stationsFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/stations.json")));
 
-                this.stations = new ArrayList<Station>();
-                this.stations.add(new Station());
+        for(Object stationJsonObject : stationsFile.getJSONArray("stations")) {
+            JSONObject s = (JSONObject) stationJsonObject;
+            int id = s.getInt("id");
+            Station station = new Station(
+                    id,
+                    s.getString("name"),
+                    s.getDouble("profitability"),
+                    s.getDouble("coordX"),
+                    s.getDouble("coordY"));
+            getStations().put(id, station);
+        }
 
-                int i = 0; // wskazuje jaką informacje przechowuje linia
-                int j = 0; // indeks listy stations
-
-                String line;
-                while((line = buffer.readLine()) != null){
-                    switch (i){
-                        case 0:
-                            this.stations.get(j).stationID = Integer.parseInt(line);
-                            break;
-                        case 1:
-                            this.stations.get(j).name = line;
-                            break;
-                        case 2:
-                            this.stations.get(j).profitability = Double.parseDouble(line);
-                            break;
-                        case 3:
-                            this.stations.get(j).coordX = Double.parseDouble(line);
-                            break;
-                        case 4:
-                            this.stations.get(j).coordY = Double.parseDouble(line);
-                            break;
-                        case 5:
-                            char[] connections = line.toCharArray();
-                            String buff = "";
-                            int k = 0;
-                            while (connections[k] != '/'){ // "/" kończy zapis łączących stacji np 002-094-/ oznacza że stacja jest połączona ze stacjami o ID 002 i 094
-                                for(int l = 0; l<3; l++) { // koniecznie trzeba dać na końcu całego zapisu -/, bo jak dasz / to nie zadziała
-                                    buff = buff + connections[k + l];
-                                }
-                                this.stations.get(j).connectedWith.add(Integer.parseInt(buff));
-                                k = k + 4;
-                                buff = "";
-                            }
-                            break;
-                    }
-
-                    i++;
-                    if(i == 6){ //to znak że następna odczytana linia będzie pierwszą z następnej stacji
-                        this.stations.add(new Station());
-                        i = 0;
-                        j++;
-                    }
-
-                }
-                scan.close();
-                buffer.close();
-            } catch (IOException e){
-                e.printStackTrace();
+        for(Object linkJsonObject : stationsFile.getJSONArray("links")) {
+            JSONArray link = (JSONArray) linkJsonObject;
+            for(int i = 0; i < link.length() - 1; i++) {
+                linkTwoStations(link.getInt(i), link.getInt(i + 1));
             }
 
-            try{
-                System.out.println("Reading links datafile ...");
-                FileReader scan = new FileReader(linkData);
-                BufferedReader buffer = new BufferedReader(scan);
+        }
+/*
+        try {
+            System.out.println("Reading trains datafile ...");
+            FileReader scan = new FileReader(trainData);
+            BufferedReader buffer = new BufferedReader(scan);
+            int i = 0; //licznik czytanych linii
+            int j = 0; //licznik obiektów projekt.Train w liście trains
+            String line;
+            trains = new ArrayList<Train>();
+            trains.add(new Train());
 
-                this.stationLinks = new ArrayList<StationLink>();
-                this.stationLinks.add(new StationLink());
-                int i = 0; //licznik linii
-                int j = 0; //licznik obiektów projekt.StationLink w liście stationLinks
-                String line;
-
-                while ((line = buffer.readLine()) != null){
-                    switch (i){
-                        case 0:
-                            this.stationLinks.get(j).linkID = Integer.parseInt(line);
-                            break;
-                        case 1:
-                            this.stationLinks.get(j).lengthKM = Integer.parseInt(line);
-                            break;
-                        case 2:
-                            this.stationLinks.get(j).from = stations.get(Integer.parseInt(line)-1);
-                            break;
-                        case 3:
-                            this.stationLinks.get(j).to = stations.get(Integer.parseInt(line)-1);
-                            break;
-                    }
-                    i++;
-                    if(i==4){
-                        i=0;
-                        j++;
-                        this.stationLinks.add(new StationLink());
-                    }
-
+            while((line = buffer.readLine()) != null){
+                switch (i){
+                    case 0:
+                        this.trains.get(j).trainID = Integer.parseInt(line);
+                        break;
+                    case 1:
+                        this.trains.get(j).name = line;
+                        break;
+                    case 2:
+                        this.trains.get(j).costPerKM = Integer.parseInt(line);
+                        break;
+                    case 3:
+                        this.trains.get(j).profitPerPassenger = Double.parseDouble(line);
+                        break;
+                    case 4:
+                        this.trains.get(j).seats = Integer.parseInt(line);
+                        break;
+                    case 5:
+                        this.trains.get(j).currentLink = stationLinks.get(Integer.parseInt(line)-1);
+                        break;
                 }
-                buffer.close();
-                scan.close();
-
-
-            } catch (IOException e){
-                e.printStackTrace();
-            }
-
-            try {
-                System.out.println("Reading trains datafile ...");
-                FileReader scan = new FileReader(trainData);
-                BufferedReader buffer = new BufferedReader(scan);
-                int i = 0; //licznik czytanych linii
-                int j = 0; //licznik obiektów projekt.Train w liście trains
-                String line;
-                trains = new ArrayList<Train>();
-                trains.add(new Train());
-
-                while((line = buffer.readLine()) != null){
-                    switch (i){
-                        case 0:
-                            this.trains.get(j).trainID = Integer.parseInt(line);
-                            break;
-                        case 1:
-                            this.trains.get(j).name = line;
-                            break;
-                        case 2:
-                            this.trains.get(j).costPerKM = Integer.parseInt(line);
-                            break;
-                        case 3:
-                            this.trains.get(j).profitPerPassenger = Double.parseDouble(line);
-                            break;
-                        case 4:
-                            this.trains.get(j).seats = Integer.parseInt(line);
-                            break;
-                        case 5:
-                            this.trains.get(j).currentLink = stationLinks.get(Integer.parseInt(line)-1);
-                            break;
-                    }
-                    i++;
-                    if (i == 6) {
-                        j++;
-                        i = 0;
-                        this.trains.add(new Train());
-                    }
-
+                i++;
+                if (i == 6) {
+                    j++;
+                    i = 0;
+                    this.trains.add(new Train());
                 }
-                scan.close();
-                buffer.close();
 
-            } catch (IOException e){
-                e.printStackTrace();
             }
+            scan.close();
+            buffer.close();
 
-    }}
+        } catch (IOException e){
+            e.printStackTrace();
+        }*/
+
+    }
+
+    private void linkTwoStations(int id1, int id2) {
+        Station s1 = getStations().get(id1);
+        Station s2 = getStations().get(id2);
+        s1.connectTo(s2);
+        s2.connectTo(s1);
+
+        stationLinks.add(new StationLink(s1, s2));
+    }
+
+    public HashMap<Integer, Station> getStations() {
+        return stations;
+    }
+
+    public ArrayList<StationLink> getStationLinks() {
+        return stationLinks;
+    }
+}
 

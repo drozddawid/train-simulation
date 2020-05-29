@@ -1,0 +1,46 @@
+{
+  "links": [
+    [1, 4],
+    [2, 4],
+    [3, 4],
+    [2, 3],
+    [2, 5]
+  ],
+  "stations": [
+    {
+      "id": 1,
+      "name": "Wrocław",
+      "profitability": 0.5,
+      "coordY": 400,
+      "coordX": 100
+    },
+    {
+      "id": 2,
+      "name": "Warszawa",
+      "profitability": 0.5,
+      "coordY": 270,
+      "coordX": 600
+    },
+    {
+      "id": 3,
+      "name": "Kraków",
+      "profitability": 0.5,
+      "coordY": 670,
+      "coordX": 570
+    },
+    {
+      "id": 4,
+      "name": "Częstochowa",
+      "profitability": 0.5,
+      "coordY": 500,
+      "coordX": 400
+    },
+    {
+      "id": 5,
+      "name": "Gdańsk",
+      "profitability": 0.5,
+      "coordY": 130,
+      "coordX": 400
+    }
+  ]
+}
