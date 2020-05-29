@@ -38,6 +38,11 @@ public class Station extends MapObject {
     }
 
     @Override
+    public void tick() {
+
+    }
+
+    @Override
     public void draw(GraphicsContext gc){
         double radius = 7.0;
         gc.fillOval(coordX - radius/2.0, coordY - radius/2.0, radius, radius);

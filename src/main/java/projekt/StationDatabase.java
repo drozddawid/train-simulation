@@ -9,7 +9,8 @@ import java.util.HashMap;
 
 
 public class StationDatabase {
-    private HashMap<Integer, Station> stations = new HashMap<>();
+    private HashMap<Integer, Station> stationsById = new HashMap<>();
+    private HashMap<String, Station> stationsByName = new HashMap<>();
     private ArrayList<StationLink> stationLinks = new ArrayList<>();
 
     StationDatabase(){ //tworzy bazę stacji, pociągów i połączeń na podstawie danych w podanym pliku
@@ -18,13 +19,15 @@ public class StationDatabase {
         for(Object stationJsonObject : stationsFile.getJSONArray("stations")) {
             JSONObject s = (JSONObject) stationJsonObject;
             int id = s.getInt("id");
+            String name = s.getString("name");
             Station station = new Station(
                     id,
-                    s.getString("name"),
+                    name,
                     s.getDouble("profitability"),
                     s.getDouble("coordX"),
                     s.getDouble("coordY"));
-            getStations().put(id, station);
+            stationsById.put(id, station);
+            stationsByName.put(name, station);
         }
 
         for(Object linkJsonObject : stationsFile.getJSONArray("links")) {
@@ -84,20 +87,32 @@ public class StationDatabase {
     }
 
     private void linkTwoStations(int id1, int id2) {
-        Station s1 = getStations().get(id1);
-        Station s2 = getStations().get(id2);
+        Station s1 = getStationsById().get(id1);
+        Station s2 = getStationsById().get(id2);
         s1.connectTo(s2);
         s2.connectTo(s1);
 
         stationLinks.add(new StationLink(s1, s2));
     }
 
-    public HashMap<Integer, Station> getStations() {
-        return stations;
-    }
-
     public ArrayList<StationLink> getStationLinks() {
         return stationLinks;
+    }
+
+    public HashMap<Integer, Station> getStationsById() {
+        return stationsById;
+    }
+
+    public HashMap<String, Station> getStationsByName() {
+        return stationsByName;
+    }
+
+    public Station findStation(String stationName) {
+        return stationsByName.get(stationName);
+    }
+
+    public Station findStation(int stationId) {
+        return stationsById.get(stationId);
     }
 }
 

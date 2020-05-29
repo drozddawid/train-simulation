@@ -21,7 +21,15 @@ public class Map {
 
         // Add stationLinks first so they get drawn first
         objects.addAll(stationDatabase.getStationLinks());
-        objects.addAll(stationDatabase.getStations().values());
+        objects.addAll(stationDatabase.getStationsById().values());
+
+
+        /* Add a sample train for testing purposes */
+        Train malczewski = new Train(1, "Malczewski", 10, 10, 10);
+        malczewski.previousStation = stationDatabase.findStation("Wrocław");
+        malczewski.nextStation = stationDatabase.findStation("Częstochowa");
+        malczewski.linkProgress = 0.5; // 50%
+        objects.add(malczewski);
     }
 
     public Canvas getCanvas() {
@@ -33,6 +41,11 @@ public class Map {
         gc.save();
         clearMap();
         gc.restore();
+
+        // NOTE: if this loop is ever gonna be a significant overhead, move to a seperate thread
+        for(MapObject obj : objects) {
+            obj.tick();
+        }
 
         for(MapObject obj : objects) {
             gc.save();

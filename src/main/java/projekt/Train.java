@@ -13,7 +13,8 @@ public class Train extends MapObject{
     public int costPerKM;
     public double profitPerPassenger; //profit for one passenger per ONE KILOMETER
     public int seats;
-    public StationLink currentLink;
+    public Station previousStation;
+    public Station nextStation;
     double linkProgress;
 
     Train(int trainID, String name, int costPerKM, double profitPerPassenger, int seats/*, StationLink currentLink*/){
@@ -40,11 +41,32 @@ public class Train extends MapObject{
     }
 
     @Override
+    public void tick() {
+        double distanceY = nextStation.coordY - previousStation.coordY;
+        double distanceX = nextStation.coordX - previousStation.coordX;
+        double distance = Math.hypot(distanceX, distanceY);
+
+        if(linkProgress < 1) {
+            linkProgress += 1.0 / distance;
+        } else {
+            linkProgress = 1.0;
+        }
+
+        coordY = previousStation.coordY + distanceY * linkProgress;
+        coordX = previousStation.coordX + distanceX * linkProgress;
+    }
+
+    @Override
     public void draw(GraphicsContext gc){
+        // The train icon is 314x472 pixels
+        final double WIDTH = 314;
+        final double HEIGHT = 472;
+
         gc.save();
         //gc.setFill(Paint.valueOf("#123456"));
         gc.translate(coordX, coordY);
-        gc.scale(0.05, 0.05);
+        gc.scale(0.035, 0.035);
+        gc.translate(-WIDTH/2, -HEIGHT/2);
         gc.beginPath();
         //gc.scale(0.05, 0.05);
         gc.appendSVGPath(ObjectPathResourceGetter.getInstance().getValue("svgPath.train"));
