@@ -1,5 +1,7 @@
 package projekt;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public class StationLink extends MapObject{
     public int linkID;
     public int lengthKM;
@@ -23,7 +25,7 @@ public class StationLink extends MapObject{
                 + "\ncoordY2: " + this.to.coordY + "\n\n";
     }
     @Override
-    public void draw(){
+    public void draw(GraphicsContext gc){
         //draws projekt.StationLink
     }
 }

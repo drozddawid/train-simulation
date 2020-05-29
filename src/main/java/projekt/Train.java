@@ -1,5 +1,12 @@
 package projekt;
 
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Paint;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Properties;
+
 public class Train extends MapObject{
     public int trainID;
     public String name;
@@ -33,7 +40,16 @@ public class Train extends MapObject{
     }
 
     @Override
-    public void draw(){
-        //draws projekt.Train
+    public void draw(GraphicsContext gc){
+        gc.save();
+        //gc.setFill(Paint.valueOf("#123456"));
+        gc.translate(coordX, coordY);
+        gc.scale(0.05, 0.05);
+        gc.beginPath();
+        //gc.scale(0.05, 0.05);
+        gc.appendSVGPath(ObjectPathResourceGetter.getInstance().getValue("svgPath.train"));
+        gc.closePath();
+        gc.fill();
+        gc.restore();
     }
 }

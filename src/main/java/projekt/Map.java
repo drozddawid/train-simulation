@@ -2,7 +2,6 @@ package projekt;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
 import java.io.IOException;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 public class Map {
-    private ArrayList<MapObject> objects;
+    private ArrayList<MapObject> objects = new ArrayList<>();
     private StationDatabase stationDatabase;
     private RouteManager routeManager;
     private RouteTime routeTime;
@@ -22,7 +21,8 @@ public class Map {
 
     public Map() {
         advanceTime();
-        getCountrySvgPath();
+
+        objects.add(new Train());
     }
 
     public Canvas getCanvas() {
@@ -31,32 +31,29 @@ public class Map {
 
     /* Runs about 30 times a second */
     public void advanceTime() {
+        gc.save();
         clearMap();
+        gc.restore();
+
+        for(MapObject obj : objects) {
+            gc.save();
+            obj.draw(gc);
+            gc.restore();
+        }
     }
 
     private void clearMap() {
+        // Clear everything
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 
+        // Paint Poland with an outline
         gc.setFill(Paint.valueOf("#ecedd3"));
         gc.setStroke(Paint.valueOf("#aeb071"));
-        gc.appendSVGPath(getCountrySvgPath());
+        gc.beginPath();
+        gc.appendSVGPath(ObjectPathResourceGetter.getInstance().getValue("svgPath.map.poland"));
+        gc.closePath();
         gc.fill();
         gc.stroke();
     }
 
-    private String getCountrySvgPath() {
-        if (loadedCountrySvgPath != null)
-            return loadedCountrySvgPath;
-
-        Properties properties = new Properties();
-        try (InputStream inputStream = getClass().getResourceAsStream("/map.xml")) {
-            properties.loadFromXML(inputStream);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        loadedCountrySvgPath = (String) properties.get("map.poland.svgPath");
-
-        return loadedCountrySvgPath;
-    }
 }

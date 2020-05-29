@@ -1,5 +1,7 @@
 package projekt;
 
+import javafx.scene.canvas.GraphicsContext;
+
 import java.util.ArrayList;
 
 public class Station extends MapObject {
@@ -17,7 +19,7 @@ public class Station extends MapObject {
         this.connectedWith = connectedWith;
     }
     public Station(){
-        this(0,"null", 0, 0, 0, new ArrayList<Integer>());
+        this(0,"null", 0, 0, 0, new ArrayList<>());
     }
     public String getStation(){
         return "\nprojekt.Station ID: " + this.stationID +  "\nname: " + this.name + "\nProfitability: "
@@ -25,7 +27,7 @@ public class Station extends MapObject {
                 + "\nConnected with (ID's): " + connectedWith.toString();
     }
     @Override
-    public void draw(){
+    public void draw(GraphicsContext gc){
         //draws projekt.Station
     }
 }
