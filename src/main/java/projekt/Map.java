@@ -25,7 +25,7 @@ public class Map {
 
 
         /* Add a sample train for testing purposes */
-        Train malczewski = new Train(1, "Malczewski", 10, 10, 10);
+        Train malczewski = new Train(1, "Malczewski", 10, 25, 500,100);
         malczewski.previousStation = stationDatabase.findStation("Wrocław");
         malczewski.nextStation = stationDatabase.findStation("Częstochowa");
         malczewski.linkProgress = 0.5; // 50%
