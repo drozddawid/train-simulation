@@ -32,7 +32,7 @@ public class Station extends MapObject {
     }
 
     public String getStation(){
-        return "\nprojekt.Station ID: " + this.stationID +  "\nname: " + this.name + "\nProfitability: "
+        return "\nStation ID: " + this.stationID +  "\nname: " + this.name + "\nProfitability: "
                 + this.profitability + "\ncoordX: " + this.coordX + "\ncoordY: " + this.coordY
                 + "\nConnected with (ID's): " + connectedWith.toString();
     }

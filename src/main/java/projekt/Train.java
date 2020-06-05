@@ -6,6 +6,7 @@ import javafx.scene.paint.Paint;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import java.lang.Math.*;
 
 public class Train extends MapObject{
     public int trainID;
@@ -13,11 +14,14 @@ public class Train extends MapObject{
     public int costPerKM;
     public double profitPerPassenger; //profit for one passenger per ONE KILOMETER
     public int seats;
+    public int passengers;
+    public int speed; //km/h
     public Station previousStation;
     public Station nextStation;
-    double linkProgress;
+    public double linkProgress;
+    public double testtime;
 
-    Train(int trainID, String name, int costPerKM, double profitPerPassenger, int seats/*, StationLink currentLink*/){
+    Train(int trainID, String name, int costPerKM, double profitPerPassenger, int seats, int speed/*, StationLink currentLink*/){
         this.trainID = trainID;
         this.name = name;
         this.costPerKM = costPerKM;
@@ -25,12 +29,15 @@ public class Train extends MapObject{
         this.seats = seats;
 //        this.currentLink = currentLink;
         this.linkProgress = 0;
+        this.passengers = 0;
+        this.speed = speed;
+        this.testtime = 0;
 //        this.coordX = currentLink.from.coordX;
 //        this.coordY = currentLink.from.coordY;
 
     }
     public Train(){
-        this(0,"defaultTrainName",0,0, 0);
+        this(0,"defaultTrainName",0,0, 0,0 );
     }
 
     public String getTrain(){
@@ -47,10 +54,11 @@ public class Train extends MapObject{
         double distance = Math.hypot(distanceX, distanceY);
 
         if(linkProgress < 1) {
-            // TODO: this 1.0 constant below needs to be tuned waay lower, now the trains go supersonic
-            linkProgress += 1.0 / distance;
+            linkProgress += this.speed * 0.0000636 * MainWindow.getSimulationSpeedMultiplier() / distance;
         } else {
             linkProgress = 1.0;
+            StatisticsLogger.logArrival(this);
+            this.nextCourse();
         }
 
         coordY = previousStation.coordY + distanceY * linkProgress;
@@ -75,4 +83,15 @@ public class Train extends MapObject{
         gc.fill();
         gc.restore();
     }
+
+    private void nextCourse (){ // sets next course for train when it's linkProgress == 1
+        //idk if this should be in train class but works
+        this.previousStation = this.nextStation;
+        int randomStationIndex = (int)(Math.random() *this.previousStation.connectedWith.size());
+        this.nextStation = this.previousStation.connectedWith.get(randomStationIndex);
+        this.passengers = (int) (Math.random() * this.seats);
+        this.linkProgress = 0.0;
+        this.testtime = System.currentTimeMillis(); //for testing time of travel between stations to scale train speed (succeeded)
+    }
+
 }

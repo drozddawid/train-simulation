@@ -13,7 +13,7 @@ public class StationDatabase {
     private HashMap<String, Station> stationsByName = new HashMap<>();
     private ArrayList<StationLink> stationLinks = new ArrayList<>();
 
-    StationDatabase(){ //tworzy bazę stacji, pociągów i połączeń na podstawie danych w podanym pliku
+    StationDatabase(){ //makes stations and connections database based on data files (stations.json, trains.json)
         JSONObject stationsFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/stations.json")));
 
         for(Object stationJsonObject : stationsFile.getJSONArray("stations")) {
