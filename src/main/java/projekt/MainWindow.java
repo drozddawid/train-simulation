@@ -2,6 +2,8 @@ package projekt;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,11 +14,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
-public class MainWindow extends Application {
+public class MainWindow extends Application{
     private Map map;
     private Timer advancingTimeTimer;
     private StationDatabase stationDatabase = new StationDatabase();
-
+    Scene mainScene, routeManager;
+    Stage mainWindow;
 
     public static void main (String[] args){
         launch(args);
@@ -46,9 +49,11 @@ public class MainWindow extends Application {
         root.setBottom(bottomHBox());
         root.setCenter(map.getCanvas());
 
-        primaryStage.setScene(new Scene(root, 900, 850));
+        primaryStage.setScene( mainScene = new Scene(root, 900, 850));
         primaryStage.show();
 
+        routeManager = RouteManagerScene();
+        mainWindow = primaryStage;
         startAdvancingTimeTimer();
     }
 
@@ -58,7 +63,9 @@ public class MainWindow extends Application {
 
         Label time = new Label("Czas w symulacji: 9:15");
         Label speed = new Label("Prędkość symulacji: 5m/1s");
+
         Button timetableEdit = new Button("Edycja rozkładu jazdy");
+        timetableEdit.setOnAction(e -> mainWindow.setScene(routeManager));
 
         hBox.setStyle("-fx-background-color: #6699bb; -fx-padding: 0.5em");
         time.setStyle("-fx-background-color: #99ccee; -fx-padding: 0.5em");
@@ -71,6 +78,16 @@ public class MainWindow extends Application {
 
         hBox.getChildren().addAll(time, speed, filler, timetableEdit);
         return hBox;
+    }
+
+    private Scene RouteManagerScene(){
+        Button close = new Button("Zamknij RouteManager");
+        close.setOnAction(e -> mainWindow.setScene(mainScene));
+        //TODO: make routemanager great again (i just made a scene, it has no functionality yet)
+
+        StackPane layout = new StackPane();
+        layout.getChildren().addAll(close);
+        return new Scene(layout, 900,850);
     }
 
 }

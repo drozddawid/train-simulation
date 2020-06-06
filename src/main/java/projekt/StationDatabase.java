@@ -13,7 +13,7 @@ public class StationDatabase {
     private HashMap<String, Station> stationsByName = new HashMap<>();
     private ArrayList<StationLink> stationLinks = new ArrayList<>();
 
-    StationDatabase(){ //makes stations and connections database based on data files (stations.json, trains.json)
+    StationDatabase(){ //makes stations and connections database based on data files (stations.json)
         JSONObject stationsFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/stations.json")));
 
         for(Object stationJsonObject : stationsFile.getJSONArray("stations")) {
@@ -37,52 +37,6 @@ public class StationDatabase {
             }
 
         }
-/*
-        try {
-            System.out.println("Reading trains datafile ...");
-            FileReader scan = new FileReader(trainData);
-            BufferedReader buffer = new BufferedReader(scan);
-            int i = 0; //licznik czytanych linii
-            int j = 0; //licznik obiektów projekt.Train w liście trains
-            String line;
-            trains = new ArrayList<Train>();
-            trains.add(new Train());
-
-            while((line = buffer.readLine()) != null){
-                switch (i){
-                    case 0:
-                        this.trains.get(j).trainID = Integer.parseInt(line);
-                        break;
-                    case 1:
-                        this.trains.get(j).name = line;
-                        break;
-                    case 2:
-                        this.trains.get(j).costPerKM = Integer.parseInt(line);
-                        break;
-                    case 3:
-                        this.trains.get(j).profitPerPassenger = Double.parseDouble(line);
-                        break;
-                    case 4:
-                        this.trains.get(j).seats = Integer.parseInt(line);
-                        break;
-                    case 5:
-                        this.trains.get(j).currentLink = stationLinks.get(Integer.parseInt(line)-1);
-                        break;
-                }
-                i++;
-                if (i == 6) {
-                    j++;
-                    i = 0;
-                    this.trains.add(new Train());
-                }
-
-            }
-            scan.close();
-            buffer.close();
-
-        } catch (IOException e){
-            e.printStackTrace();
-        }*/
 
     }
 

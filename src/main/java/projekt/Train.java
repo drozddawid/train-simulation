@@ -18,6 +18,8 @@ public class Train extends MapObject{
     public int speed; //km/h
     public Station previousStation;
     public Station nextStation;
+    public TrainRoute currentTrainRoute;
+    public int currentstopID;
     public double linkProgress;
     public double testtime;
 
@@ -55,11 +57,14 @@ public class Train extends MapObject{
 
         if(linkProgress < 1) {
             linkProgress += this.speed * Settings.vCoefficient * Settings.getSimulationSpeedMultiplier() / distance;
-            //linkProgress += this.speed * 0.0000636 * MainWindow.getSimulationSpeedMultiplier() / distance;
+            //linkProgress += this.speed * 0.0000636 * MainWindow.getSimulationSpeedMultiplier() / distance; //TODO: delete this line if previous one is legit
         } else {
             linkProgress = 1.0;
             StatisticsLogger.logArrival(this);
-            this.nextCourse();
+            if(Settings.useRouteManager){
+                this.nextStop();
+            }else this.nextRndStop();
+
         }
 
         coordY = previousStation.coordY + distanceY * linkProgress;
@@ -85,14 +90,17 @@ public class Train extends MapObject{
         gc.restore();
     }
 
-    private void nextCourse (){ // sets next course for train when it's linkProgress == 1
-        //idk if this should be in train class but works
+    private void nextRndStop (){ // sets next course for train (used when it's linkProgress == 1)
         this.previousStation = this.nextStation;
         int randomStationIndex = (int)(Math.random() *this.previousStation.connectedWith.size());
         this.nextStation = this.previousStation.connectedWith.get(randomStationIndex);
         this.passengers = (int) (Math.random() * this.seats);
         this.linkProgress = 0.0;
         this.testtime = System.currentTimeMillis(); //for testing time of travel between stations to scale train speed (succeeded)
+    }
+
+    private void nextStop(){
+        //TODO: make this method set next course for train using currentTrainRoute and currentStopID
     }
 
 }

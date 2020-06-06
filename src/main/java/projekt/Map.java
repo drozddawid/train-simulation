@@ -11,7 +11,7 @@ public class Map {
     private StationDatabase stationDatabase;
     private RouteManager routeManager;
     private RouteTime routeTime;
-    private StatisticsLogger statisticsLogger;
+    private StatisticsLogger statisticsLogger = new StatisticsLogger();
     private Canvas canvas = new Canvas(900, 800);
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     private String loadedCountrySvgPath;
