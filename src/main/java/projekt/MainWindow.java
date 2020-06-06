@@ -16,7 +16,7 @@ public class MainWindow extends Application {
     private Map map;
     private Timer advancingTimeTimer;
     private StationDatabase stationDatabase = new StationDatabase();
-    private static int simulationSpeedMultiplier = 100; // 1: 1s = 1s real time, 10: 1 sec = 1 real min, 100: 1 sec = 10 real min, x: 1 sec = x/10 real min
+
 
     public static void main (String[] args){
         launch(args);
@@ -73,10 +73,4 @@ public class MainWindow extends Application {
         return hBox;
     }
 
-    public static int getSimulationSpeedMultiplier(){
-        return simulationSpeedMultiplier;
-    }
-    public static void setSimulationSpeedMultiplier(int speedMultiplier){
-        simulationSpeedMultiplier = speedMultiplier;
-    }
 }

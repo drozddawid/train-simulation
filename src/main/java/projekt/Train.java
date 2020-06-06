@@ -54,7 +54,8 @@ public class Train extends MapObject{
         double distance = Math.hypot(distanceX, distanceY);
 
         if(linkProgress < 1) {
-            linkProgress += this.speed * 0.0000636 * MainWindow.getSimulationSpeedMultiplier() / distance;
+            linkProgress += this.speed * Settings.vCoefficient * Settings.getSimulationSpeedMultiplier() / distance;
+            //linkProgress += this.speed * 0.0000636 * MainWindow.getSimulationSpeedMultiplier() / distance;
         } else {
             linkProgress = 1.0;
             StatisticsLogger.logArrival(this);

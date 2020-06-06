@@ -1,6 +1,7 @@
 {
   "links": [
     [1, 4],
+    [4, 1],
     [2, 4],
     [3, 4],
     [2, 3],
@@ -11,8 +12,8 @@
       "id": 1,
       "name": "Wrocław",
       "profitability": 0.5,
-      "coordY": 400,
-      "coordX": 100
+      "coordY": 550,
+      "coordX": 250
     },
     {
       "id": 2,
