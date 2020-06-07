@@ -18,11 +18,11 @@ public class MainWindow extends Application{
     private Map map;
     private Timer advancingTimeTimer;
     private StationDatabase stationDatabase = new StationDatabase();
-    Scene mainScene, routeManager;
+    private RouteManager routeManager = new RouteManager(stationDatabase);
+    Scene mainScene, routeManagerScene;
     Stage mainWindow;
 
-    public static void main (String[] args){
-        launch(args);
+    public static void main (String[] args){ launch(args);
     }
 
     private void startAdvancingTimeTimer() {
@@ -43,6 +43,7 @@ public class MainWindow extends Application{
         primaryStage.setTitle("Symulacja PKP");
         primaryStage.setOnCloseRequest(e -> System.exit(0));
 
+
         map = new Map(stationDatabase);
 
         BorderPane root = new BorderPane();
@@ -52,7 +53,7 @@ public class MainWindow extends Application{
         primaryStage.setScene( mainScene = new Scene(root, 900, 850));
         primaryStage.show();
 
-        routeManager = RouteManagerScene();
+        routeManagerScene = RouteManagerScene();
         mainWindow = primaryStage;
         startAdvancingTimeTimer();
     }
@@ -64,8 +65,11 @@ public class MainWindow extends Application{
         Label time = new Label("Czas w symulacji: 9:15");
         Label speed = new Label("Prędkość symulacji: 5m/1s");
 
-        Button timetableEdit = new Button("Edycja rozkładu jazdy");
-        timetableEdit.setOnAction(e -> mainWindow.setScene(routeManager));
+        Button timetableEdit = new Button("Ustawienia");
+        timetableEdit.setOnAction(e -> {
+            mainWindow.setScene(routeManagerScene);
+            //TODO: somehow this button should remove trains from map, because closing routemanagerscene adds object to map, and if you do it twice, you have too many objects
+        });
 
         hBox.setStyle("-fx-background-color: #6699bb; -fx-padding: 0.5em");
         time.setStyle("-fx-background-color: #99ccee; -fx-padding: 0.5em");
@@ -81,12 +85,15 @@ public class MainWindow extends Application{
     }
 
     private Scene RouteManagerScene(){
-        Button close = new Button("Zamknij RouteManager");
-        close.setOnAction(e -> mainWindow.setScene(mainScene));
+        Button startSimulating = new Button("Rozpocznij symulację");
+        startSimulating.setOnAction(e -> {
+            mainWindow.setScene(mainScene);
+            map.addObjects(stationDatabase);
+        });
         //TODO: make routemanager great again (i just made a scene, it has no functionality yet)
 
         StackPane layout = new StackPane();
-        layout.getChildren().addAll(close);
+        layout.getChildren().addAll(startSimulating);
         return new Scene(layout, 900,850);
     }
 

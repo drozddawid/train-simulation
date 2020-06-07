@@ -7,18 +7,37 @@ import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 
 public class Map {
-    private ArrayList<MapObject> objects = new ArrayList<>();
+    private ArrayList<MapObject> objects /*= new ArrayList<>()*/;
     private StationDatabase stationDatabase;
     private RouteManager routeManager;
     private RouteTime routeTime;
-    private StatisticsLogger statisticsLogger = new StatisticsLogger();
-    private Canvas canvas = new Canvas(900, 800);
-    private GraphicsContext gc = canvas.getGraphicsContext2D();
+    private StatisticsLogger statisticsLogger /*= new StatisticsLogger()*/;
+    private Canvas canvas /*= new Canvas(900, 800)*/;
+    private GraphicsContext gc /*= canvas.getGraphicsContext2D()*/;
     private String loadedCountrySvgPath;
 
     public Map(StationDatabase sDB) {
         stationDatabase = sDB;
+        objects = new ArrayList<>();
+        statisticsLogger = new StatisticsLogger();
+        canvas = new Canvas(900,800);
+        gc = canvas.getGraphicsContext2D();
 
+   /*     // Add stationLinks first so they get drawn first
+        objects.addAll(stationDatabase.getStationLinks()); I MOVED THIS TO AddObjects() (below) in order to allow button "startSimulating" (in class MainWindow, RouteManagerScene method) put objects on map after changing settings
+        objects.addAll(stationDatabase.getStationsById().values());
+   */
+
+        /* Add a sample train for testing purposes */
+   /*      Train malczewski = new Train(1, "Malczewski", 10, 25, 500,100);
+        malczewski.previousStation = stationDatabase.findStation("Wrocław");
+        malczewski.nextStation = stationDatabase.findStation("Częstochowa");
+        malczewski.linkProgress = 0.5; // 50%
+        objects.add(malczewski);
+   */
+    }
+
+    public void addObjects(StationDatabase stationDatabase){
         // Add stationLinks first so they get drawn first
         objects.addAll(stationDatabase.getStationLinks());
         objects.addAll(stationDatabase.getStationsById().values());

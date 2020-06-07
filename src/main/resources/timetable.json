@@ -1,9 +1,24 @@
 {
   "trainroutes": [
-    //TODO: make it load to TrainRoute
-
-
-
+    {
+      "id": 1,
+      "stops": [1,4,2,5,2]
+    },
+    {
+      "id": 2,
+      "stops": [5,2,4,1]
+    },
+    {
+      "id": 3,
+      "stops": [2,5,2,4,1]
+    },
+    {
+      "id": 4,
+      "stops": [1,4,2,5]
+    },
+    {
+      "id": 5,
+      "stops": [3,4,1,4,2]
+    }
   ]
-
 }

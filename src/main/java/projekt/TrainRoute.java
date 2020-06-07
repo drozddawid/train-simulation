@@ -1,11 +1,23 @@
 package projekt;
 
+
 import java.util.ArrayList;
 
 public class TrainRoute {
     public int routeID;
-    public String routeName;
     private ArrayList<Station> stops;
+
+    TrainRoute(int routeID, ArrayList<Integer> stopsByID, StationDatabase stationDatabase){
+        stops = new ArrayList<>();
+        this.routeID = routeID;
+        int stopsByIDSize = stopsByID.size();
+
+        for (Integer integer : stopsByID) {
+            stops.add(stationDatabase.getStationsById().get(integer));
+        }
+    }
+
+    public ArrayList<Station> getStops(){ return this.stops;}
 
     public Station getStop(int stopID){
         return this.stops.get(stopID);
