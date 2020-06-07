@@ -7,13 +7,13 @@ import javafx.scene.paint.Paint;
 import java.util.ArrayList;
 
 public class Map {
-    private ArrayList<MapObject> objects /*= new ArrayList<>()*/;
+    private ArrayList<MapObject> objects;
     private StationDatabase stationDatabase;
     private RouteManager routeManager;
     private RouteTime routeTime;
-    private StatisticsLogger statisticsLogger /*= new StatisticsLogger()*/;
-    private Canvas canvas /*= new Canvas(900, 800)*/;
-    private GraphicsContext gc /*= canvas.getGraphicsContext2D()*/;
+    private StatisticsLogger statisticsLogger;
+    private Canvas canvas;
+    private GraphicsContext gc;
     private String loadedCountrySvgPath;
 
     public Map(StationDatabase sDB) {
@@ -51,6 +51,9 @@ public class Map {
         objects.add(malczewski);
     }
 
+    public void clearObjects(){
+        objects.clear();
+    }
     public Canvas getCanvas() {
         return canvas;
     }

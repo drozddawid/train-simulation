@@ -68,7 +68,7 @@ public class MainWindow extends Application{
         Button timetableEdit = new Button("Ustawienia");
         timetableEdit.setOnAction(e -> {
             mainWindow.setScene(routeManagerScene);
-            //TODO: somehow this button should remove trains from map, because closing routemanagerscene adds object to map, and if you do it twice, you have too many objects
+            map.clearObjects();
         });
 
         hBox.setStyle("-fx-background-color: #6699bb; -fx-padding: 0.5em");
