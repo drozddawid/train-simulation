@@ -1,19 +1,13 @@
 package projekt;
 
-public class StatisticsLogger {// for now it just shows in console what statisticlogger should show on panel and save to some datafile
-    private static int money;
-    private long totalTraveledDistance;
-    private long totalCost;
-    private long totalProfit; //TODO: totalProfit-totalCost should be shown in statistics too
-    private long totalPassengersTransported; //TODO: total profit on one passenger should be shown in statistics too
+public class StatisticsLogger {//TODO:(make it show in window and save to datafile) for now it just shows in console what statisticlogger should show on panel and save to some datafile
+    private static int money = 0;
+    private static long totalTraveledDistance = 0;
+    private static long totalCost = 0;
+    private static long totalProfit = 0; //TODO: totalProfit-totalCost should be shown in statistics too
+    private static long totalPassengersTransported = 0; //TODO: total profit on one passenger should be shown in statistics too
 
-    StatisticsLogger(){
-        this.money = 0;
-        this.totalTraveledDistance = 0;
-        this.totalCost = 0;
-        this.totalProfit = 0;
-        this.totalPassengersTransported = 0;
-    }
+
 
     public static void logArrival(Train train){ //saves data about the course when it's done (linkProgress == 1)
         //TODO: this method should also save trip report (something like this below) to datafile
@@ -27,13 +21,17 @@ public class StatisticsLogger {// for now it just shows in console what statisti
         System.out.println("Dystans: " + distanceKM);
         System.out.println("Koszt przejazdu: " + cost );
         System.out.println("Ilosc pasazerow: " + train.passengers);
-        double time = (System.currentTimeMillis() - train.testtime) /1000;
-        System.out.println("Czas: " + time );
+        double time = (System.currentTimeMillis() - train.testtime) /1000; //for testing purposes
+        System.out.println("Czas: " + time ); //show how much time did it take to go between the stations
         double profit = train.passengers*train.profitPerPassenger;
         System.out.println("Zysk z biletów: " + profit);
         System.out.println("Zysk po odjęciu kosztów " + (profit - cost) );
         money -= cost;
         money += profit;
+        totalTraveledDistance += distanceKM;
+        totalCost+= cost;
+        totalProfit += profit;
+        totalPassengersTransported += train.passengers;
 
     }
 

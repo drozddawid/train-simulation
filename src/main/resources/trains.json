@@ -1,0 +1,49 @@
+{
+  "trains": [
+    {
+      "trainID": 1,
+      "name": "Mickiewicz",
+      "costPerKM": 30,
+      "profitPerPassenger": 12,
+      "seats": 500,
+      "speed": 250,
+      "currentTrainRouteID": 1
+    },
+    {
+      "trainID": 2,
+      "name": "Borowski",
+      "costPerKM": 20,
+      "profitPerPassenger": 6,
+      "seats": 400,
+      "speed": 120,
+      "currentTrainRouteID": 3
+    },
+    {
+      "trainID": 3,
+      "name": "Grudziński",
+      "costPerKM": 5,
+      "profitPerPassenger": 3,
+      "seats": 175,
+      "speed": 70,
+      "currentTrainRouteID": 5
+    },
+    {
+      "trainID": 4,
+      "name": "Słowacki",
+      "costPerKM": 25,
+      "profitPerPassenger": 6,
+      "seats": 700,
+      "speed": 150,
+      "currentTrainRouteID": 4
+    },
+    {
+      "trainID": 5,
+      "name": "Żeromski",
+      "costPerKM": 3,
+      "profitPerPassenger": 2,
+      "seats": 1000,
+      "speed": 100,
+      "currentTrainRouteID": 2
+    }
+]
+}

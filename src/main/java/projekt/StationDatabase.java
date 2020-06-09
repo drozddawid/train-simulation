@@ -13,6 +13,7 @@ public class StationDatabase {
     private HashMap<String, Station> stationsByName = new HashMap<>();
     private ArrayList<StationLink> stationLinks = new ArrayList<>();
 
+
     StationDatabase(){ //makes stations and connections database based on data files (stations.json)
         JSONObject stationsFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/stations.json")));
 
@@ -37,6 +38,7 @@ public class StationDatabase {
             }
 
         }
+
 
     }
 
