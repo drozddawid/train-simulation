@@ -10,6 +10,7 @@ import java.util.List;
 
 public class RouteManager {
     public HashMap<Integer, TrainRoute> routes;
+    private HashMap<Integer, Train> trains = new HashMap<>();
 
     RouteManager(StationDatabase stationDatabase){
         JSONObject routesFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/timetable.json")));
@@ -31,8 +32,28 @@ public class RouteManager {
             }
             routes.put(id, new TrainRoute(id, stopsByID, stationDatabase));
         }
+
+        JSONObject trainsFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/trains.json")));
+        for(Object trainsJsonObject : trainsFile.getJSONArray("trains")){
+            JSONObject JSONtrain = (JSONObject) trainsJsonObject;
+
+            int id = JSONtrain.getInt("trainID");
+
+            Train train = new Train(
+                    id,
+                    JSONtrain.getString("name"),
+                    JSONtrain.getInt("costPerKM"),
+                    JSONtrain.getDouble("profitPerPassenger"),
+                    JSONtrain.getInt("seats"),
+                    JSONtrain.getInt("speed"),
+                    this.getRouteByID(JSONtrain.getInt("currentTrainRouteID")));
+
+            trains.put(id, train);
+        }
     }
-   /* public projekt.TrainRoute getTrainRoute(String trainName){
-        //gets train route
-    }*/
+
+    public HashMap<Integer, Train> getTrains (){ return this.trains;}
+    public TrainRoute getRouteByID(int id){
+        return routes.get(id);
+    }
 }

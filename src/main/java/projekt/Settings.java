@@ -4,7 +4,7 @@ public class Settings { //stores settings and some constant values
     private static int simulationSpeedMultiplier = 600; //can be set by user while simulation continues
     public final static Double vCoefficient = 10571429E-12; // coefficient used to scale trains speed
     private static int initialMoneyAmount; //should be set by user before simulation
-    public static boolean useRouteManager = false; // false - trains randomly choose next station after arrival, true - trains get next station from its TrainRoute
+    public static boolean useRouteManager = true; // false - trains randomly choose next station after arrival, true - trains get next station from its TrainRoute
 
     public static void setInitialMoneyAmount (int amount){
         if(amount < 0){

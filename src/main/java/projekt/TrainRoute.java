@@ -5,17 +5,19 @@ import java.util.ArrayList;
 
 public class TrainRoute {
     public int routeID;
+    public int stopsByIDSize;
     private ArrayList<Station> stops;
 
     TrainRoute(int routeID, ArrayList<Integer> stopsByID, StationDatabase stationDatabase){
         stops = new ArrayList<>();
         this.routeID = routeID;
-        int stopsByIDSize = stopsByID.size();
+        stopsByIDSize = stopsByID.size();
 
         for (Integer integer : stopsByID) {
             stops.add(stationDatabase.getStationsById().get(integer));
         }
     }
+
 
     public ArrayList<Station> getStops(){ return this.stops;}
 

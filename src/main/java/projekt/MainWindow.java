@@ -88,7 +88,7 @@ public class MainWindow extends Application{
         Button startSimulating = new Button("Rozpocznij symulację");
         startSimulating.setOnAction(e -> {
             mainWindow.setScene(mainScene);
-            map.addObjects(stationDatabase);
+            map.addObjects(stationDatabase, routeManager);
         });
         //TODO: make routemanager great again (i just made a scene, it has no functionality yet)
 
