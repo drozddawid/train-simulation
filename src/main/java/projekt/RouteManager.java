@@ -53,7 +53,11 @@ public class RouteManager {
     }
 
     public HashMap<Integer, Train> getTrains (){ return this.trains;}
+    public ArrayList<Train> getTrainsArrayList() { return new ArrayList<Train>(this.trains.values()); }
     public TrainRoute getRouteByID(int id){
         return routes.get(id);
+    }
+    public HashMap<Integer, TrainRoute> getRoutes() {
+        return routes;
     }
 }

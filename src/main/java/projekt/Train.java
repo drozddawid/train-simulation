@@ -19,8 +19,8 @@ public class Train extends MapObject{
     public Station previousStation;
     public Station nextStation;
     public TrainRoute currentTrainRoute;
-    public int currentStopID; //points last stop in which train were
-    public boolean routeDirection; // true - train goes from station 0 to last station, false - train goes from last station to station 0 in its currentTrainRoute
+    private int currentStopID; //points last stop in which train were
+    private boolean routeDirection; // true - train goes from station 0 to last station, false - train goes from last station to station 0 in its currentTrainRoute
     public double linkProgress;
     public double testtime;
 
@@ -128,7 +128,15 @@ public class Train extends MapObject{
         this.passengers = (int) (Math.random() * this.seats);
         this.linkProgress = 0.0;
         this.testtime = System.currentTimeMillis();
-        //TODO: make this method set next course for train using currentTrainRoute and currentStopID
+    }
+
+    public void resetRoute(TrainRoute route){
+        this.currentTrainRoute = route;
+        this.currentStopID = 0;
+        this.routeDirection = true;
+        this.previousStation = route.getStop(0);
+        this.nextStation = route.getStop(1);
+        this.linkProgress = 0;
     }
 
 }
