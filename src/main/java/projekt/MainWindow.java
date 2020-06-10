@@ -4,12 +4,16 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,7 +22,7 @@ public class MainWindow extends Application{
     private Map map;
     private Timer advancingTimeTimer;
     private StationDatabase stationDatabase = new StationDatabase();
-    private RouteManager routeManager = new RouteManager(stationDatabase);
+    private RouteManagerWindow routeManagerWindow = new RouteManagerWindow(new RouteManager(stationDatabase), stationDatabase, this);
     Scene mainScene, routeManagerScene;
     Stage mainWindow;
 
@@ -53,7 +57,7 @@ public class MainWindow extends Application{
         primaryStage.setScene( mainScene = new Scene(root, 900, 850));
         primaryStage.show();
 
-        routeManagerScene = RouteManagerScene();
+        routeManagerScene = routeManagerWindow.getScene();
         mainWindow = primaryStage;
         startAdvancingTimeTimer();
     }
@@ -84,17 +88,10 @@ public class MainWindow extends Application{
         return hBox;
     }
 
-    private Scene RouteManagerScene(){
-        Button startSimulating = new Button("Rozpocznij symulację");
-        startSimulating.setOnAction(e -> {
-            mainWindow.setScene(mainScene);
-            map.addObjects(stationDatabase, routeManager);
-        });
-        //TODO: make routemanager great again (i just made a scene, it has no functionality yet)
-
-        StackPane layout = new StackPane();
-        layout.getChildren().addAll(startSimulating);
-        return new Scene(layout, 900,850);
+    public void startSimulating(){
+        mainWindow.setScene(mainScene);
+        map.addObjects(stationDatabase, routeManagerWindow.getRouteManager());
     }
+
 
 }
