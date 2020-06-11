@@ -15,6 +15,8 @@ public class Map {
     private Canvas canvas;
     private GraphicsContext gc;
     private String loadedCountrySvgPath;
+    private double mouseX = 0;
+    private double mouseY = 0;
 
     public Map(StationDatabase sDB) {
         stationDatabase = sDB;
@@ -35,6 +37,10 @@ public class Map {
         malczewski.linkProgress = 0.5; // 50%
         objects.add(malczewski);
    */
+        getCanvas().setOnMouseMoved(event -> {
+            mouseX = event.getX();
+            mouseY = event.getY();
+        });
     }
 
     public void addObjects(StationDatabase stationDatabase, RouteManager routeManager){
@@ -62,6 +68,7 @@ public class Map {
     /* Runs about 30 times a second */
     public void advanceTime() {
         gc.save();
+        gc.beginPath();
         clearMap();
         gc.restore();
 
@@ -72,9 +79,40 @@ public class Map {
 
         for(MapObject obj : objects) {
             gc.save();
+            gc.beginPath();
             obj.draw(gc);
             gc.restore();
         }
+
+        drawInfoBox();
+    }
+
+    private void drawInfoBox() {
+        double closestDistanceMouseToTrain = 1000;
+        Train closestTrain = null;
+
+        for(MapObject obj : objects) {
+            if(obj instanceof Train) {
+                double distanceToMouse = Math.abs(obj.coordX - mouseX) + Math.abs(obj.coordY - mouseY);
+                if(distanceToMouse < closestDistanceMouseToTrain) {
+                    closestDistanceMouseToTrain = distanceToMouse;
+                    closestTrain = (Train) obj;
+                }
+            }
+        }
+
+        // No trains on the map
+        if(closestTrain == null)
+            return;
+
+        // Don't display the tooltip if the mouse is too far away
+        if(closestDistanceMouseToTrain > 25)
+            return;
+
+        gc.save();
+        gc.beginPath();
+        closestTrain.drawInfoBox(gc);
+        gc.restore();
     }
 
     private void clearMap() {

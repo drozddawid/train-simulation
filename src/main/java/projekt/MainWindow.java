@@ -60,6 +60,9 @@ public class MainWindow extends Application{
         routeManagerScene = routeManagerWindow.getScene();
         mainWindow = primaryStage;
         startAdvancingTimeTimer();
+
+        // TODO: delete
+        startSimulating();
     }
 
     private HBox bottomHBox() {
