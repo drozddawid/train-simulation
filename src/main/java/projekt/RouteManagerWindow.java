@@ -13,9 +13,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RouteManagerWindow {
     public RouteManager routeManager;
@@ -202,7 +204,7 @@ public class RouteManagerWindow {
         box.getChildren().add(startSimulating);
 
         Button addTrain = new Button("Dodaj pociąg");
-        //addTrain.setOnAction(e -> System.out.println(this.trainMaker()));
+        addTrain.setOnAction(e -> System.out.println(this.trainMaker()));
         box.getChildren().add(addTrain);
 
         for(ArrayList<Region> singleTrain : trainsControl){
@@ -241,25 +243,92 @@ public class RouteManagerWindow {
 
     }
 
-    /*private String trainMaker(){ //this is for testing, later i will make here real bad-ass trainmaker
+    private Train trainMaker(){ //this is for testing, later i will make here real bad-ass trainmaker
         Stage trainMaker = new Stage();
         trainMaker.setTitle("Tworzenie pociągu");
         trainMaker.initModality(Modality.WINDOW_MODAL);
-        final String[] o = new String[1];
+        Train train;
+        //name
         TextField name = new TextField();
+        name.setPromptText("Nazwa");
         name.setMinWidth(200);
+        //currentRoute
+        TextField currentRouteID = new TextField();
+        currentRouteID.setPromptText("ID trasy");
+        currentRouteID.setMinWidth(200);
+        Label routeShower = new Label("Wciśnij enter aby wyświetlić przystanki");
+        currentRouteID.setOnAction(e -> {
+            int routeIDGiven;
+            try{
+                routeIDGiven = Integer.parseInt(currentRouteID.getCharacters().toString());
+                if(routeManager.getRoutes().containsKey(routeIDGiven)) {
+                    String s = "";
+                    for(Station stop : routeManager.getRouteByID(routeIDGiven).getStops()){s += stop.name + " - ";}
+                    s = s.substring( 0, s.lastIndexOf(" - "));
+                    routeShower.setText("Przystanki: " + s);
+                    currentRouteID.setText("");
+
+                } else {
+                    this.showError("Nie istnieje trasa o podanym ID: " + routeIDGiven);
+                }
+            }catch (NumberFormatException ex) {
+                this.showError("Wprowadzono nieprawidłową wartość.: " + currentRouteID.getCharacters().toString());
+            }
+        });
+        //seats
+        TextField seats = new TextField();
+        seats.setPromptText("Ilość siedzeń");
+        seats.setMinWidth(200);
+        //speed
+        TextField speed = new TextField();
+        speed.setPromptText("Prędkość (km/h)");
+        speed.setMinWidth(200);
+        //costPerKM
+        TextField costPerKM = new TextField();
+        costPerKM.setPromptText("Koszt przejazdu jednego kilometra");
+        costPerKM.setMinWidth(200);
+        //profitPerPassenger
+        TextField profitPerPassenger = new TextField();
+        profitPerPassenger.setPromptText("Zysk z przewiezienia jednego klienta na kilometr trasy");
+        profitPerPassenger.setMinWidth(200);
+
         Button save = new Button("Save");
         save.setOnAction(e -> {
-            o[0] = name.getCharacters().toString();
+            int id=-1;
+            //getting last train made ID
+            for(Train currentEntry : routeManager.getTrains().values()){
+                if(id == -1)  id = currentEntry.trainID;
+                if(currentEntry.trainID > id) id = currentEntry.trainID;
+            }
+            id++;
+            String nameGiven = name.getCharacters().toString();
+
+            int routeIDGiven;
+            try{
+                routeIDGiven = Integer.parseInt(currentRouteID.getCharacters().toString());
+                if(routeManager.getRoutes().containsKey(routeIDGiven)) {
+                    String s;
+                    for(Station stop : train.currentTrainRoute.getStops()){s += stop.name + " - ";}
+                    s = s.substring( 0, s.lastIndexOf(" - "));
+                    routeShower.setText("Przystanki: " + s);
+                    currentRouteID.setText("");
+
+                } else {
+                    this.showError("Nie istnieje trasa o podanym ID: " + routeIDGiven);
+                }
+            }catch (NumberFormatException ex) {
+                this.showError("Wprowadzono nieprawidłową wartość.: " + currentRouteID.getCharacters().toString());
+            }
+
             trainMaker.close();
         });
         VBox box = new VBox();
         box.getChildren().addAll(name,save);
         box.setPadding(new Insets(30));
         trainMaker.setScene(new Scene(box));
-        trainMaker.show();
-        return o[0];
-    }*/
+        trainMaker.showAndWait();
+        return train;
+    }
 
 
 }
