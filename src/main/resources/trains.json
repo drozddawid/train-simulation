@@ -20,7 +20,7 @@
     },
     {
       "trainID": 3,
-      "name": "Grudziński",
+      "name": "Grudzi\u0144ski",
       "costPerKM": 5,
       "profitPerPassenger": 3,
       "seats": 175,
@@ -29,7 +29,7 @@
     },
     {
       "trainID": 4,
-      "name": "Słowacki",
+      "name": "S\u0142owacki",
       "costPerKM": 25,
       "profitPerPassenger": 6,
       "seats": 700,
@@ -38,7 +38,7 @@
     },
     {
       "trainID": 5,
-      "name": "Żeromski",
+      "name": "\u017beromski",
       "costPerKM": 3,
       "profitPerPassenger": 2,
       "seats": 1000,

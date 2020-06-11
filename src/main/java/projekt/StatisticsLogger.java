@@ -16,7 +16,7 @@ public class StatisticsLogger {//TODO:(make it show in window and save to datafi
         System.out.println("Stacja poczatkowa: " + train.previousStation.name +"\nStacja koncowa: " + train.nextStation.name);
         double distanceY = train.nextStation.coordY - train.previousStation.coordY;
         double distanceX = train.nextStation.coordX - train.previousStation.coordX;
-        double distanceKM = Math.hypot(distanceX, distanceY)*0.875; //1km w rzeczywistości = coords*0.875
+        double distanceKM = Math.hypot(distanceX, distanceY)*0.875; //1km w rzeczywisto\u015bci = coords*0.875
         double cost  = distanceKM * train.costPerKM;
         System.out.println("Dystans: " + distanceKM);
         System.out.println("Koszt przejazdu: " + cost );
@@ -24,8 +24,8 @@ public class StatisticsLogger {//TODO:(make it show in window and save to datafi
         double time = (System.currentTimeMillis() - train.testtime) /1000; //for testing purposes
         System.out.println("Czas: " + time ); //show how much time did it take to go between the stations
         double profit = train.passengers*train.profitPerPassenger;
-        System.out.println("Zysk z biletów: " + profit);
-        System.out.println("Zysk po odjęciu kosztów " + (profit - cost) );
+        System.out.println("Zysk z bilet\u00f3w: " + profit);
+        System.out.println("Zysk po odj\u0119ciu koszt\u00f3w " + (profit - cost) );
         money -= cost;
         money += profit;
         totalTraveledDistance += distanceKM;

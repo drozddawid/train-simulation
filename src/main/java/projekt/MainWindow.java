@@ -70,7 +70,7 @@ public class MainWindow extends Application{
         hBox.setSpacing(10);
 
         Label time = new Label("Czas w symulacji: 9:15");
-        Label speed = new Label("Prędkość symulacji: 5m/1s");
+        Label speed = new Label("Pr\u0119dko\u015b\u0107 symulacji: 5m/1s");
 
         Button timetableEdit = new Button("Ustawienia");
         timetableEdit.setOnAction(e -> {

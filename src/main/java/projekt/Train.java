@@ -107,12 +107,12 @@ public class Train extends MapObject{
 //        boolean onTheBottom = coordY < gc.getCanvas().getHeight() / 2;
 
         ArrayList<String> lines = new ArrayList<>();
-        lines.add("Pociąg: " + name);
+        lines.add("Poci\u0105g: " + name);
         if(previousStation != null) {
             lines.add("Poprzednia stacja: " + previousStation.name);
         }
         if(nextStation != null) {
-            lines.add("Następna stacja: " + nextStation.name);
+            lines.add("Nast\u0119pna stacja: " + nextStation.name);
         }
 
         ArrayList<Station> stops = currentTrainRoute.getStops();

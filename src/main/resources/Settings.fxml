@@ -18,7 +18,7 @@
                <children>
                   <HBox spacing="5.0">
                      <children>
-                        <Label text="Szybkość symulacji" />
+                        <Label text="Szybko&#x015b;&#x0107; symulacji" />
                         <TextField text="(x min/1s)" />
                         <Button mnemonicParsing="false" text="Zapisz" />
                      </children>
@@ -28,7 +28,7 @@
                   </HBox>
                   <HBox spacing="5.0">
                      <children>
-                        <Label text="Początkowa wartość pieniędzy" />
+                        <Label text="Pocz&#x0105;tkowa warto&#x015b;&#x0107; pieni&#x0119;dzy" />
                         <TextField />
                         <Button mnemonicParsing="false" text="Zapisz" />
                      </children>
@@ -38,7 +38,7 @@
                   </HBox>
                   <HBox spacing="5.0">
                      <children>
-                        <Label text="Czy używać menedżera tras?" />
+                        <Label text="Czy u&#x017c;ywa&#x0107; mened&#x017c;era tras?" />
                         <CheckBox mnemonicParsing="false" />
                      </children>
                      <VBox.margin>

@@ -10,7 +10,7 @@
   "stations": [
     {
       "id": 1,
-      "name": "Wrocław",
+      "name": "Wroc\u0142aw",
       "profitability": 0.5,
       "coordY": 550,
       "coordX": 250
@@ -24,21 +24,21 @@
     },
     {
       "id": 3,
-      "name": "Kraków",
+      "name": "Krak\u00f3w",
       "profitability": 0.5,
       "coordY": 670,
       "coordX": 570
     },
     {
       "id": 4,
-      "name": "Częstochowa",
+      "name": "Cz\u0119stochowa",
       "profitability": 0.5,
       "coordY": 500,
       "coordX": 400
     },
     {
       "id": 5,
-      "name": "Gdańsk",
+      "name": "Gda\u0144sk",
       "profitability": 0.5,
       "coordY": 130,
       "coordX": 400

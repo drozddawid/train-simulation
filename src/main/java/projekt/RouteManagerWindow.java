@@ -88,7 +88,7 @@ public class RouteManagerWindow {
                         this.showError("Nie istnieje trasa o podanym ID: " + identificator);
                     }
                 }catch (NumberFormatException ex) {
-                    this.showError("Wprowadzono nieprawidłową wartość.: " + editCurrentRouteID.getCharacters().toString());
+                    this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107.: " + editCurrentRouteID.getCharacters().toString());
                 }
             });
             routeEditor.getChildren().addAll(currentRouteID,editCurrentRouteID);
@@ -101,7 +101,7 @@ public class RouteManagerWindow {
             singleTrain.add(routeShower);
             //seats
             HBox seatsEditor = new HBox(10);
-            Label seats = new Label("Ilość siedzeń: " + train.seats);
+            Label seats = new Label("Ilo\u015b\u0107 siedze\u0144: " + train.seats);
             seats.setMinWidth(300);
             TextField editSeats = new TextField();
             editSeats.setPrefColumnCount(4);
@@ -111,18 +111,18 @@ public class RouteManagerWindow {
                     s = Integer.parseInt(editSeats.getCharacters().toString());
                     if(s>0 && s<10001){
                     train.seats = s;
-                    seats.setText("Ilość siedzeń: " + s);
+                    seats.setText("Ilo\u015b\u0107 siedze\u0144: " + s);
                     editSeats.setText("");
-                    } else this.showError("Wprowadzono nieprawidłową wartość : " + s + "\n Wprowadź wartość z przedziału (0;10000>");
+                    } else this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107 : " + s + "\n Wprowad\u017a warto\u015b\u0107 z przedzia\u0142u (0;10000>");
                 }catch (NumberFormatException ex) {
-                    this.showError("Wprowadzono nieprawidłową wartość: " + editSeats.getCharacters().toString());
+                    this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editSeats.getCharacters().toString());
                 }
             });
             seatsEditor.getChildren().addAll(seats,editSeats);
             singleTrain.add(seatsEditor);
             //speed
             HBox speedEditor = new HBox(10);
-            Label speed = new Label("Prędkość: " + train.speed + "km/h");
+            Label speed = new Label("Pr\u0119dko\u015b\u0107: " + train.speed + "km/h");
             speed.setMinWidth(300);
             TextField editSpeed = new TextField();
             editSpeed.setPrefColumnCount(4);
@@ -133,19 +133,19 @@ public class RouteManagerWindow {
                     if(s < 1225) {
                         if (s> 0) {
                             train.speed = s;
-                            speed.setText("Prędkość: " + s + "km/h");
+                            speed.setText("Pr\u0119dko\u015b\u0107: " + s + "km/h");
                             editSpeed.setText("");
-                        } else this.showError("Prędkość musi być większa od zera.");
-                    } else this.showError("Pociągi nie jeżdżą tak szybko ;)\n Wprowadź wartość poniżej prędkości dźwięku w powietrzu o temperaturze 15 stopni Celsjusza.");
+                        } else this.showError("Pr\u0119dko\u015b\u0107 musi by\u0107 wi\u0119ksza od zera.");
+                    } else this.showError("Poci\u0105gi nie je\u017cd\u017c\u0105 tak szybko ;)\n Wprowad\u017a warto\u015b\u0107 poni\u017cej pr\u0119dko\u015bci d\u017awi\u0119ku w powietrzu o temperaturze 15 stopni Celsjusza.");
                 }catch (NumberFormatException ex) {
-                    this.showError("Wprowadzono nieprawidłową wartość: " + editSpeed.getCharacters().toString());
+                    this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editSpeed.getCharacters().toString());
                 }
             });
             speedEditor.getChildren().addAll(speed,editSpeed);
             singleTrain.add(speedEditor);
             //costPerKM
             HBox costEditor = new HBox(10);
-            Label cost = new Label("Koszt przejazdu jednego kilometra: " + train.costPerKM +"zł.");
+            Label cost = new Label("Koszt przejazdu jednego kilometra: " + train.costPerKM +"z\u0142.");
             cost.setMinWidth(300);
             TextField editCost = new TextField();
             editCost.setPrefColumnCount(4);
@@ -155,18 +155,18 @@ public class RouteManagerWindow {
                     c = Integer.parseInt(editCost.getCharacters().toString());
                     if(c>=0) {
                         train.costPerKM = c;
-                        cost.setText("Koszt przejazdu jednego kilometra: " + c +"zł.");
+                        cost.setText("Koszt przejazdu jednego kilometra: " + c +"z\u0142.");
                         editCost.setText("");
-                    } else this.showError("Koszt nie może być ujemny.");
+                    } else this.showError("Koszt nie mo\u017ce by\u0107 ujemny.");
                 }catch (NumberFormatException ex) {
-                    this.showError("Wprowadzono nieprawidłową wartość: " + editCost.getCharacters().toString());
+                    this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editCost.getCharacters().toString());
                 }
             });
             costEditor.getChildren().addAll(cost,editCost);
             singleTrain.add(costEditor);
             //profitPerPassenger
             HBox profitEditor = new HBox(10);
-            Label profit = new Label("Zysk z jednego pasażera na kilometr trasy: " + train.profitPerPassenger +"zł");
+            Label profit = new Label("Zysk z jednego pasa\u017cera na kilometr trasy: " + train.profitPerPassenger +"z\u0142");
             profit.setMinWidth(300);
             TextField editProfit = new TextField();
             editProfit.setPrefColumnCount(4);
@@ -176,11 +176,11 @@ public class RouteManagerWindow {
                     s = Double.parseDouble(editProfit.getCharacters().toString());
                     if(s>=0) {
                         train.profitPerPassenger = s;
-                        profit.setText("Zysk z jednego pasażera na kilometr trasy: " + s +"zł");
+                        profit.setText("Zysk z jednego pasa\u017cera na kilometr trasy: " + s +"z\u0142");
                         editProfit.setText("");
-                    } else this.showError("Zysk nie może być ujemny.");
+                    } else this.showError("Zysk nie mo\u017ce by\u0107 ujemny.");
                 }catch (NumberFormatException ex) {
-                    this.showError("Wprowadzono nieprawidłową wartość: " + editProfit.getCharacters().toString());
+                    this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editProfit.getCharacters().toString());
                 }
             });
             profitEditor.getChildren().addAll(profit,editProfit);
@@ -195,13 +195,13 @@ public class RouteManagerWindow {
 
         VBox box = new VBox(8);
 
-        Button startSimulating = new Button("Rozpocznij symulację");
+        Button startSimulating = new Button("Rozpocznij symulacj\u0119");
         startSimulating.setMinWidth(600);
         startSimulating.setAlignment(Pos.TOP_CENTER);
         startSimulating.setOnAction(e -> this.close());
         box.getChildren().add(startSimulating);
 
-        Button addTrain = new Button("Dodaj pociąg");
+        Button addTrain = new Button("Dodaj poci\u0105g");
         //addTrain.setOnAction(e -> System.out.println(this.trainMaker()));
         box.getChildren().add(addTrain);
 
@@ -216,7 +216,7 @@ public class RouteManagerWindow {
         content.setContent(box);
         content.setFitToHeight(true);
         content.setFitToWidth(true);
-        Tab trains = new Tab("Pociągi", content);
+        Tab trains = new Tab("Poci\u0105gi", content);
 
 
         settings.getTabs().add(trains);
@@ -227,7 +227,7 @@ public class RouteManagerWindow {
     private void showError(String message){
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setTitle("Błąd");
+        dialogStage.setTitle("B\u0142\u0105d");
 
         Button ok = new Button ("Zamknij");
         ok.setOnAction(f -> dialogStage.close());
@@ -243,7 +243,7 @@ public class RouteManagerWindow {
 
     /*private String trainMaker(){ //this is for testing, later i will make here real bad-ass trainmaker
         Stage trainMaker = new Stage();
-        trainMaker.setTitle("Tworzenie pociągu");
+        trainMaker.setTitle("Tworzenie poci\u0105gu");
         trainMaker.initModality(Modality.WINDOW_MODAL);
         final String[] o = new String[1];
         TextField name = new TextField();
