@@ -44,21 +44,18 @@ public class RouteManagerWindow {
      */
     public Scene getScene(){
 
+        trainsBox.getChildren().clear();
+        routesBox.getChildren().clear();
         TabPane settings = new TabPane();
         settings.setMinHeight(850);
         settings.setMinWidth(900);
         settings.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
         settings.setTabDragPolicy(TabPane.TabDragPolicy.FIXED);
-        /*try {//TODO:delete this
-            settings = (TabPane) FXMLLoader.load(getClass().getResource("/Settings.fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }*/
         settingsTab  = getSettingsTab();
         trainsTab = getTrainsTab();
         timetableTab = getTimeTableTab();
-        settings.getTabs().addAll(settingsTab, trainsTab,timetableTab);
-        Scene routeManagerScene = new Scene(settings, 900,850);
+        settings.getTabs().addAll(timetableTab, trainsTab, settingsTab);
+        Scene routeManagerScene = new Scene(settings, 1400,850);
         return routeManagerScene;
     }
 
@@ -239,6 +236,7 @@ public class RouteManagerWindow {
 
     private ArrayList<Region> getSingleRouteGraphicRepresentation(TrainRoute route){
        // VBox routeBox = new VBox(8);
+        HBox stationsBox = new HBox(8);
         HBox box = new HBox(8);
         ArrayList<Region> singleRoute = new ArrayList<>();
         singleRoute.add(new Separator(Orientation.HORIZONTAL));
@@ -247,8 +245,10 @@ public class RouteManagerWindow {
         for(Station station : route.getStops()){
             stations.add(new Label(station.name + "  ") );
         }
-        box.getChildren().addAll(stations);
+        stationsBox.getChildren().addAll(stations);
+        box.getChildren().add(stationsBox);
         Button deleteLastStation = new Button ("Usuń ostatnią stację");
+        if(stations.size() == 0)deleteLastStation.setText("Usuń trasę");
         AtomicBoolean nextClickDelete = new AtomicBoolean(false);
         deleteLastStation.setOnAction(e -> {
             int i = stations.size();
@@ -258,8 +258,9 @@ public class RouteManagerWindow {
             }if(i == 1) {
                 deleteLastStation.setText("Usuń trasę.");
             }else if(i == 2){
-                for(Train train : routeManager.getTrains().values()){// checking if some trains have empty route, and if it does, changing it to first not empty one found (to avoid problems with no-route trains)
-                    if(train.getCurrentTrainRoute().stopsByIDSize == 2){
+                if(routeManager.getTrainsArrayList().size() != 0){
+                    for(Train train : routeManager.getTrains().values()){// checking if some trains have empty route, and if it does, changing it to first not empty one found (to avoid problems with no-route trains)
+                        if(train.getCurrentTrainRoute().stopsByIDSize == 2){
                         TrainRoute notEmptyRoute = null; //new TrainRoute();
                         for(TrainRoute trainRoute :routeManager.getTrainRoutesArrayList()){
                             if(trainRoute.stopsByIDSize>1){
@@ -277,6 +278,7 @@ public class RouteManagerWindow {
                             }
 
                     }
+                    }
                 }
             }if(nextClickDelete.get()){
                 routesBox.getChildren().removeAll(singleRoute);
@@ -284,22 +286,106 @@ public class RouteManagerWindow {
             }else {
                 box.getChildren().remove(stations.get(i-1));
                 stations.remove(i-1);
-                route.getStops().remove(i-1);
+                route.getStops().remove(i - 1);
                 route.stopsByIDSize--;
             }
-
             if(routeManager.getTrainRoutesArrayList().size()==0){
                 routeManager.getTrains().clear();
             }
-           // refreshTrainsTab();
+
+            mainWindow.refreshScene(getScene());
         });
         box.getChildren().add(deleteLastStation);
+
+        TextField addStation = new TextField();
+        addStation.setPrefColumnCount(50);
+        String prompt = "";
+        for(Station station : route.getStop(route.stopsByIDSize-1).connectedWith){
+            prompt += station.stationID + ": " + station.name + "  ";
+        }
+        addStation.setPromptText(prompt);
+        addStation.setOnAction(e -> {
+            if(addStation.getCharacters().length() != 0) {
+                int id;
+                String stationName;
+                try {
+                    id = Integer.parseInt(addStation.getCharacters().toString());
+                    if (stationDatabase.getStationsById().containsKey(id)) {
+                        Station addedStation = stationDatabase.findStation(id);
+                        if(stations.size()==0){
+                            Label stationLabel = new Label(addedStation.name + "  ");
+                            stations.add(stationLabel);
+                            stationsBox.getChildren().add(stationLabel);
+                            route.getStops().add(addedStation);
+                            route.stopsByIDSize += 1;
+                            addStation.setText("");
+                            String promptTwo = "";
+                            for(Station station : route.getStop(route.stopsByIDSize-1).connectedWith){
+                                promptTwo += station.stationID + ": " + station.name + "  ";
+                            }
+                            addStation.setPromptText(promptTwo);
+                        }else if (route.getStop(route.stopsByIDSize - 1).connectedWith.contains(addedStation)) {
+                            Label stationLabel = new Label(addedStation.name + "  ");
+                            stations.add(stationLabel);
+                            stationsBox.getChildren().add(stationLabel);
+                            route.getStops().add(addedStation);
+                            route.stopsByIDSize += 1;
+                            addStation.setText("");
+                            String promptTwo = "";
+                            for(Station station : route.getStop(route.stopsByIDSize-1).connectedWith){
+                                promptTwo += station.stationID + ": " + station.name + "  ";
+                            }
+                            addStation.setPromptText(promptTwo);
+                        } else {
+                            showError("Podana stacja: " + addedStation.name + " nie jest po\u0142\u0105czona z ostatni\u0105 stacj\u0105 tej trasy: " + route.getStop(route.stopsByIDSize - 1).name + ".");
+                        }
+                    } else {
+                        showError("Stacja o podanym ID: " + id + " nie istnieje.");
+                    }
+                } catch (NumberFormatException g) {
+                    stationName = addStation.getCharacters().toString();
+
+                    if (stationDatabase.getStationsByName().containsKey(stationName)) {
+                        Station addedStation = stationDatabase.findStation(stationName);
+                        if(stations.size()==0){
+                            Label stationLabel = new Label(addedStation.name + "  ");
+                            stations.add(stationLabel);
+                            stationsBox.getChildren().add(stationLabel);
+                            route.getStops().add(addedStation);
+                            route.stopsByIDSize += 1;
+                            addStation.setText("");
+                            String promptTwo = "";
+                            for(Station station : route.getStop(route.stopsByIDSize-1).connectedWith){
+                                promptTwo += station.stationID + ": " + station.name + "  ";
+                            }
+                            addStation.setPromptText(promptTwo);
+                        }else if (route.getStop(route.stopsByIDSize - 1).connectedWith.contains(addedStation)) {
+                            Label stationLabel = new Label(addedStation.name + "  ");
+                            stations.add(stationLabel);
+                            stationsBox.getChildren().add(stationLabel);
+                            route.getStops().add(addedStation);
+                            route.stopsByIDSize += 1;
+                            addStation.setText("");
+                            String promptTwo = "";
+                            for(Station station : route.getStop(route.stopsByIDSize-1).connectedWith){
+                                promptTwo += station.stationID + ": " + station.name + "  ";
+                            }
+                            addStation.setPromptText(promptTwo);
+                        } else {
+                            showError("Podana stacja: " + addedStation.name + " nie jest po\u0142\u0105czona z ostatni\u0105 stacj\u0105 tej trasy: " + route.getStop(route.stopsByIDSize - 1).name + ".");
+                        }
+                    } else {
+                        showError("Stacja o podanej nazwie: " + stationName + " nie istnieje.");
+                    }
+                }
+            } else showError("Nie wprowadzono warto\u015bci.");
+        });
+        box.getChildren().add(addStation);
         singleRoute.add(box);
         return singleRoute;
     }
 
     private Tab getTimeTableTab(){
-        Insets padding = new Insets(8);
         Button startSimulating = new Button("Rozpocznij symulację");
         startSimulating.setMinWidth(600);
         startSimulating.setAlignment(Pos.TOP_CENTER);
@@ -309,6 +395,24 @@ public class RouteManagerWindow {
             mainWindow.startSimulating();
         });
         routesBox.getChildren().add(startSimulating);
+        Button addTrainRoute = new Button("Dodaj nową trasę");
+        addTrainRoute.setOnAction(e->{
+            int id = -1;
+            for(TrainRoute route : routeManager.getRoutes().values()){
+                if(id == -1) id = route.routeID;
+                if(route.routeID > id) id = route.routeID;
+            }
+            id++;
+            ArrayList<Integer> list = new ArrayList<Integer>();
+            list.add(1);
+            TrainRoute trainRoute = new TrainRoute(id, list , stationDatabase );
+            routeManager.getRoutes().put(id,trainRoute);
+            routesBox.getChildren().addAll(getSingleRouteGraphicRepresentation(trainRoute));
+        });
+        routesBox.getChildren().add(addTrainRoute);
+        Label advice = new Label ("Aby dodać kolejną stację, wpisz ID lub nazwę i zatwierdź(Enter)\n Aby usunąć trasę, usuń wszystkie stacje.");
+        routesBox.getChildren().add(advice);
+
         for(ArrayList<Region> control : getRoutesGraphicRepresentation(routeManager.getTrainRoutesArrayList())){
             routesBox.getChildren().addAll(control);
         }
@@ -353,6 +457,22 @@ public class RouteManagerWindow {
         moneyEditor.setPadding(padding);
         moneyEditor.getChildren().addAll(initialMoneyAmount,setInitialMoneyAmount);
 
+        Label stopCondition = new Label("Czas symulowania: " + Settings.getStopCondition() + "h");
+        TextField setStopCondition = new TextField();
+        setStopCondition.setPrefColumnCount(10);
+        setStopCondition.setOnAction(e -> {
+            try{
+                int i = Integer.parseInt(setStopCondition.getCharacters().toString());
+                Settings.setStopCondition(i);
+                stopCondition.setText("Czas symulowania: " + Settings.getStopCondition() + "h");
+            }catch (NumberFormatException exce){
+                showError("Wprowadzono nieprawidłową wartość: " + setStopCondition.getCharacters().toString());
+            }
+        });
+        HBox stopConditionEditor = new HBox();
+        stopConditionEditor.setPadding(padding);
+        stopConditionEditor.getChildren().addAll(stopCondition,setStopCondition);
+
         Label useRouteManager = new Label("Czy używać menedżera tras?\n\nZaznacz jeśli chcesz aby pociągi jeździły według rozkładu." +
                 "\nW przeciwnym wypadku trasy będą pseudolosowe.");
         CheckBox ifuseRouteManager = new CheckBox();
@@ -366,7 +486,7 @@ public class RouteManagerWindow {
         usingRouteManagerEditor.setPadding(new Insets(8));
         usingRouteManagerEditor.getChildren().addAll(useRouteManager,ifuseRouteManager);
 
-        box.getChildren().addAll(moneyEditor, usingRouteManagerEditor);
+        box.getChildren().addAll(moneyEditor,stopConditionEditor, usingRouteManagerEditor);
         Tab settings = new Tab("Ustawienia", box);
         return settings;
     }
@@ -419,6 +539,23 @@ public class RouteManagerWindow {
         Button ok = new Button ("Zamknij");
         ok.setOnAction(f -> dialogStage.close());
         VBox vbox = new VBox(new Label (message), ok);
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets(30));
+
+        dialogStage.setScene(new Scene(vbox));
+        dialogStage.show();
+
+    }
+
+    public void showStats(String stats){
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.setTitle("Symulacja została zakończona.");
+
+        Button ok = new Button ("Zamknij");
+        ok.setOnAction(f -> dialogStage.close());
+        VBox vbox = new VBox(new Label (stats), ok);
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(30));
@@ -520,7 +657,7 @@ public class RouteManagerWindow {
             if(currentRouteID.getCharacters().length() != 0){
                 try{
                     routeIDGiven = Integer.parseInt(currentRouteID.getCharacters().toString());
-                    if(routeManager.getRoutes().containsKey(routeIDGiven)) {
+                    if(routeManager.getRoutes().containsKey(routeIDGiven) && routeManager.getRouteByID(routeIDGiven).stopsByIDSize > 1) {
                     routeGiven[0] = routeManager.getRouteByID(routeIDGiven);
                     } else {
                         errorMessages[0] += "\nNie istnieje trasa o podanym ID: " + routeIDGiven;
@@ -606,7 +743,9 @@ public class RouteManagerWindow {
                     errorOccured[0] = true;
                 }
             } else {errorMessages[0] += "\nNie wprowadzono zysku z przewozu jednego pasażera na trasie o długości kilometra."; errorOccured[0] = true;}
-
+            for (TrainRoute route :routeManager.getRoutes().values()){
+                //sprawdź czy jakakolwiek trasa ma więcej niż jeden przystanek
+            }
             if(!errorOccured[0]){
                 train[0] = new Train(id[0],nameGiven[0], costGiven[0], profitGiven[0], seatsGiven[0], speedGiven[0], routeGiven[0]);
                 trainMaker.close();
