@@ -1,19 +1,18 @@
 package projekt;
 
-import com.sun.tools.javac.Main;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,6 +40,23 @@ public class MainWindow extends Application {
      */
     public static void main (String[] args){ launch(args); }
 
+    private void showStatsAndExit(){
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.setTitle("Symulacja została zakończona.");
+
+        Button ok = new Button ("Zamknij");
+        ok.setOnAction(f -> { dialogStage.close(); System.exit(0);} );
+        VBox vbox = new VBox(new Label ("Statystyki znajduja sie w pliku rapport.txt"), ok);
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets(30));
+
+        dialogStage.setScene(new Scene(vbox));
+        dialogStage.show();
+    }
+
+
     /**
      * Starts the timer that schedules an update at 30fps
      */
@@ -53,6 +69,10 @@ public class MainWindow extends Application {
                     time += 1/30.0*Settings.getSimulationSpeedMultiplier()/60.0;
                     updateTime();
                     map.advanceTime();
+                    if(time > Settings.getStopCondition() * 60) {
+                        showStatsAndExit();
+                        advancingTimeTimer.cancel();
+                    }
                 });
             }
         };

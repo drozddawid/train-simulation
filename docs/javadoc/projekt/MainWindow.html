@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":9,"i1":10,"i2":10};
+var data = {"i0":10,"i1":9,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -214,20 +214,33 @@ extends javafx.application.Application</pre>
 <th class="colLast" scope="col">Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#changeSettingsButtonText(java.lang.String)">changeSettingsButtonText</a></span>&#8203;(java.lang.String&nbsp;text)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#main(java.lang.String%5B%5D)">main</a></span>&#8203;(java.lang.String[]&nbsp;args)</code></th>
 <td class="colLast">
 <div class="block">The entry function.</div>
 </td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#refreshScene(javafx.scene.Scene)">refreshScene</a></span>&#8203;(javafx.scene.Scene&nbsp;scene)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#refreshTrainTab(javafx.scene.control.Tab)">refreshTrainTab</a></span>&#8203;(javafx.scene.control.Tab&nbsp;trainTab)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#start(javafx.stage.Stage)">start</a></span>&#8203;(javafx.stage.Stage&nbsp;primaryStage)</code></th>
-<td class="colLast">
-<div class="block">The "real" entry function, provided by JavaFX.</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#startSimulating()">startSimulating</a></span>()</code></th>
 <td class="colLast">
@@ -305,23 +318,47 @@ extends javafx.application.Application</pre>
 <li class="blockList">
 <h4>start</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;start&#8203;(javafx.stage.Stage&nbsp;primaryStage)</pre>
-<div class="block">The "real" entry function, provided by JavaFX.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code>start</code>&nbsp;in class&nbsp;<code>javafx.application.Application</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>primaryStage</code> - the default Stage provided for us by JavaFX, basically the window</dd>
 </dl>
+</li>
+</ul>
+<a id="refreshScene(javafx.scene.Scene)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>refreshScene</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;refreshScene&#8203;(javafx.scene.Scene&nbsp;scene)</pre>
+</li>
+</ul>
+<a id="refreshTrainTab(javafx.scene.control.Tab)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>refreshTrainTab</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;refreshTrainTab&#8203;(javafx.scene.control.Tab&nbsp;trainTab)</pre>
 </li>
 </ul>
 <a id="startSimulating()">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>startSimulating</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;startSimulating()</pre>
 <div class="block">Starts the simulation when starting the application and when exiting from RouteManagerWindow</div>
+</li>
+</ul>
+<a id="changeSettingsButtonText(java.lang.String)">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>changeSettingsButtonText</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;changeSettingsButtonText&#8203;(java.lang.String&nbsp;text)</pre>
 </li>
 </ul>
 </li>

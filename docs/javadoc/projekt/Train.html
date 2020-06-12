@@ -27,7 +27,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -89,13 +89,13 @@ loadScripts(document, 'script');</script>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -161,6 +161,27 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 </li>
 </ul>
 </section>
+<!-- ======== CONSTRUCTOR SUMMARY ======== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="constructor.summary">
+<!--   -->
+</a>
+<h3>Constructor Summary</h3>
+<table class="memberSummary">
+<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colFirst" scope="col">Constructor</th>
+<th class="colLast" scope="col">Description</th>
+</tr>
+<tr class="altColor">
+<th class="colConstructorName" scope="row"><code><span class="memberNameLink"><a href="#%3Cinit%3E()">Train</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+</table>
+</li>
+</ul>
+</section>
 <!-- ========== METHOD SUMMARY =========== -->
 <section role="region">
 <ul class="blockList">
@@ -179,15 +200,13 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#draw(javafx.scene.canvas.GraphicsContext)">draw</a></span>&#8203;(javafx.scene.canvas.GraphicsContext&nbsp;gc)</code></th>
 <td class="colLast">
-<div class="block">Draws the Train on a Map.</div>
+<div class="block">Draws the MapObject on a Map</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#drawInfoBox(javafx.scene.canvas.GraphicsContext)">drawInfoBox</a></span>&#8203;(javafx.scene.canvas.GraphicsContext&nbsp;gc)</code></th>
-<td class="colLast">
-<div class="block">Draws a small infoBox when the mouse pointer is close to the train</div>
-</td>
+<td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>int</code></td>
@@ -245,82 +264,90 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i13" class="rowColor">
+<td class="colFirst"><code>java.lang.String</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTrain()">getTrain</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getTrainID()">getTrainID</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i14" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetRoute(projekt.TrainRoute)">resetRoute</a></span>&#8203;(<a href="TrainRoute.html" title="class in projekt">TrainRoute</a>&nbsp;route)</code></th>
-<td class="colLast">
-<div class="block">Resets the train and places it on the beggining of a TrainRoute</div>
-</td>
-</tr>
 <tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCostPerKM(int)">setCostPerKM</a></span>&#8203;(int&nbsp;costPerKM)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetRoute()">resetRoute</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCurrentTrainRoute(projekt.TrainRoute)">setCurrentTrainRoute</a></span>&#8203;(<a href="TrainRoute.html" title="class in projekt">TrainRoute</a>&nbsp;currentTrainRoute)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetRoute(projekt.TrainRoute)">resetRoute</a></span>&#8203;(<a href="TrainRoute.html" title="class in projekt">TrainRoute</a>&nbsp;route)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLinkProgress(double)">setLinkProgress</a></span>&#8203;(double&nbsp;linkProgress)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCostPerKM(int)">setCostPerKM</a></span>&#8203;(int&nbsp;costPerKM)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setCurrentTrainRoute(projekt.TrainRoute)">setCurrentTrainRoute</a></span>&#8203;(<a href="TrainRoute.html" title="class in projekt">TrainRoute</a>&nbsp;currentTrainRoute)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNextStation(projekt.Station)">setNextStation</a></span>&#8203;(<a href="Station.html" title="class in projekt">Station</a>&nbsp;nextStation)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setLinkProgress(double)">setLinkProgress</a></span>&#8203;(double&nbsp;linkProgress)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPassengers(int)">setPassengers</a></span>&#8203;(int&nbsp;passengers)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setName(java.lang.String)">setName</a></span>&#8203;(java.lang.String&nbsp;name)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPreviousStation(projekt.Station)">setPreviousStation</a></span>&#8203;(<a href="Station.html" title="class in projekt">Station</a>&nbsp;previousStation)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setNextStation(projekt.Station)">setNextStation</a></span>&#8203;(<a href="Station.html" title="class in projekt">Station</a>&nbsp;nextStation)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setProfitPerPassenger(double)">setProfitPerPassenger</a></span>&#8203;(double&nbsp;profitPerPassenger)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPassengers(int)">setPassengers</a></span>&#8203;(int&nbsp;passengers)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSeats(int)">setSeats</a></span>&#8203;(int&nbsp;seats)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setPreviousStation(projekt.Station)">setPreviousStation</a></span>&#8203;(<a href="Station.html" title="class in projekt">Station</a>&nbsp;previousStation)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSpeed(int)">setSpeed</a></span>&#8203;(int&nbsp;speed)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setProfitPerPassenger(double)">setProfitPerPassenger</a></span>&#8203;(double&nbsp;profitPerPassenger)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTesttime(double)">setTesttime</a></span>&#8203;(double&nbsp;testtime)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSeats(int)">setSeats</a></span>&#8203;(int&nbsp;seats)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTrainID(int)">setTrainID</a></span>&#8203;(int&nbsp;trainID)</code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setSpeed(int)">setSpeed</a></span>&#8203;(int&nbsp;speed)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTesttime(double)">setTesttime</a></span>&#8203;(double&nbsp;testtime)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i28" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTrainID(int)">setTrainID</a></span>&#8203;(int&nbsp;trainID)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i29" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#tick()">tick</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Moves the train forward a tiny bit</div>
+<div class="block">Does computations before drawing on the map, such as moving a train forward</div>
 </td>
 </tr>
 </table>
@@ -340,6 +367,25 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
+<!-- ========= CONSTRUCTOR DETAIL ======== -->
+<section role="region">
+<ul class="blockList">
+<li class="blockList"><a id="constructor.detail">
+<!--   -->
+</a>
+<h3>Constructor Detail</h3>
+<a id="&lt;init&gt;()">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>Train</h4>
+<pre>public&nbsp;Train()</pre>
+</li>
+</ul>
+</li>
+</ul>
+</section>
 <!-- ============ METHOD DETAIL ========== -->
 <section role="region">
 <ul class="blockList">
@@ -347,6 +393,15 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a id="getTrain()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTrain</h4>
+<pre class="methodSignature">public&nbsp;java.lang.String&nbsp;getTrain()</pre>
+</li>
+</ul>
 <a id="tick()">
 <!--   -->
 </a>
@@ -354,7 +409,8 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>tick</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;tick()</pre>
-<div class="block">Moves the train forward a tiny bit</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="MapObject.html#tick()">MapObject</a></code></span></div>
+<div class="block">Does computations before drawing on the map, such as moving a train forward</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="MapObject.html#tick()">tick</a></code>&nbsp;in class&nbsp;<code><a href="MapObject.html" title="class in projekt">MapObject</a></code></dd>
@@ -368,7 +424,8 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>draw</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;draw&#8203;(javafx.scene.canvas.GraphicsContext&nbsp;gc)</pre>
-<div class="block">Draws the Train on a Map.</div>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="MapObject.html#draw(javafx.scene.canvas.GraphicsContext)">MapObject</a></code></span></div>
+<div class="block">Draws the MapObject on a Map</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="MapObject.html#draw(javafx.scene.canvas.GraphicsContext)">draw</a></code>&nbsp;in class&nbsp;<code><a href="MapObject.html" title="class in projekt">MapObject</a></code></dd>
@@ -384,11 +441,6 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>drawInfoBox</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;drawInfoBox&#8203;(javafx.scene.canvas.GraphicsContext&nbsp;gc)</pre>
-<div class="block">Draws a small infoBox when the mouse pointer is close to the train</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>gc</code> - the context on which to draw the objectc</dd>
-</dl>
 </li>
 </ul>
 <a id="resetRoute(projekt.TrainRoute)">
@@ -398,11 +450,15 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>resetRoute</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;resetRoute&#8203;(<a href="TrainRoute.html" title="class in projekt">TrainRoute</a>&nbsp;route)</pre>
-<div class="block">Resets the train and places it on the beggining of a TrainRoute</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>route</code> - the TrainRoute being reset</dd>
-</dl>
+</li>
+</ul>
+<a id="resetRoute()">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>resetRoute</h4>
+<pre class="methodSignature">public&nbsp;void&nbsp;resetRoute()</pre>
 </li>
 </ul>
 <a id="getTrainID()">
@@ -484,10 +540,6 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>getSeats</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getSeats()</pre>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the number of seats</dd>
-</dl>
 </li>
 </ul>
 <a id="setSeats(int)">
@@ -497,10 +549,6 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>setSeats</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setSeats&#8203;(int&nbsp;seats)</pre>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>seats</code> - the number of seats</dd>
-</dl>
 </li>
 </ul>
 <a id="getPassengers()">
@@ -510,10 +558,6 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>getPassengers</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;getPassengers()</pre>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>the number of passengers</dd>
-</dl>
 </li>
 </ul>
 <a id="setPassengers(int)">
@@ -523,10 +567,6 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>setPassengers</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setPassengers&#8203;(int&nbsp;passengers)</pre>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>passengers</code> - the number of passengers</dd>
-</dl>
 </li>
 </ul>
 <a id="getSpeed()">
@@ -608,10 +648,6 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>getLinkProgress</h4>
 <pre class="methodSignature">public&nbsp;double&nbsp;getLinkProgress()</pre>
-<dl>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>how much between previousStation and nextStation the Train has moved - between [0.0; 1.0]</dd>
-</dl>
 </li>
 </ul>
 <a id="setLinkProgress(double)">
@@ -621,10 +657,6 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li class="blockList">
 <h4>setLinkProgress</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setLinkProgress&#8203;(double&nbsp;linkProgress)</pre>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>linkProgress</code> - how much between previousStation and nextStation the Train has moved - between [0.0; 1.0]</dd>
-</dl>
 </li>
 </ul>
 <a id="getTesttime()">
@@ -697,13 +729,13 @@ extends <a href="MapObject.html" title="class in projekt">MapObject</a></pre>
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
 <li><a href="#field.summary">Field</a>&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li>Constr&nbsp;|&nbsp;</li>
+<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
