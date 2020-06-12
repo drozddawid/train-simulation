@@ -29,7 +29,7 @@ public class MainWindow extends Application {
     private Button timetableEdit;
     private Scene mainScene, routeManagerScene;
     private Stage mainWindow;
-    private double time = 9 * 60 + 15; // 9:15
+    private double time = 0;
     private Label timeLabel;
     private BorderPane root;
 
@@ -131,6 +131,22 @@ public class MainWindow extends Application {
      *
      * @return the bottom bar.
      */
+    public void showStats(String stats){
+        Stage dialogStage = new Stage();
+        dialogStage.initModality(Modality.WINDOW_MODAL);
+        dialogStage.setTitle("Symulacja została zakończona.");
+
+        Button ok = new Button ("Zamknij");
+        ok.setOnAction(f -> dialogStage.close());
+        VBox vbox = new VBox(new Label (stats), ok);
+        vbox.setSpacing(10);
+        vbox.setAlignment(Pos.CENTER);
+        vbox.setPadding(new Insets(30));
+
+        dialogStage.setScene(new Scene(vbox));
+        dialogStage.show();
+
+    }
     private HBox bottomHBox() {
         HBox hBox = new HBox();
         hBox.setSpacing(10);
@@ -204,6 +220,7 @@ public class MainWindow extends Application {
      * Starts the simulation when starting the application and when exiting from RouteManagerWindow
      */
     public void startSimulating(){
+        time = 0;
         startAdvancingTimeTimer();
         mainWindow.setScene(mainScene);
         map.clearObjects();

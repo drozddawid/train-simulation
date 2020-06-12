@@ -16,7 +16,7 @@ public class StatisticsLogger {//TODO:(make it show in window and save to datafi
     private static long totalCost = 0;
     private static long totalProfit = 0; //TODO: totalProfit-totalCost should be shown in statistics too
     private static long totalPassengersTransported = 0; //TODO: total profit on one passenger should be shown in statistics too
-
+   // public String endMessage = ""
 
     /**
      * saves data about the course when it's done (linkProgress == 1)
