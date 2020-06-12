@@ -9,9 +9,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class RouteManager {
-    public HashMap<Integer, TrainRoute> routes;
+    private HashMap<Integer, TrainRoute> routes;
     private HashMap<Integer, Train> trains = new HashMap<>();
 
+    /**
+     * Initializes routes from resources/timetable.json and corresponding trains from resources/trains.json
+     *
+     * @param stationDatabase the database with stations
+     */
     RouteManager(StationDatabase stationDatabase){
         JSONObject routesFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/timetable.json")));
         routes = new HashMap<>();
@@ -52,11 +57,32 @@ public class RouteManager {
         }
     }
 
+    /**
+     *
+     * @return all loaded Trains by their id
+     */
     public HashMap<Integer, Train> getTrains (){ return this.trains;}
+
+    /**
+     *
+     * @return a list of all loaded trains
+     */
+
     public ArrayList<Train> getTrainsArrayList() { return new ArrayList<Train>(this.trains.values()); }
+
+    /**
+     *
+     * @param id the train id
+     * @return a loaded train by its id
+     */
     public TrainRoute getRouteByID(int id){
         return routes.get(id);
     }
+
+    /**
+     *
+     * @return all loaded routes
+     */
     public HashMap<Integer, TrainRoute> getRoutes() {
         return routes;
     }

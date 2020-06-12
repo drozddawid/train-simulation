@@ -14,132 +14,209 @@ digraph G {
         fontsize = 8
     ]
 
-    MainWindow [ label = "{MainWindow|
-        - map : Map\l
-        - routeManagerWindow : RouteManagerWindow\l
-        |
-        + main()\l
-        - showRouteManagerWindow()\l
-        }" ]
-
-    RouteManagerWindow [ label = "{RouteManagerWindow|
-        - routeManager : RouteManager\l
-        - stationsDatabase : StationsDatabase\l
-        |
-        + open()\l
-        }" ]
-
-
-    Map [ label = "{Map|
-        - objects : ArrayList\<MapObject\>\l
-        - stationDatabase : StationDatabase\l
-        - routeManager : RouteManager\l
-        - currentTime : RouteTime\l
-        - statisticsLogger : StatisticsLogger\l
-        |
-        + draw()\l
-        + fillStationsFromDatabase()\l
-        + advanceTime()\l
-        }" ]
-
-    MapObject [ label = "{MapObject|
-        + coordX : float\l
-        + coordY : float\l
-        |
-        + draw() (abstract)\l
-        }" ]
-
-    Station [ label = "{Station|
-        + name : String\l
-        + profitablity : float\l
-        + connectingStations : ArrayList\<Station\>\l
-        |
-        + draw()\l
-        }" ]
-
-    Train [ label = "{Train|
-        + name : String\l
-        + currentLink : StationLink\l
-        + linkProgress : float\l
-        |
-        + draw()\l
-        }" ]
-
-    StationLink [
-        label = "{StationLink|
-        + from : Station\l
-        + to : Station\l
-        |
-        + draw()\l
-        }" ]
-
-    RouteManager [ label = "{RouteManager|
-        + routes : ArrayList\<TrainRoute\>\l
-        |
-        + getRouteForTrain(String trainName)\l
-        + getRouteForStation(Station c)\l
-        }" ]
-
-    TrainRoute [ label = "{TrainRoute|
-        + trainName : String\l
-        + stops : ArrayList\<RouteStop\>\l
-        + costPerKilometer : float\l
-        |
-        + getNextStop(RouteTime currentTime)\l
-        + getPreviousStop(RouteTime currentTime)\l
-        }" ]
-
-    RouteStop [ label = "{RouteStop|
-        + city : Station\l
-        + arriveTime : RouteTime\l
-        + departTime : RouteTime\l
-        |
-        }" ]
-
-    RouteTime [ label = "{RouteTime|
-        + secondsSinceMidnight : int\l
-        |
-        + getMinutes()\l
-        + getHours()\l
-        + set(int hours, int minutes)\l
-        }" ]
-
-    StationDatabase [ label = "{StationDatabase|
-        + stations : ArrayList\<Station\>\l
-        + stationLinks : ArrayLink\<StationLink\>\l
-        |
-        + loadFromFile()\l
-        }" ]
-    
-    StatisticsLogger [
-        label = "{StatisticsLogger|
-        |
-        + logArrival(RouteTime, Train, Station)\l
-        + logDeparture(RouteTime, Train, Station)\l
-        }" ]
+MainWindow [ label = "{MainWindow|
+- advancingTimeTimer : Timer\l
+- map : Map\l
+- routeManagerWindow : RouteManagerWindow\l
+- stationDatabase : StationDatabase\l
+|
+- bottomHBox() : HBox\l
++ run()\l
+- startAdvancingTimeTimer()\l
++ startSimulating()\l
++ start(Stage primaryStage)\l
++ main(String[] args)  (static)\l
+}" ]
+Map [ label = "{Map|
+- canvas : Canvas\l
+- gc : GraphicsContext\l
+- loadedCountrySvgPath : String\l
+- mouseX : double\l
+- mouseY : double\l
+- objects : ArrayList\<MapObject\>\l
+- routeManager : RouteManager\l
+- routeTime : RouteTime\l
+- stationDatabase : StationDatabase\l
+- statisticsLogger : StatisticsLogger\l
+|
++ addObjects(StationDatabase stationDatabase,RouteManager routeManager)\l
++ advanceTime()\l
+- clearMap()\l
++ clearObjects()\l
+- drawInfoBox()\l
++ getCanvas() : Canvas\l
+}" ]
+MapObject [ label = "{MapObject|
++ coordX : double\l
++ coordY : double\l
+|
++ draw(GraphicsContext gc)  (abstract)\l
++ tick()  (abstract)\l
+}" ]
+ObjectPathResourceGetter [ label = "{ObjectPathResourceGetter|
+- resourceCache : HashMap\<String,String\>\l
+- instance : ObjectPathResourceGetter  (static)\l
+|
++ getValue(String key) : String\l
++ getInstance() : ObjectPathResourceGetter  (static)\l
+}" ]
+RouteManager [ label = "{RouteManager|
++ routes : HashMap\<Integer,TrainRoute\>\l
+- trains : HashMap\<Integer,Train\>\l
+|
++ getRouteByID(int id) : TrainRoute\l
++ getRoutes() : HashMap\<Integer,TrainRoute\>\l
++ getTrains() : HashMap\<Integer,Train\>\l
++ getTrainsArrayList() : ArrayList\<Train\>\l
+}" ]
+RouteManagerWindow [ label = "{RouteManagerWindow|
+- mainWindow : MainWindow\l
++ routeManager : RouteManager\l
++ stationDatabase : StationDatabase\l
+|
+- close()\l
++ getRouteManager() : RouteManager\l
++ getScene() : Scene\l
+- showError(String message)\l
+}" ]
+RouteStop [ label = "{RouteStop|
++ arriveTime : RouteTime\l
++ city : Station\l
++ departTime : RouteTime\l
+}" ]
+RouteTime [ label = "{RouteTime|
++ secondsSinceMidnight : long  (static)\l
+|
++ getTime() : long  (static)\l
+}" ]
+Settings [ label = "{Settings|
+- initialMoneyAmount : int  (static)\l
+- simulationSpeedMultiplier : int  (static)\l
++ useRouteManager : boolean  (static)\l
++ vCoefficient : Double  (static)\l
+|
++ getSimulationSpeedMultiplier() : int  (static)\l
++ setInitialMoneyAmount(int amount)  (static)\l
++ setSimulationSpeedMultiplier(int speedMultiplier)  (static)\l
+}" ]
+Station [ label = "{Station|
++ connectedWith : ArrayList\<Station\>\l
++ name : String\l
++ profitability : double\l
++ stationID : int\l
+|
++ connectTo(Station st)\l
++ draw(GraphicsContext gc)\l
++ getStation() : String\l
++ tick()\l
+}" ]
+StationDatabase [ label = "{StationDatabase|
+- stationLinks : ArrayList\<StationLink\>\l
+- stationsById : HashMap\<Integer,Station\>\l
+- stationsByName : HashMap\<String,Station\>\l
+|
++ findStation(int stationId) : Station\l
++ findStation(String stationName) : Station\l
++ getStationLinks() : ArrayList\<StationLink\>\l
++ getStationsById() : HashMap\<Integer,Station\>\l
++ getStationsByName() : HashMap\<String,Station\>\l
+- linkTwoStations(int id1,int id2)\l
+}" ]
+StationLink [ label = "{StationLink|
++ from : Station\l
++ to : Station\l
+|
++ draw(GraphicsContext gc)\l
++ tick()\l
+}" ]
+StatisticsLogger [ label = "{StatisticsLogger|
+- money : int  (static)\l
+- totalCost : long  (static)\l
+- totalPassengersTransported : long  (static)\l
+- totalProfit : long  (static)\l
+- totalTraveledDistance : long  (static)\l
+|
++ logArrival(Train train)  (static)\l
++ setMoney(int initialMoneyAmount)  (static)\l
+}" ]
+Train [ label = "{Train|
++ costPerKM : int\l
+- currentStopID : int\l
++ currentTrainRoute : TrainRoute\l
++ linkProgress : double\l
++ name : String\l
++ nextStation : Station\l
++ passengers : int\l
++ previousStation : Station\l
++ profitPerPassenger : double\l
+- routeDirection : boolean\l
++ seats : int\l
++ speed : int\l
++ testtime : double\l
++ trainID : int\l
+|
++ draw(GraphicsContext gc)\l
++ drawInfoBox(GraphicsContext gc)\l
++ getTrain() : String\l
+- nextRndStop()\l
+- nextStop()\l
++ resetRoute(TrainRoute route)\l
++ tick()\l
+}" ]
+TrainRoute [ label = "{TrainRoute|
++ routeID : int\l
+- stops : ArrayList\<Station\>\l
++ stopsByIDSize : int\l
+|
++ getStop(int stopID) : Station\l
++ getStops() : ArrayList\<Station\>\l
+}" ]
 
     edge [
         arrowsize = 1.5
     ]
 
-    MapObject:sw -> Station [dir=back]
-    MapObject:se -> Train [dir=back]
-    MapObject:s -> StationLink [dir=back]
+
+    // Inheritance
+
+    MapObject -> Station [dir=back]
+    MapObject -> Train [dir=back]
+    MapObject -> StationLink [dir=back]
+
+    // Dependency
+    edge [
+        arrowtail = "open"
+        arrowhead = "none"
+        style = "dashed"
+        arrowsize = 0.9
+        dir = "back"
+    ]
+    Map -> ObjectPathResourceGetter
+    Train -> ObjectPathResourceGetter
+    Train -> Settings
 
     edge [
-        arrowsize = 0.8
+        style = "solid"
+        arrowsize = 1.3
         arrowhead = "open"
         headlabel = "0..*"
         taillabel = "1"
-        labeldistance = 1.5 // Place the asteriks further away from the arrow head
+        labeldistance = 1.6 // Place the asteriks further away from the arrow head
+        arrowtail = "odiamond"
+        dir = back
     ]
 
+    // Aggregation
+
+    // RouteStop -> Station
 
     Station -> Station
 
-    Map -> MapObject
+    Map -> MapObject [ arrowtail = "diamond" ]
     RouteManager -> TrainRoute
-    TrainRoute -> RouteStop
+    //TrainRoute -> RouteStop
+    // instead:
+    TrainRoute -> Station
     StationDatabase -> Station
     StationDatabase -> StationLink
 
@@ -149,27 +226,29 @@ digraph G {
     ]
     StationLink -> Station
 
-    RouteStop -> RouteTime
+    //RouteStop -> RouteTime
 
     edge [
         headlabel = "1"
         taillabel = "1"
     ]
 
-
     Train -> StationLink
 
-    Map -> StatisticsLogger
 
     Map -> StationDatabase
 
-    MainWindow -> Map
-    Map -> RouteManager
-    Map -> RouteTime
-    MainWindow -> RouteManagerWindow
-
+    //Map -> RouteTime
+    //Map -> RouteManager
     RouteManagerWindow -> RouteManager
     RouteManagerWindow -> StationDatabase
+
+    edge [ arrowtail = "diamond" ]
+    // Composition
+
+    Map -> StatisticsLogger
+    MainWindow -> Map
+    MainWindow -> RouteManagerWindow
 
 
 }

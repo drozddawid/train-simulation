@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
@@ -14,7 +13,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RouteManagerWindow {
@@ -30,6 +28,10 @@ public class RouteManagerWindow {
 
     public RouteManager getRouteManager(){ return routeManager;}
 
+    /**
+     *
+     * @return a JavaFX Scene representing the window of a RouteManager
+     */
     public Scene getScene(){
 
         TabPane settings = null;
@@ -47,18 +49,18 @@ public class RouteManagerWindow {
             singleTrain.add(new Separator(Orientation.HORIZONTAL));
             //ID
             HBox idBox = new HBox(10);
-            Label id = new Label("ID: " + Integer.toString(train.trainID) + ".");
+            Label id = new Label("ID: " + Integer.toString(train.getTrainID()) + ".");
             idBox.getChildren().add(id);
             singleTrain.add(idBox);
             //name
             HBox nameEditor = new HBox(10);
-            Label name = new Label("Nazwa: " + train.name);
+            Label name = new Label("Nazwa: " + train.getName());
             name.setMinWidth(300);
             TextField editNameField = new TextField();
             editNameField.setPrefColumnCount(18);
             editNameField.setOnAction(e -> {
-                        train.name = editNameField.getCharacters().toString();
-                        name.setText("Nazwa: " + train.name);
+                        train.setName(editNameField.getCharacters().toString());
+                        name.setText("Nazwa: " + train.getName());
                         editNameField.setText("");
             });
             nameEditor.getChildren().addAll(name,editNameField);
@@ -67,7 +69,7 @@ public class RouteManagerWindow {
             String stops = "";
             Label routeShower = new Label();
             HBox routeEditor = new HBox(10);
-            Label currentRouteID = new Label("ID trasy: " + train.currentTrainRoute.routeID);
+            Label currentRouteID = new Label("ID trasy: " + train.getCurrentTrainRoute().routeID);
             currentRouteID.setMinWidth(300);
             TextField editCurrentRouteID = new TextField();
             editCurrentRouteID.setPrefColumnCount(4);
@@ -77,9 +79,9 @@ public class RouteManagerWindow {
                     identificator = Integer.parseInt(editCurrentRouteID.getCharacters().toString());
                     if(routeManager.getRoutes().containsKey(identificator)) {
                         train.resetRoute(routeManager.getRouteByID(Integer.parseInt(editCurrentRouteID.getCharacters().toString())));
-                        currentRouteID.setText( "ID trasy: " + train.currentTrainRoute.routeID);
+                        currentRouteID.setText( "ID trasy: " + train.getCurrentTrainRoute().routeID);
                         String s = "";
-                        for(Station stop : train.currentTrainRoute.getStops()){s += stop.name + " - ";}
+                        for(Station stop : train.getCurrentTrainRoute().getStops()){s += stop.name + " - ";}
                         s = s.substring( 0, s.lastIndexOf(" - "));
                         routeShower.setText("Przystanki: " + s);
                         editCurrentRouteID.setText("");
@@ -95,13 +97,13 @@ public class RouteManagerWindow {
             singleTrain.add(routeEditor);
             //TODO: add showing train route and make it change if user changes it
 
-            for(Station stop : train.currentTrainRoute.getStops()){stops+= stop.name + " - ";}
+            for(Station stop : train.getCurrentTrainRoute().getStops()){stops+= stop.name + " - ";}
             stops = stops.substring( 0, stops.lastIndexOf(" - "));
             routeShower.setText("Przystanki: " + stops);
             singleTrain.add(routeShower);
             //seats
             HBox seatsEditor = new HBox(10);
-            Label seats = new Label("Ilo\u015b\u0107 siedze\u0144: " + train.seats);
+            Label seats = new Label("Ilo\u015b\u0107 siedze\u0144: " + train.getSeats());
             seats.setMinWidth(300);
             TextField editSeats = new TextField();
             editSeats.setPrefColumnCount(4);
@@ -110,7 +112,7 @@ public class RouteManagerWindow {
                 try{
                     s = Integer.parseInt(editSeats.getCharacters().toString());
                     if(s>0 && s<10001){
-                    train.seats = s;
+                    train.setSeats(s);
                     seats.setText("Ilo\u015b\u0107 siedze\u0144: " + s);
                     editSeats.setText("");
                     } else this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107 : " + s + "\n Wprowad\u017a warto\u015b\u0107 z przedzia\u0142u (0;10000>");
@@ -122,7 +124,7 @@ public class RouteManagerWindow {
             singleTrain.add(seatsEditor);
             //speed
             HBox speedEditor = new HBox(10);
-            Label speed = new Label("Pr\u0119dko\u015b\u0107: " + train.speed + "km/h");
+            Label speed = new Label("Pr\u0119dko\u015b\u0107: " + train.getSpeed() + "km/h");
             speed.setMinWidth(300);
             TextField editSpeed = new TextField();
             editSpeed.setPrefColumnCount(4);
@@ -132,7 +134,7 @@ public class RouteManagerWindow {
                     s = Integer.parseInt(editSpeed.getCharacters().toString());
                     if(s < 1225) {
                         if (s> 0) {
-                            train.speed = s;
+                            train.setSpeed(s);
                             speed.setText("Pr\u0119dko\u015b\u0107: " + s + "km/h");
                             editSpeed.setText("");
                         } else this.showError("Pr\u0119dko\u015b\u0107 musi by\u0107 wi\u0119ksza od zera.");
@@ -145,7 +147,7 @@ public class RouteManagerWindow {
             singleTrain.add(speedEditor);
             //costPerKM
             HBox costEditor = new HBox(10);
-            Label cost = new Label("Koszt przejazdu jednego kilometra: " + train.costPerKM +"z\u0142.");
+            Label cost = new Label("Koszt przejazdu jednego kilometra: " + train.getCostPerKM() +"z\u0142.");
             cost.setMinWidth(300);
             TextField editCost = new TextField();
             editCost.setPrefColumnCount(4);
@@ -154,7 +156,7 @@ public class RouteManagerWindow {
                 try{
                     c = Integer.parseInt(editCost.getCharacters().toString());
                     if(c>=0) {
-                        train.costPerKM = c;
+                        train.setCostPerKM(c);
                         cost.setText("Koszt przejazdu jednego kilometra: " + c +"z\u0142.");
                         editCost.setText("");
                     } else this.showError("Koszt nie mo\u017ce by\u0107 ujemny.");
@@ -166,7 +168,7 @@ public class RouteManagerWindow {
             singleTrain.add(costEditor);
             //profitPerPassenger
             HBox profitEditor = new HBox(10);
-            Label profit = new Label("Zysk z jednego pasa\u017cera na kilometr trasy: " + train.profitPerPassenger +"z\u0142");
+            Label profit = new Label("Zysk z jednego pasa\u017cera na kilometr trasy: " + train.getProfitPerPassenger() +"z\u0142");
             profit.setMinWidth(300);
             TextField editProfit = new TextField();
             editProfit.setPrefColumnCount(4);
@@ -175,7 +177,7 @@ public class RouteManagerWindow {
                 try{
                     s = Double.parseDouble(editProfit.getCharacters().toString());
                     if(s>=0) {
-                        train.profitPerPassenger = s;
+                        train.setProfitPerPassenger(s);
                         profit.setText("Zysk z jednego pasa\u017cera na kilometr trasy: " + s +"z\u0142");
                         editProfit.setText("");
                     } else this.showError("Zysk nie mo\u017ce by\u0107 ujemny.");
@@ -240,26 +242,6 @@ public class RouteManagerWindow {
         dialogStage.show();
 
     }
-
-    /*private String trainMaker(){ //this is for testing, later i will make here real bad-ass trainmaker
-        Stage trainMaker = new Stage();
-        trainMaker.setTitle("Tworzenie poci\u0105gu");
-        trainMaker.initModality(Modality.WINDOW_MODAL);
-        final String[] o = new String[1];
-        TextField name = new TextField();
-        name.setMinWidth(200);
-        Button save = new Button("Save");
-        save.setOnAction(e -> {
-            o[0] = name.getCharacters().toString();
-            trainMaker.close();
-        });
-        VBox box = new VBox();
-        box.getChildren().addAll(name,save);
-        box.setPadding(new Insets(30));
-        trainMaker.setScene(new Scene(box));
-        trainMaker.show();
-        return o[0];
-    }*/
 
 
 }

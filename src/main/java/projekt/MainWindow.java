@@ -26,9 +26,16 @@ public class MainWindow extends Application{
     Scene mainScene, routeManagerScene;
     Stage mainWindow;
 
-    public static void main (String[] args){ launch(args);
-    }
+    /**
+     * The entry function.
+     *
+     * @param args command-line arguments
+     */
+    public static void main (String[] args){ launch(args); }
 
+    /**
+     * Starts the timer that schedules an update at 30fps
+     */
     private void startAdvancingTimeTimer() {
         TimerTask timerTask = new TimerTask() {
             @Override
@@ -40,6 +47,11 @@ public class MainWindow extends Application{
         advancingTimeTimer.scheduleAtFixedRate(timerTask, 0, 1000/30);
     }
 
+    /**
+     * The "real" entry function, provided by JavaFX.
+     *
+     * @param primaryStage the default Stage provided for us by JavaFX, basically the window
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setMinHeight(870);
@@ -65,12 +77,18 @@ public class MainWindow extends Application{
         startSimulating();
     }
 
+    /**
+     * Constructs the blue bottom bar on the main screen
+     * [time] [speed] <-------filler--------> [timetableEdit]
+     *
+     * @return the bottom bar.
+     */
     private HBox bottomHBox() {
         HBox hBox = new HBox();
         hBox.setSpacing(10);
 
         Label time = new Label("Czas w symulacji: 9:15");
-        Label speed = new Label("Pr\u0119dko\u015b\u0107 symulacji: 5m/1s");
+        Label speed = new Label("Pr\u0119dko\u015B\u0107 symulacji: 5m/1s");
 
         Button timetableEdit = new Button("Ustawienia");
         timetableEdit.setOnAction(e -> {
@@ -91,6 +109,9 @@ public class MainWindow extends Application{
         return hBox;
     }
 
+    /**
+     * Starts the simulation when starting the application and when exiting from RouteManagerWindow
+     */
     public void startSimulating(){
         mainWindow.setScene(mainScene);
         map.addObjects(stationDatabase, routeManagerWindow.getRouteManager());

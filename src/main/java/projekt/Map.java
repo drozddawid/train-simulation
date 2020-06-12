@@ -10,7 +10,6 @@ public class Map {
     private ArrayList<MapObject> objects;
     private StationDatabase stationDatabase;
     private RouteManager routeManager;
-    private RouteTime routeTime;
     private StatisticsLogger statisticsLogger;
     private Canvas canvas;
     private GraphicsContext gc;
@@ -18,6 +17,11 @@ public class Map {
     private double mouseX = 0;
     private double mouseY = 0;
 
+    /**
+     * Constructs a Map.
+     *
+     * @param sDB
+     */
     public Map(StationDatabase sDB) {
         stationDatabase = sDB;
         objects = new ArrayList<>();
@@ -25,24 +29,26 @@ public class Map {
         canvas = new Canvas(900,800);
         gc = canvas.getGraphicsContext2D();
 
-   /*     // Add stationLinks first so they get drawn first
-        objects.addAll(stationDatabase.getStationLinks()); I MOVED THIS TO AddObjects() (below) in order to allow button "startSimulating" (in class MainWindow, RouteManagerScene method) put objects on map after changing settings
-        objects.addAll(stationDatabase.getStationsById().values());
-   */
-
-        /* Add a sample train for testing purposes */
-   /*      Train malczewski = new Train(1, "Malczewski", 10, 25, 500,100);
-        malczewski.previousStation = stationDatabase.findStation("Wroc\u0142aw");
-        malczewski.nextStation = stationDatabase.findStation("Cz\u0119stochowa");
-        malczewski.linkProgress = 0.5; // 50%
-        objects.add(malczewski);
-   */
         getCanvas().setOnMouseMoved(event -> {
             mouseX = event.getX();
             mouseY = event.getY();
         });
     }
 
+    /**
+     * Deletes all the MapObjects from the Map
+     * Used when going from the map view to the settings view
+     */
+    public void clearObjects() {
+        objects.clear();
+    }
+
+    /**
+     * Adds StationLinks, Stations and Trains to the Map.
+     *
+     * @param stationDatabase The database with Stations and StationLinks
+     * @param routeManager The manager holding all the trains
+     */
     public void addObjects(StationDatabase stationDatabase, RouteManager routeManager){
         // Add stationLinks first so they get drawn first
         objects.addAll(stationDatabase.getStationLinks());
@@ -58,14 +64,17 @@ public class Map {
         objects.add(malczewski);*/
     }
 
-    public void clearObjects(){
-        objects.clear();
-    }
+    /**
+     *
+     * @return the Canvas object all drawing on the Map is done.
+     */
     public Canvas getCanvas() {
         return canvas;
     }
 
-    /* Runs about 30 times a second */
+    /**
+     * Runs at abous 30fps - asks all the MapObjects for an update and draws them on a map of Poland
+     */
     public void advanceTime() {
         gc.save();
         gc.beginPath();
@@ -87,6 +96,9 @@ public class Map {
         drawInfoBox();
     }
 
+    /**
+     * Tells a Train to draw a small infobox if the mouse pointer is close to it
+     */
     private void drawInfoBox() {
         double closestDistanceMouseToTrain = 1000;
         Train closestTrain = null;
@@ -115,6 +127,9 @@ public class Map {
         gc.restore();
     }
 
+    /**
+     * Clears the whole map.
+     */
     private void clearMap() {
         // Clear everything
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
