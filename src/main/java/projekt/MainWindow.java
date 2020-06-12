@@ -43,7 +43,7 @@ public class MainWindow extends Application {
     private void showStatsAndExit(){
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setTitle("Symulacja została zakończona.");
+        dialogStage.setTitle("Symulacja zosta\u0142a zako\u0144czona.");
 
         Button ok = new Button ("Zamknij");
         ok.setOnAction(f -> { dialogStage.close(); System.exit(0);} );
@@ -138,10 +138,10 @@ public class MainWindow extends Application {
         int hour = ((int)time / 60) % 24;
         int minute = (int)time % 60;
         Label time = new Label("Czas w symulacji:");
-        Label speed = new Label("Prędkość symulacji: " + Settings.getSimulationSpeedMultiplier()/60 + "min/1s");
+        Label speed = new Label("Pr\u0119dko\u015b\u0107 symulacji: " + Settings.getSimulationSpeedMultiplier()/60 + "min/1s");
         TextField setSimulationSpeed = new TextField();
         setSimulationSpeed.setPrefColumnCount(3);
-        setSimulationSpeed.setPromptText("Prędkość symulacji (x min/1s)");
+        setSimulationSpeed.setPromptText("Pr\u0119dko\u015b\u0107 symulacji (x min/1s)");
         setSimulationSpeed.setOnAction(e -> {
             int speedGiven;
             try{
@@ -150,16 +150,16 @@ public class MainWindow extends Application {
                     speedGiven *= -1;
                 } if (speedGiven == 0){
                     Settings.setSimulationSpeedMultiplier(1);
-                    speed.setText("Prędkość symulacji: czas rzeczywisty (1s/1s)");
+                    speed.setText("Pr\u0119dko\u015b\u0107 symulacji: czas rzeczywisty (1s/1s)");
                 }else if(speedGiven < 121){
                     Settings.setSimulationSpeedMultiplier(speedGiven*60);
-                    speed.setText("Prędkość symulacji: " + Settings.getSimulationSpeedMultiplier()/60 + "min/1s");
+                    speed.setText("Pr\u0119dko\u015b\u0107 symulacji: " + Settings.getSimulationSpeedMultiplier()/60 + "min/1s");
                 }else {
                     Settings.setSimulationSpeedMultiplier(7201);
-                    speed.setText("Prędkość symulacji: " + Settings.getSimulationSpeedMultiplier() / 60 + "min/1s");
+                    speed.setText("Pr\u0119dko\u015b\u0107 symulacji: " + Settings.getSimulationSpeedMultiplier() / 60 + "min/1s");
                 }
             }catch (NumberFormatException f){
-                routeManagerWindow.showError("Wprowadzono niepoprawną wartość. Wprowadź liczbę całkowitą.");
+                routeManagerWindow.showError("Wprowadzono niepoprawn\u0105 warto\u015b\u0107. Wprowad\u017a liczb\u0119 ca\u0142kowit\u0105.");
             }
         });
 

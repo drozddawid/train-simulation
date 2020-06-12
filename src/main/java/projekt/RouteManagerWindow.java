@@ -106,7 +106,7 @@ public class RouteManagerWindow {
                     this.showError("Nie istnieje trasa o podanym ID: " + identificator);
                 }
             }catch (NumberFormatException ex) {
-                this.showError("Wprowadzono nieprawidłową wartość.: " + editCurrentRouteID.getCharacters().toString());
+                this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107.: " + editCurrentRouteID.getCharacters().toString());
             }
         });
         routeEditor.getChildren().addAll(currentRouteID,editCurrentRouteID);
@@ -118,7 +118,7 @@ public class RouteManagerWindow {
         singleTrain.add(routeShower);
         //seats
         HBox seatsEditor = new HBox(10);
-        Label seats = new Label("Ilość siedzeń: " + train.getSeats());
+        Label seats = new Label("Ilo\u015b\u0107 siedze\u0144: " + train.getSeats());
         seats.setMinWidth(300);
         TextField editSeats = new TextField();
         editSeats.setPrefColumnCount(4);
@@ -128,18 +128,18 @@ public class RouteManagerWindow {
                 s = Integer.parseInt(editSeats.getCharacters().toString());
                 if(s>0 && s<10001){
                     train.setSeats(s);
-                    seats.setText("Ilość siedzeń: " + s);
+                    seats.setText("Ilo\u015b\u0107 siedze\u0144: " + s);
                     editSeats.setText("");
-                } else this.showError("Wprowadzono nieprawidłową wartość : " + s + "\n Wprowadź wartość z przedziału (0;10000>");
+                } else this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107 : " + s + "\n Wprowad\u017a warto\u015b\u0107 z przedzia\u0142u (0;10000>");
             }catch (NumberFormatException ex) {
-                this.showError("Wprowadzono nieprawidłową wartość: " + editSeats.getCharacters().toString());
+                this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editSeats.getCharacters().toString());
             }
         });
         seatsEditor.getChildren().addAll(seats,editSeats);
         singleTrain.add(seatsEditor);
         //speed
         HBox speedEditor = new HBox(10);
-        Label speed = new Label("Prędkość: " + train.getSpeed() + "km/h");
+        Label speed = new Label("Pr\u0119dko\u015b\u0107: " + train.getSpeed() + "km/h");
         speed.setMinWidth(300);
         TextField editSpeed = new TextField();
         editSpeed.setPrefColumnCount(4);
@@ -150,19 +150,19 @@ public class RouteManagerWindow {
                 if(s < 1225) {
                     if (s> 0) {
                         train.setSpeed(s);
-                        speed.setText("Prędkość: " + s + "km/h");
+                        speed.setText("Pr\u0119dko\u015b\u0107: " + s + "km/h");
                         editSpeed.setText("");
-                    } else this.showError("Prędkość musi być większa od zera.");
-                } else this.showError("Pociągi nie jeżdżą tak szybko ;)\n Wprowadź wartość poniżej prędkości dźwięku w powietrzu o temperaturze 15 stopni Celsjusza.");
+                    } else this.showError("Pr\u0119dko\u015b\u0107 musi by\u0107 wi\u0119ksza od zera.");
+                } else this.showError("Poci\u0105gi nie je\u017cd\u017c\u0105 tak szybko ;)\n Wprowad\u017a warto\u015b\u0107 poni\u017cej pr\u0119dko\u015bci d\u017awi\u0119ku w powietrzu o temperaturze 15 stopni Celsjusza.");
             }catch (NumberFormatException ex) {
-                this.showError("Wprowadzono nieprawidłową wartość: " + editSpeed.getCharacters().toString());
+                this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editSpeed.getCharacters().toString());
             }
         });
         speedEditor.getChildren().addAll(speed,editSpeed);
         singleTrain.add(speedEditor);
         //costPerKM
         HBox costEditor = new HBox(10);
-        Label cost = new Label("Koszt przejazdu jednego kilometra: " + train.getCostPerKM() +"zł.");
+        Label cost = new Label("Koszt przejazdu jednego kilometra: " + train.getCostPerKM() +"z\u0142.");
         cost.setMinWidth(300);
         TextField editCost = new TextField();
         editCost.setPrefColumnCount(4);
@@ -172,18 +172,18 @@ public class RouteManagerWindow {
                 c = Integer.parseInt(editCost.getCharacters().toString());
                 if(c>=0) {
                     train.setCostPerKM(c);
-                    cost.setText("Koszt przejazdu jednego kilometra: " + c +"zł.");
+                    cost.setText("Koszt przejazdu jednego kilometra: " + c +"z\u0142.");
                     editCost.setText("");
-                } else this.showError("Koszt nie może być ujemny.");
+                } else this.showError("Koszt nie mo\u017ce by\u0107 ujemny.");
             }catch (NumberFormatException ex) {
-                this.showError("Wprowadzono nieprawidłową wartość: " + editCost.getCharacters().toString());
+                this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editCost.getCharacters().toString());
             }
         });
         costEditor.getChildren().addAll(cost,editCost);
         singleTrain.add(costEditor);
         //profitPerPassenger
         HBox profitEditor = new HBox(10);
-        Label profit = new Label("Zysk z jednego pasażera na kilometr trasy: " + train.getProfitPerPassenger() +"zł");
+        Label profit = new Label("Zysk z jednego pasa\u017cera na kilometr trasy: " + train.getProfitPerPassenger() +"z\u0142");
         profit.setMinWidth(300);
         TextField editProfit = new TextField();
         editProfit.setPrefColumnCount(4);
@@ -193,14 +193,14 @@ public class RouteManagerWindow {
                 s = Double.parseDouble(editProfit.getCharacters().toString());
                 if(s>=0) {
                     train.setProfitPerPassenger(s);
-                    profit.setText("Zysk z jednego pasażera na kilometr trasy: " + s +"zł");
+                    profit.setText("Zysk z jednego pasa\u017cera na kilometr trasy: " + s +"z\u0142");
                     editProfit.setText("");
-                } else this.showError("Zysk nie może być ujemny.");
+                } else this.showError("Zysk nie mo\u017ce by\u0107 ujemny.");
             }catch (NumberFormatException ex) {
-                this.showError("Wprowadzono nieprawidłową wartość: " + editProfit.getCharacters().toString());
+                this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + editProfit.getCharacters().toString());
             }
         });
-        Button removeTrain = new Button ("Usuń pociąg");
+        Button removeTrain = new Button ("Usu\u0144 poci\u0105g");
         removeTrain.setOnAction(e-> {
             routeManager.getTrains().remove(train.getTrainID());
             trainsBox.getChildren().removeAll(singleTrain);
@@ -247,8 +247,8 @@ public class RouteManagerWindow {
         }
         stationsBox.getChildren().addAll(stations);
         box.getChildren().add(stationsBox);
-        Button deleteLastStation = new Button ("Usuń ostatnią stację");
-        if(stations.size() == 0)deleteLastStation.setText("Usuń trasę");
+        Button deleteLastStation = new Button ("Usu\u0144 ostatni\u0105 stacj\u0119");
+        if(stations.size() == 0)deleteLastStation.setText("Usu\u0144 tras\u0119");
         AtomicBoolean nextClickDelete = new AtomicBoolean(false);
         deleteLastStation.setOnAction(e -> {
             int i = stations.size();
@@ -256,7 +256,7 @@ public class RouteManagerWindow {
             if(i == 0){
                 nextClickDelete.set(true);
             }if(i == 1) {
-                deleteLastStation.setText("Usuń trasę.");
+                deleteLastStation.setText("Usu\u0144 tras\u0119.");
             }else if(i == 2){
                 if(routeManager.getTrainsArrayList().size() != 0){
                     for(Train train : routeManager.getTrains().values()){// checking if some trains have empty route, and if it does, changing it to first not empty one found (to avoid problems with no-route trains)
@@ -386,16 +386,16 @@ public class RouteManagerWindow {
     }
 
     private Tab getTimeTableTab(){
-        Button startSimulating = new Button("Rozpocznij symulację");
+        Button startSimulating = new Button("Rozpocznij symulacj\u0119");
         startSimulating.setMinWidth(600);
         startSimulating.setAlignment(Pos.TOP_CENTER);
         startSimulating.setOnAction(e -> {
             this.close();
-            mainWindow.changeSettingsButtonText("Zatrzymaj symulację i przejdź do ustawień.");
+            mainWindow.changeSettingsButtonText("Zatrzymaj symulacj\u0119 i przejd\u017a do ustawie\u0144.");
             mainWindow.startSimulating();
         });
         routesBox.getChildren().add(startSimulating);
-        Button addTrainRoute = new Button("Dodaj nową trasę");
+        Button addTrainRoute = new Button("Dodaj now\u0105 tras\u0119");
         addTrainRoute.setOnAction(e->{
             int id = -1;
             for(TrainRoute route : routeManager.getRoutes().values()){
@@ -410,7 +410,7 @@ public class RouteManagerWindow {
             routesBox.getChildren().addAll(getSingleRouteGraphicRepresentation(trainRoute));
         });
         routesBox.getChildren().add(addTrainRoute);
-        Label advice = new Label ("Aby dodać kolejną stację, wpisz ID lub nazwę i zatwierdź(Enter)\n Aby usunąć trasę, usuń wszystkie stacje.");
+        Label advice = new Label ("Aby doda\u0107 kolejn\u0105 stacj\u0119, wpisz ID lub nazw\u0119 i zatwierd\u017a(Enter)\n Aby usun\u0105\u0107 tras\u0119, usu\u0144 wszystkie stacje.");
         routesBox.getChildren().add(advice);
 
         for(ArrayList<Region> control : getRoutesGraphicRepresentation(routeManager.getTrainRoutesArrayList())){
@@ -431,26 +431,26 @@ public class RouteManagerWindow {
     private Tab getSettingsTab(){
         VBox box = new VBox();
         Insets padding = new Insets(8);
-        Button startSimulating = new Button("Rozpocznij symulację");
+        Button startSimulating = new Button("Rozpocznij symulacj\u0119");
         startSimulating.setMinWidth(600);
         startSimulating.setAlignment(Pos.TOP_CENTER);
         startSimulating.setOnAction(e -> {
             this.close();
-            mainWindow.changeSettingsButtonText("Zatrzymaj symulację i przejdź do ustawień.");
+            mainWindow.changeSettingsButtonText("Zatrzymaj symulacj\u0119 i przejd\u017a do ustawie\u0144.");
             mainWindow.startSimulating();
         });
         box.getChildren().add(startSimulating);
 
-        Label initialMoneyAmount = new Label("Początkowa ilość pieniędzy: " + Settings.getInitialMoneyAmount() + "zł");
+        Label initialMoneyAmount = new Label("Pocz\u0105tkowa ilo\u015b\u0107 pieni\u0119dzy: " + Settings.getInitialMoneyAmount() + "z\u0142");
         TextField setInitialMoneyAmount = new TextField();
         setInitialMoneyAmount.setPrefColumnCount(10);
         setInitialMoneyAmount.setOnAction(e -> {
             try{
                 int i = Integer.parseInt(setInitialMoneyAmount.getCharacters().toString());
                 Settings.setInitialMoneyAmount(i);
-                initialMoneyAmount.setText("Początkowa ilość pieniędzy: " + Settings.getInitialMoneyAmount() + "zł");
+                initialMoneyAmount.setText("Pocz\u0105tkowa ilo\u015b\u0107 pieni\u0119dzy: " + Settings.getInitialMoneyAmount() + "z\u0142");
             }catch (NumberFormatException exce){
-                showError("Wprowadzono nieprawidłową wartość: " + setInitialMoneyAmount.getCharacters().toString());
+                showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + setInitialMoneyAmount.getCharacters().toString());
             }
         });
         HBox moneyEditor = new HBox();
@@ -466,15 +466,15 @@ public class RouteManagerWindow {
                 Settings.setStopCondition(i);
                 stopCondition.setText("Czas symulowania: " + Settings.getStopCondition() + "h");
             }catch (NumberFormatException exce){
-                showError("Wprowadzono nieprawidłową wartość: " + setStopCondition.getCharacters().toString());
+                showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + setStopCondition.getCharacters().toString());
             }
         });
         HBox stopConditionEditor = new HBox();
         stopConditionEditor.setPadding(padding);
         stopConditionEditor.getChildren().addAll(stopCondition,setStopCondition);
 
-        Label useRouteManager = new Label("Czy używać menedżera tras?\n\nZaznacz jeśli chcesz aby pociągi jeździły według rozkładu." +
-                "\nW przeciwnym wypadku trasy będą pseudolosowe.");
+        Label useRouteManager = new Label("Czy u\u017cywa\u0107 mened\u017cera tras?\n\nZaznacz je\u015bli chcesz aby poci\u0105gi je\u017adzi\u0142y wed\u0142ug rozk\u0142adu." +
+                "\nW przeciwnym wypadku trasy b\u0119d\u0105 pseudolosowe.");
         CheckBox ifuseRouteManager = new CheckBox();
         ifuseRouteManager.setSelected(Settings.useRouteManager);
         ifuseRouteManager.setOnAction(e ->{
@@ -492,17 +492,17 @@ public class RouteManagerWindow {
     }
 
     private Tab getTrainsTab(){
-        Button startSimulating = new Button("Rozpocznij symulację");
+        Button startSimulating = new Button("Rozpocznij symulacj\u0119");
         startSimulating.setMinWidth(600);
         startSimulating.setAlignment(Pos.TOP_CENTER);
         startSimulating.setOnAction(e -> {
             this.close();
-            mainWindow.changeSettingsButtonText("Zatrzymaj symulację i przejdź do ustawień.");
+            mainWindow.changeSettingsButtonText("Zatrzymaj symulacj\u0119 i przejd\u017a do ustawie\u0144.");
             mainWindow.startSimulating();
         });
         trainsBox.getChildren().add(startSimulating);
 
-        Button addTrain = new Button("Dodaj pociąg");
+        Button addTrain = new Button("Dodaj poci\u0105g");
         addTrain.setOnAction(e -> {
             try{
                 Train newTrain = this.trainMaker();
@@ -510,7 +510,7 @@ public class RouteManagerWindow {
                 trainsBox.getChildren().addAll(getSingleTrainGraphicRepresentation(newTrain));
 
             } catch(NullPointerException exc){
-                showError("Dodawanie pociągu anulowane.");
+                showError("Dodawanie poci\u0105gu anulowane.");
             }
         });
         trainsBox.getChildren().add(addTrain);
@@ -526,7 +526,7 @@ public class RouteManagerWindow {
         content.setContent(trainsBox);
         content.setFitToHeight(true);
         content.setFitToWidth(true);
-        Tab trains = new Tab("Pociągi", content);
+        Tab trains = new Tab("Poci\u0105gi", content);
         return trains;
     }
 
@@ -551,7 +551,7 @@ public class RouteManagerWindow {
     public void showStats(String stats){
         Stage dialogStage = new Stage();
         dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setTitle("Symulacja została zakończona.");
+        dialogStage.setTitle("Symulacja zosta\u0142a zako\u0144czona.");
 
         Button ok = new Button ("Zamknij");
         ok.setOnAction(f -> dialogStage.close());
@@ -574,7 +574,7 @@ public class RouteManagerWindow {
 
     private Train trainMaker(){
         Stage trainMaker = new Stage();
-        trainMaker.setTitle("Tworzenie pociągu");
+        trainMaker.setTitle("Tworzenie poci\u0105gu");
         trainMaker.setMinHeight(400);
         trainMaker.setMinWidth(800);
         trainMaker.initModality(Modality.WINDOW_MODAL);
@@ -588,7 +588,7 @@ public class RouteManagerWindow {
         TextField currentRouteID = new TextField();
         currentRouteID.setPromptText("ID trasy");
         currentRouteID.setMinWidth(200);
-        Label routeShower = new Label("Wciśnij enter aby wyświetlić przystanki");
+        Label routeShower = new Label("Wci\u015bnij enter aby wy\u015bwietli\u0107 przystanki");
         currentRouteID.setOnAction(e -> {
             int routeIDGiven;
             try{
@@ -603,16 +603,16 @@ public class RouteManagerWindow {
                     this.showError("Nie istnieje trasa o podanym ID: " + routeIDGiven);
                 }
             }catch (NumberFormatException ex) {
-                this.showError("Wprowadzono nieprawidłową wartość.: " + currentRouteID.getCharacters().toString());
+                this.showError("Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107.: " + currentRouteID.getCharacters().toString());
             }
         });
         //seats
         TextField seats = new TextField();
-        seats.setPromptText("Ilość siedzeń");
+        seats.setPromptText("Ilo\u015b\u0107 siedze\u0144");
         seats.setMinWidth(200);
         //speed
         TextField speed = new TextField();
-        speed.setPromptText("Prędkość (km/h)");
+        speed.setPromptText("Pr\u0119dko\u015b\u0107 (km/h)");
         speed.setMinWidth(200);
         //costPerKM
         TextField costPerKM = new TextField();
@@ -620,7 +620,7 @@ public class RouteManagerWindow {
         costPerKM.setMinWidth(200);
         //profitPerPassenger
         TextField profitPerPassenger = new TextField();
-        profitPerPassenger.setPromptText("Zysk z przewiezienia jednego klienta na trasie o długości jednego kilometra");
+        profitPerPassenger.setPromptText("Zysk z przewiezienia jednego klienta na trasie o d\u0142ugo\u015bci jednego kilometra");
         profitPerPassenger.setMinWidth(200);
 
         final int[] id = {-1};
@@ -633,7 +633,7 @@ public class RouteManagerWindow {
         final int[] costGiven = {0};
         final double[] profitGiven = {0};
 
-        Button save = new Button("Dodaj pociąg");
+        Button save = new Button("Dodaj poci\u0105g");
         save.setOnAction(e -> {
 
             //getting last train made ID
@@ -681,15 +681,15 @@ public class RouteManagerWindow {
                     if(s>0 && s<10001){
                         seatsGiven[0] = s;
                     } else {
-                        errorMessages[0] += "\nIlość siedzeń: Wprowadzono nieprawidłową wartość : " + s + " Wprowadź wartość z przedziału (0;10000>";
+                        errorMessages[0] += "\nIlo\u015b\u0107 siedze\u0144: Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107 : " + s + " Wprowad\u017a warto\u015b\u0107 z przedzia\u0142u (0;10000>";
                         errorOccured[0] = true;
                     }
                 }catch (NumberFormatException ex) {
-                    errorMessages[0] += "\nIlość siedzeń: Wprowadzono nieprawidłową wartość: " + seats.getCharacters().toString();
+                    errorMessages[0] += "\nIlo\u015b\u0107 siedze\u0144: Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + seats.getCharacters().toString();
                     errorOccured[0] = true;
                 }
             } else {
-                errorMessages[0] += "\nNie wprowadzono liczby siedzeń."; errorOccured[0] =true;}
+                errorMessages[0] += "\nNie wprowadzono liczby siedze\u0144."; errorOccured[0] =true;}
             //getting speed
 
             if(speed.getCharacters().length() != 0){
@@ -699,17 +699,17 @@ public class RouteManagerWindow {
                     if(s<1225){
                         if(s>0) {
                             speedGiven[0] = s;
-                        } else { errorMessages[0] += "\nPrędkość musi być większa od zera."; errorOccured[0] = true; }
+                        } else { errorMessages[0] += "\nPr\u0119dko\u015b\u0107 musi by\u0107 wi\u0119ksza od zera."; errorOccured[0] = true; }
                     } else {
-                        errorMessages[0] += "\nPociągi nie jeżdżą tak szybko ;)\nWprowadź wartość prędkości mniejszą niż prędkość dźwięku w powietrzu o temperaturze 15 stopni Celsjusza.";
+                        errorMessages[0] += "\nPoci\u0105gi nie je\u017cd\u017c\u0105 tak szybko ;)\nWprowad\u017a warto\u015b\u0107 pr\u0119dko\u015bci mniejsz\u0105 ni\u017c pr\u0119dko\u015b\u0107 d\u017awi\u0119ku w powietrzu o temperaturze 15 stopni Celsjusza.";
                         errorOccured[0] = true;
                     }
                 }catch (NumberFormatException ex) {
-                    errorMessages[0] += "\nPrędkość: Wprowadzono nieprawidłową wartość: " + speed.getCharacters().toString();
+                    errorMessages[0] += "\nPr\u0119dko\u015b\u0107: Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + speed.getCharacters().toString();
                     errorOccured[0] = true;
                 }
             } else {
-                errorMessages[0] += "\nNie wprowadzono prędkości."; errorOccured[0] = true;}
+                errorMessages[0] += "\nNie wprowadzono pr\u0119dko\u015bci."; errorOccured[0] = true;}
             //getting cost
 
             int c;
@@ -719,9 +719,9 @@ public class RouteManagerWindow {
                     if (c >= 0) {
                         costGiven[0] = c;
                     } else {
-                        errorMessages[0] += "\nKoszt nie może być ujemny."; errorOccured[0] = true;}
+                        errorMessages[0] += "\nKoszt nie mo\u017ce by\u0107 ujemny."; errorOccured[0] = true;}
                 } catch (NumberFormatException ex) {
-                    errorMessages[0] += "\nKoszt przejazdu jednego kilometra: Wprowadzono nieprawidłową wartość: " + costPerKM.getCharacters().toString();
+                    errorMessages[0] += "\nKoszt przejazdu jednego kilometra: Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + costPerKM.getCharacters().toString();
                     errorOccured[0] = true;
                 }
             } else {
@@ -735,16 +735,16 @@ public class RouteManagerWindow {
                     if (s >= 0) {
                         profitGiven[0] = s;
                     } else {
-                        errorMessages[0] += "\nZysk nie może być ujemny.";
+                        errorMessages[0] += "\nZysk nie mo\u017ce by\u0107 ujemny.";
                         errorOccured[0] = true;
                     }
                 } catch (NumberFormatException ex) {
-                    errorMessages[0] += "\nZysk z przewozu jednego pasażera na trasie o długości kilometra: Wprowadzono nieprawidłową wartość: " + profitPerPassenger.getCharacters().toString();
+                    errorMessages[0] += "\nZysk z przewozu jednego pasa\u017cera na trasie o d\u0142ugo\u015bci kilometra: Wprowadzono nieprawid\u0142ow\u0105 warto\u015b\u0107: " + profitPerPassenger.getCharacters().toString();
                     errorOccured[0] = true;
                 }
-            } else {errorMessages[0] += "\nNie wprowadzono zysku z przewozu jednego pasażera na trasie o długości kilometra."; errorOccured[0] = true;}
+            } else {errorMessages[0] += "\nNie wprowadzono zysku z przewozu jednego pasa\u017cera na trasie o d\u0142ugo\u015bci kilometra."; errorOccured[0] = true;}
             for (TrainRoute route :routeManager.getRoutes().values()){
-                //sprawdź czy jakakolwiek trasa ma więcej niż jeden przystanek
+                //sprawd\u017a czy jakakolwiek trasa ma wi\u0119cej ni\u017c jeden przystanek
             }
             if(!errorOccured[0]){
                 train[0] = new Train(id[0],nameGiven[0], costGiven[0], profitGiven[0], seatsGiven[0], speedGiven[0], routeGiven[0]);
