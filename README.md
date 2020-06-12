@@ -23,10 +23,11 @@ Projekt znajduje się na Githubie: [karolba/projekt-programowanie-obiektowe](htt
 
 ## Instrukcja budowania
 
-Aby zbudować oraz uruchomić projekt:
 
 - potrzebna jest [Java w wersji przynajmniej 11](https://adoptopenjdk.net/).
 - dla Windowsa:
-    - należy w katalogu projektu wykonać `gradlew.bat run`
+    - aby zbudować oraz uruchomić projekt należy w katalogu projektu wykonać `gradlew.bat run`
+    - aby zbudować oraz spakować projekt razem z wszystkimi zależnościami należy w katalogu projektu wykonać `gradlew.bat distZip`
 - dla systemów unixowych:
-    - należy w katalogu projektu wykonać `./gradlew run`
+    - aby zbudować oraz uruchomić projekt należy w katalogu projektu wykonać `./gradlew run`
+    - aby zbudować oraz spakować projekt razem z wszystkimi zależnościami należy w katalogu projektu wykonać `./gradlew distZip`

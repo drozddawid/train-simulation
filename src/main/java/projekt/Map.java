@@ -6,6 +6,9 @@ import javafx.scene.paint.Paint;
 
 import java.util.ArrayList;
 
+/**
+ * The map class drawing every object on it
+ */
 public class Map {
     private ArrayList<MapObject> objects;
     private StationDatabase stationDatabase;
@@ -13,7 +16,6 @@ public class Map {
     private StatisticsLogger statisticsLogger;
     private Canvas canvas;
     private GraphicsContext gc;
-    private String loadedCountrySvgPath;
     private double mouseX = 0;
     private double mouseY = 0;
 

@@ -5,6 +5,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ *
+ */
 public class StatisticsLogger {//TODO:(make it show in window and save to datafile) for now it just shows in console what statisticlogger should show on panel and save to some datafile
     private static int money = 0;
     private static long totalTraveledDistance = 0;

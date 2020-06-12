@@ -2,23 +2,19 @@ package projekt;
 
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
-public class MainWindow extends Application{
+/**
+ * The main window of the application. Contain the Map and RouteManager as scenes.
+ */
+public class MainWindow extends Application {
     private Map map;
     private Timer advancingTimeTimer;
     private StationDatabase stationDatabase = new StationDatabase();
@@ -73,7 +69,6 @@ public class MainWindow extends Application{
         mainWindow = primaryStage;
         startAdvancingTimeTimer();
 
-        // TODO: delete
         startSimulating();
     }
 
