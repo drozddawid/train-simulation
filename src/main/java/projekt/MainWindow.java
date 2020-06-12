@@ -37,6 +37,9 @@ public class MainWindow extends Application{
                 Platform.runLater(() -> map.advanceTime());
             }
         };
+        
+        if(advancingTimeTimer != null)
+            advancingTimeTimer.cancel();
 
         advancingTimeTimer = new Timer();
         advancingTimeTimer.scheduleAtFixedRate(timerTask, 0, 1000/30);
