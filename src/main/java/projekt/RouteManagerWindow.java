@@ -450,6 +450,22 @@ public class RouteManagerWindow {
         moneyEditor.setPadding(padding);
         moneyEditor.getChildren().addAll(initialMoneyAmount,setInitialMoneyAmount);
 
+        Label stopCondition = new Label("Czas symulowania: " + Settings.getStopCondition() + "h");
+        TextField setStopCondition = new TextField();
+        setStopCondition.setPrefColumnCount(10);
+        setStopCondition.setOnAction(e -> {
+            try{
+                int i = Integer.parseInt(setStopCondition.getCharacters().toString());
+                Settings.setStopCondition(i);
+                stopCondition.setText("Czas symulowania: " + Settings.getStopCondition() + "h");
+            }catch (NumberFormatException exce){
+                showError("Wprowadzono nieprawidłową wartość: " + setStopCondition.getCharacters().toString());
+            }
+        });
+        HBox stopConditionEditor = new HBox();
+        stopConditionEditor.setPadding(padding);
+        stopConditionEditor.getChildren().addAll(stopCondition,setStopCondition);
+
         Label useRouteManager = new Label("Czy używać menedżera tras?\n\nZaznacz jeśli chcesz aby pociągi jeździły według rozkładu." +
                 "\nW przeciwnym wypadku trasy będą pseudolosowe.");
         CheckBox ifuseRouteManager = new CheckBox();
@@ -463,7 +479,7 @@ public class RouteManagerWindow {
         usingRouteManagerEditor.setPadding(new Insets(8));
         usingRouteManagerEditor.getChildren().addAll(useRouteManager,ifuseRouteManager);
 
-        box.getChildren().addAll(moneyEditor, usingRouteManagerEditor);
+        box.getChildren().addAll(moneyEditor,stopConditionEditor, usingRouteManagerEditor);
         Tab settings = new Tab("Ustawienia", box);
         return settings;
     }
