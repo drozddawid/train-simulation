@@ -47,7 +47,7 @@ public class RouteManagerWindow {
         settingsTab  = getSettingsTab();
         trainsTab = getTrainsTab();
         timetableTab = getTimeTableTab();
-        settings.getTabs().addAll(timetableTab, settingsTab, trainsTab);
+        settings.getTabs().addAll(timetableTab, trainsTab, settingsTab);
         Scene routeManagerScene = new Scene(settings, 1400,850);
         return routeManagerScene;
     }
