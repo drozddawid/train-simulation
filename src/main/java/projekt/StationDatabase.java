@@ -7,12 +7,13 @@ import org.json.JSONTokener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
+/**
+ * A database of stations
+ */
 public class StationDatabase {
     private HashMap<Integer, Station> stationsById = new HashMap<>();
     private HashMap<String, Station> stationsByName = new HashMap<>();
     private ArrayList<StationLink> stationLinks = new ArrayList<>();
-
 
     StationDatabase(){ //makes stations and connections database based on data files (stations.json)
         JSONObject stationsFile = new JSONObject(new JSONTokener(getClass().getResourceAsStream("/stations.json")));

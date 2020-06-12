@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * A class that keeps all the routes and trains
+ */
 public class RouteManager {
     private HashMap<Integer, TrainRoute> routes;
     private HashMap<Integer, Train> trains = new HashMap<>();

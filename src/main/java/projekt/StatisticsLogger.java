@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 /**
- *
+ * A class for collecting statistics to stdout and "rapport.txt"
  */
 public class StatisticsLogger {//TODO:(make it show in window and save to datafile) for now it just shows in console what statisticlogger should show on panel and save to some datafile
     private static int money = 0;

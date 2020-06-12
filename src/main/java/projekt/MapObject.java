@@ -2,6 +2,9 @@ package projekt;
 
 import javafx.scene.canvas.GraphicsContext;
 
+/**
+ * An abstract object drawn on the Map
+ */
 public abstract class MapObject {
     /**
      * The X coordinate of an object

@@ -15,6 +15,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * The window for managing routes and trains
+ */
 public class RouteManagerWindow {
     public RouteManager routeManager;
     public StationDatabase stationDatabase;

@@ -8,6 +8,9 @@ import javafx.scene.text.TextAlignment;
 
 import java.util.ArrayList;
 
+/**
+ * A station to be drawn on the map
+ */
 public class Station extends MapObject {
     /**
      * The ID of a Station

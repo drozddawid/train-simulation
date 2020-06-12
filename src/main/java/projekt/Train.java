@@ -7,6 +7,9 @@ import javafx.scene.text.Font;
 
 import java.util.ArrayList;
 
+/**
+ * A train to be drawn on the map
+ */
 public class Train extends MapObject{
     private int trainID;
     private String name;
