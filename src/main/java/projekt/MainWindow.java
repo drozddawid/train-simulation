@@ -40,22 +40,6 @@ public class MainWindow extends Application {
      */
     public static void main (String[] args){ launch(args); }
 
-    private void showStatsAndExit(){
-        Stage dialogStage = new Stage();
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setTitle("Symulacja została zakończona.");
-
-        Button ok = new Button ("Zamknij");
-        ok.setOnAction(f -> { dialogStage.close(); System.exit(0);} );
-        VBox vbox = new VBox(new Label ("Statystyki znajduja sie w pliku rapport.txt"), ok);
-        vbox.setSpacing(10);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setPadding(new Insets(30));
-
-        dialogStage.setScene(new Scene(vbox));
-        dialogStage.show();
-    }
-
 
     /**
      * Starts the timer that schedules an update at 30fps
@@ -70,7 +54,7 @@ public class MainWindow extends Application {
                     updateTime();
                     map.advanceTime();
                     if(time > Settings.getStopCondition() * 60) {
-                        showStatsAndExit();
+                        showStats(StatisticsLogger.getEndMessage());
                         advancingTimeTimer.cancel();
                     }
                 });
@@ -137,7 +121,7 @@ public class MainWindow extends Application {
         dialogStage.setTitle("Symulacja została zakończona.");
 
         Button ok = new Button ("Zamknij");
-        ok.setOnAction(f -> dialogStage.close());
+        ok.setOnAction(f -> { dialogStage.close(); System.exit(0);});
         VBox vbox = new VBox(new Label (stats), ok);
         vbox.setSpacing(10);
         vbox.setAlignment(Pos.CENTER);

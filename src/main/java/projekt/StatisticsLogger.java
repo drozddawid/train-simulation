@@ -16,7 +16,7 @@ public class StatisticsLogger {//TODO:(make it show in window and save to datafi
     private static long totalCost = 0;
     private static long totalProfit = 0; //TODO: totalProfit-totalCost should be shown in statistics too
     private static long totalPassengersTransported = 0; //TODO: total profit on one passenger should be shown in statistics too
-   // public String endMessage = ""
+
 
     /**
      * saves data about the course when it's done (linkProgress == 1)
@@ -69,7 +69,17 @@ public class StatisticsLogger {//TODO:(make it show in window and save to datafi
             e.printStackTrace();
         }
     }
-
+    public static String getEndMessage(){
+        String message = "";
+        message += "Zako\u0144czono symulacj\u0119 po czasie: " + Settings.getStopCondition() + "h";
+        message += "\nCa\u0142kowita liczba przejechanych kilometr\u00f3w: " + totalTraveledDistance;
+        message += "\nCa\u0142kowity koszt przejazd\u00f3w: " + totalCost;
+        message += "\nCa\u0142kowity zysk z przejazd\u00f3w: " + totalProfit;
+        message += "\nCa\u0142kowity zysk pomniejszony o koszt przejazd\u00f3w: " + (totalProfit-totalCost);
+        message += "\nCa\u0142kowita liczba przetransportowanych pasa\u017cer\u00f3w: " + totalPassengersTransported;
+        message += "\nWi\u0119cej informacji w pliku rapport.txt";
+        return message;
+    }
     /**
      * Sets the amount of money at the starts of the simulation
      *
