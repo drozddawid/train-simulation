@@ -1,6 +1,5 @@
 package projekt;
 
-
 import java.util.ArrayList;
 
 /**
@@ -29,6 +28,8 @@ public class TrainRoute {
             stops.add(stationDatabase.getStationsById().get(integer));
         }
     }
+
+    TrainRoute() {}
 
 
     public ArrayList<Station> getStops(){ return this.stops;}

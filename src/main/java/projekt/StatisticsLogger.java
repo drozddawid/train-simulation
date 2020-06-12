@@ -1,5 +1,7 @@
 package projekt;
 
+import projekt.Settings;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -75,5 +77,16 @@ public class StatisticsLogger {//TODO:(make it show in window and save to datafi
      */
     public static void setMoney(int initialMoneyAmount){
         money = initialMoneyAmount;
+    }
+
+    /**
+     * Resets statistics
+     */
+    public static void reset(){
+        money = Settings.getInitialMoneyAmount();
+        totalTraveledDistance = 0;
+        totalCost = 0;
+        totalProfit = 0;
+        totalPassengersTransported = 0;
     }
 }

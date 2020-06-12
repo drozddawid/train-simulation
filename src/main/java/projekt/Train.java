@@ -11,6 +11,7 @@ import java.util.ArrayList;
  * A train to be drawn on the map
  */
 public class Train extends MapObject{
+
     private int trainID;
     private String name;
     private int costPerKM;
@@ -21,14 +22,8 @@ public class Train extends MapObject{
     private Station previousStation;
     private Station nextStation;
     private TrainRoute currentTrainRoute;
-    /**
-     * to the last stop in which the train was located
-     */
-    private int currentStopID;
-    /**
-     * true - train goes from station 0 to last station, false - train goes from last station to station 0 in its currentTrainRoute
-     */
-    private boolean routeDirection;
+    private int currentStopID; //points last stop in which train were
+    private boolean routeDirection; // true - train goes from station 0 to last station, false - train goes from last station to station 0 in its currentTrainRoute
     private double linkProgress;
     private double testtime;
 
@@ -60,11 +55,21 @@ public class Train extends MapObject{
         this.routeDirection = true;
         this.setLinkProgress(0);
         this.setTesttime(0);
+//        this.coordX = currentLink.from.coordX;
+//        this.coordY = currentLink.from.coordY;
+
+    }
+    public Train(){
+        this(0,"defaultTrainName",0,0, 0,0, new TrainRoute());
     }
 
-    /**
-     * Moves the train forward a tiny bit
-     */
+    public String getTrain(){
+        return "\nprojekt.Train ID: " + this.getTrainID() + "\nName: " + this.getName() + "\nCost (per KM): " + this.getCostPerKM()
+                + "\nProfit per passenger for KM: " + this.getProfitPerPassenger() + "\nSeats: " + this.getSeats()
+                + "\nLink Progress (%): " + (this.getLinkProgress() *100)
+                + "\nCoordX: " + this.coordX + "\nCoordY: " + this.coordY;
+    }
+
     @Override
     public void tick() {
         double distanceY = getNextStation().coordY - getPreviousStation().coordY;
@@ -87,11 +92,6 @@ public class Train extends MapObject{
         coordX = getPreviousStation().coordX + distanceX * getLinkProgress();
     }
 
-    /**
-     * Draws the Train on a Map.
-     *
-     * @param gc the context on which to draw the object
-     */
     @Override
     public void draw(GraphicsContext gc){
         // The train icon is 314x472 pixels
@@ -107,11 +107,6 @@ public class Train extends MapObject{
         gc.fill();
     }
 
-    /**
-     * Draws a small infoBox when the mouse pointer is close to the train
-     *
-     * @param gc the context on which to draw the objectc
-     */
     public void drawInfoBox(GraphicsContext gc) {
         final double ICON_EDGE = 11.0;
         final double ICON_RADIUS = Math.hypot(ICON_EDGE / 2, ICON_EDGE / 2);
@@ -121,12 +116,12 @@ public class Train extends MapObject{
 //        boolean onTheBottom = coordY < gc.getCanvas().getHeight() / 2;
 
         ArrayList<String> lines = new ArrayList<>();
-        lines.add("Poci\u0105g: " + getName());
+        lines.add("Pociąg: " + getName());
         if(getPreviousStation() != null) {
             lines.add("Poprzednia stacja: " + getPreviousStation().name);
         }
         if(getNextStation() != null) {
-            lines.add("Nast\u0119pna stacja: " + getNextStation().name);
+            lines.add("Następna stacja: " + getNextStation().name);
         }
 
         ArrayList<Station> stops = getCurrentTrainRoute().getStops();
@@ -163,10 +158,7 @@ public class Train extends MapObject{
         }
     }
 
-    /**
-     * Random mode: sets next course (randomly) for train (used when it's linkProgress >= 1)
-     */
-    private void nextRndStop (){
+    private void nextRndStop (){ // sets next course (randomly) for train (used when it's linkProgress == 1)
         this.setPreviousStation(this.getNextStation());
         int randomStationIndex = (int)(Math.random() * this.getPreviousStation().connectedWith.size());
         this.setNextStation(this.getPreviousStation().connectedWith.get(randomStationIndex));
@@ -175,10 +167,7 @@ public class Train extends MapObject{
         this.setTesttime(System.currentTimeMillis()); //for testing time of travel between stations to scale train speed (succeeded)
     }
 
-    /**
-     * Timetable mode: sets next course (from currentTrainRoute) for train (used when it's linkProgress >= 1)
-     */
-    private void nextStop(){
+    private void nextStop(){ // sets next course (from currentTrainRoute) for train (used when it's linkProgress == 1)
         if(this.routeDirection && this.currentStopID == this.getCurrentTrainRoute().stopsByIDSize - 2){
             this.routeDirection = false;
             this.currentStopID += 2;
@@ -187,14 +176,20 @@ public class Train extends MapObject{
             this.currentStopID -=2;
         }
 
-        if(this.routeDirection) {
-            this.currentStopID++;
-            this.setPreviousStation(this.getCurrentTrainRoute().getStop(this.currentStopID));
-            this.setNextStation(this.getCurrentTrainRoute().getStop(this.currentStopID + 1));
-        } else{
-            this.currentStopID--;
-            this.setPreviousStation(this.getCurrentTrainRoute().getStop(this.currentStopID));
-            this.setNextStation(this.getCurrentTrainRoute().getStop(this.currentStopID - 1));
+        if(this.getCurrentTrainRoute().stopsByIDSize == 1){
+            this.setPreviousStation(this.getCurrentTrainRoute().getStop(0));
+            this.setNextStation(this.getPreviousStation());
+
+        }else {
+            if(this.routeDirection) {
+                this.currentStopID++;
+                this.setPreviousStation(this.getCurrentTrainRoute().getStop(this.currentStopID));
+                this.setNextStation(this.getCurrentTrainRoute().getStop(this.currentStopID + 1));
+            } else{
+                this.currentStopID--;
+                this.setPreviousStation(this.getCurrentTrainRoute().getStop(this.currentStopID));
+                this.setNextStation(this.getCurrentTrainRoute().getStop(this.currentStopID - 1));
+        }
         }
 
         this.setPassengers((int) (Math.random() * this.getSeats()));
@@ -202,11 +197,6 @@ public class Train extends MapObject{
         this.setTesttime(System.currentTimeMillis());
     }
 
-    /**
-     * Resets the train and places it on the beggining of a TrainRoute
-     *
-     * @param route the TrainRoute being reset
-     */
     public void resetRoute(TrainRoute route){
         this.setCurrentTrainRoute(route);
         this.currentStopID = 0;
@@ -215,6 +205,14 @@ public class Train extends MapObject{
         this.setNextStation(route.getStop(1));
         this.setLinkProgress(0);
     }
+    public void resetRoute(){
+        this.currentStopID = 0;
+        this.routeDirection = true;
+        this.setPreviousStation(this.getCurrentTrainRoute().getStop(0));
+        this.setNextStation(this.getCurrentTrainRoute().getStop(1));
+        this.setLinkProgress(0);
+    }
+
 
     public int getTrainID() {
         return trainID;
@@ -248,34 +246,18 @@ public class Train extends MapObject{
         this.profitPerPassenger = profitPerPassenger;
     }
 
-    /**
-     *
-     * @return the number of seats
-     */
     public int getSeats() {
         return seats;
     }
 
-    /**
-     *
-     * @param seats the number of seats
-     */
     public void setSeats(int seats) {
         this.seats = seats;
     }
 
-    /**
-     *
-     * @return the number of passengers
-     */
     public int getPassengers() {
         return passengers;
     }
 
-    /**
-     *
-     * @param passengers the number of passengers
-     */
     public void setPassengers(int passengers) {
         this.passengers = passengers;
     }
@@ -312,17 +294,10 @@ public class Train extends MapObject{
         this.currentTrainRoute = currentTrainRoute;
     }
 
-    /**
-     * @return how much between previousStation and nextStation the Train has moved - between [0.0; 1.0]
-     */
     public double getLinkProgress() {
         return linkProgress;
     }
 
-    /**
-     *
-     * @param linkProgress how much between previousStation and nextStation the Train has moved - between [0.0; 1.0]
-     */
     public void setLinkProgress(double linkProgress) {
         this.linkProgress = linkProgress;
     }

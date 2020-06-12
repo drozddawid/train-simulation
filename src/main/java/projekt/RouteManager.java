@@ -12,7 +12,7 @@ import java.util.List;
  * A class that keeps all the routes and trains
  */
 public class RouteManager {
-    private HashMap<Integer, TrainRoute> routes;
+    public HashMap<Integer, TrainRoute> routes;
     private HashMap<Integer, Train> trains = new HashMap<>();
 
     /**
@@ -59,7 +59,6 @@ public class RouteManager {
             trains.put(id, train);
         }
     }
-
     /**
      *
      * @return all loaded Trains by their id
@@ -89,4 +88,7 @@ public class RouteManager {
     public HashMap<Integer, TrainRoute> getRoutes() {
         return routes;
     }
+
+    public ArrayList<TrainRoute> getTrainRoutesArrayList() { return new ArrayList<TrainRoute>(this.routes.values());}
+
 }

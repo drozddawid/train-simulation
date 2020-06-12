@@ -55,15 +55,7 @@ public class Map {
         // Add stationLinks first so they get drawn first
         objects.addAll(stationDatabase.getStationLinks());
         objects.addAll(stationDatabase.getStationsById().values());
-
         objects.addAll(routeManager.getTrains().values());
-
-        /* Add a sample train for testing purposes */
-        /*Train malczewski = new Train(1, "Malczewski", 10, 25, 500,100,);
-        malczewski.previousStation = stationDatabase.findStation("Wroc\u0142aw");
-        malczewski.nextStation = stationDatabase.findStation("Cz\u0119stochowa");
-        malczewski.linkProgress = 0.5; // 50%
-        objects.add(malczewski);*/
     }
 
     /**
