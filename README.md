@@ -20,6 +20,8 @@ Projekt znajduje się na Githubie: [karolba/projekt-programowanie-obiektowe](htt
 
 - [Diagram maszyny stanów interfejsu](https://github.com/karolba/projekt-programowanie-obiektowe/blob/master/docs/diagram-maszyny-stanow.pdf)
 
+- [Diagram sekwencji](https://github.com/karolba/projekt-programowanie-obiektowe/blob/master/docs/diagram-sekwencji.pdf)
+
 
 ## Instrukcja budowania
 
