@@ -1,5 +1,6 @@
 package projekt;
 
+import com.sun.tools.javac.Main;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -27,8 +28,11 @@ public class MainWindow extends Application {
     private StationDatabase stationDatabase = new StationDatabase();
     private RouteManagerWindow routeManagerWindow = new RouteManagerWindow(new RouteManager(stationDatabase), stationDatabase, this);
     private Button timetableEdit;
-    Scene mainScene, routeManagerScene;
-    Stage mainWindow;
+    private Scene mainScene, routeManagerScene;
+    private Stage mainWindow;
+    private double time = 9 * 60 + 15; // 9:15
+    private Label timeLabel;
+    private BorderPane root;
 
     /**
      * The entry function.
@@ -45,7 +49,11 @@ public class MainWindow extends Application {
         /*TimerTask */timerTask = new TimerTask() {
             @Override
             public void run() {
-                Platform.runLater(() -> map.advanceTime());
+                Platform.runLater(() -> {
+                    time += 1/30.0*Settings.getSimulationSpeedMultiplier()/60.0;
+                    updateTime();
+                    map.advanceTime();
+                });
             }
         };
         
@@ -74,7 +82,7 @@ public class MainWindow extends Application {
 
         map = new Map(stationDatabase);
 
-        BorderPane root = new BorderPane();
+        root = new BorderPane();
         root.setBottom(bottomHBox());
         root.setCenter(map.getCanvas());
 
@@ -88,6 +96,15 @@ public class MainWindow extends Application {
         startSimulating();
     }
 
+    private void updateTime() {
+        int hour = ((int)time / 60) % 24;
+        int minute = (int)time % 60;
+        String padding = minute > 9 ? "" : "0";
+        Label time = new Label("Czas w symulacji: " + hour + ":" + padding + minute);
+        time.setStyle("-fx-background-color: #99ccee; -fx-padding: 0.5em");
+        ((HBox)root.getBottom()).getChildren().set(0, time);
+    }
+
     /**
      * Constructs the blue bottom bar on the main screen
      * [time] [speed] <-------filler--------> [timetableEdit]
@@ -98,7 +115,9 @@ public class MainWindow extends Application {
         HBox hBox = new HBox();
         hBox.setSpacing(10);
 
-        Label time = new Label("Czas w symulacji: 9:15");
+        int hour = ((int)time / 60) % 24;
+        int minute = (int)time % 60;
+        Label time = new Label("Czas w symulacji:");
         Label speed = new Label("Prędkość symulacji: " + Settings.getSimulationSpeedMultiplier()/60 + "min/1s");
         TextField setSimulationSpeed = new TextField();
         setSimulationSpeed.setPrefColumnCount(3);
