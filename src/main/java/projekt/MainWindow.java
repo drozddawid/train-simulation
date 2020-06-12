@@ -125,6 +125,13 @@ public class MainWindow extends Application{
         hBox.getChildren().addAll(time, speed,setSimulationSpeed, filler, timetableEdit);
         return hBox;
     }
+    public void refreshScene(Scene scene){
+        routeManagerScene = scene;
+        mainWindow.setScene(routeManagerScene);
+
+    }
+
+
     public void refreshTrainTab(Tab trainTab){
         ArrayList<Tab> tabs = routeManagerWindow.getRouteManagerTabs();
         TabPane pane = new TabPane();

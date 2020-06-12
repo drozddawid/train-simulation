@@ -23,6 +23,9 @@ public class TrainRoute {
 
     }
 
+    public TrainRoute(int id, boolean add, StationDatabase stationDatabase) {
+    }
+
 
     public ArrayList<Station> getStops(){ return this.stops;}
 
