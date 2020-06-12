@@ -272,7 +272,7 @@ public class RouteManagerWindow {
                             }
                             if(notEmptyRoute == null){
                                 routeManager.getTrains().clear();
-                               //TODO: tell user that his trains will be deleted unless he cancel the action TODO: refresh trains tab
+                                showError("Pociągi zostały usunięte.(Brak Tras)");
                             }else {
                                 train.resetRoute(notEmptyRoute);
                             }
@@ -291,6 +291,7 @@ public class RouteManagerWindow {
             }
             if(routeManager.getTrainRoutesArrayList().size()==0){
                 routeManager.getTrains().clear();
+                showError("Pociągi zostały usunięte.(Brak Tras)");
             }
 
             mainWindow.refreshScene(getScene());
@@ -548,22 +549,7 @@ public class RouteManagerWindow {
 
     }
 
-    public void showStats(String stats){
-        Stage dialogStage = new Stage();
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.setTitle("Symulacja została zakończona.");
 
-        Button ok = new Button ("Zamknij");
-        ok.setOnAction(f -> dialogStage.close());
-        VBox vbox = new VBox(new Label (stats), ok);
-        vbox.setSpacing(10);
-        vbox.setAlignment(Pos.CENTER);
-        vbox.setPadding(new Insets(30));
-
-        dialogStage.setScene(new Scene(vbox));
-        dialogStage.show();
-
-    }
 
     public ArrayList<Tab> getRouteManagerTabs(){
         ArrayList<Tab> list = new ArrayList<>();

@@ -1,6 +1,6 @@
 package projekt;
 
-//import com.sun.javafx.sg.prism.NGCanvas; //TODO: fix this line - it gives some err
+
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Paint;
