@@ -10,7 +10,7 @@ Projekt znajduje się na Githubie: [karolba/projekt-programowanie-obiektowe](htt
 
 - [Analiza czasownikowo-rzeczownikowa](https://github.com/karolba/projekt-programowanie-obiektowe/blob/master/docs/analiza-czasownikowo-rzeczownikowa.md)
 
-- [Diagram przypadków użycia](https://github.com/karolba/projekt-programowanie-obiektowe/blob/master/docs/diagram-przypadkow-użycia.svg)
+- [Diagram przypadków użycia](https://github.com/karolba/projekt-programowanie-obiektowe/blob/master/docs/diagram-przypadkow-uzycia.pdf)
 
 - [Karty CRC](https://github.com/karolba/projekt-programowanie-obiektowe/blob/master/docs/crc.pdf)
 
