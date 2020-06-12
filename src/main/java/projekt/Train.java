@@ -50,9 +50,9 @@ public class Train extends MapObject{
 //        this.coordY = currentLink.from.coordY;
 
     }
-    /*public Train(){
+    public Train(){
         this(0,"defaultTrainName",0,0, 0,0, new TrainRoute());
-    }*/
+    }
 
     public String getTrain(){
         return "\nprojekt.Train ID: " + this.trainID + "\nName: " + this.name + "\nCost (per KM): " + this.costPerKM
@@ -167,14 +167,20 @@ public class Train extends MapObject{
             this.currentStopID -=2;
         }
 
-        if(this.routeDirection) {
-            this.currentStopID++;
-            this.previousStation = this.currentTrainRoute.getStop(this.currentStopID);
-            this.nextStation = this.currentTrainRoute.getStop(this.currentStopID + 1);
-        } else{
-            this.currentStopID--;
-            this.previousStation = this.currentTrainRoute.getStop(this.currentStopID);
-            this.nextStation = this.currentTrainRoute.getStop(this.currentStopID - 1);
+        if(this.currentTrainRoute.stopsByIDSize == 1){
+            this.previousStation = this.currentTrainRoute.getStop(0);
+            this.nextStation = this.previousStation;
+
+        }else {
+            if(this.routeDirection) {
+                this.currentStopID++;
+                this.previousStation = this.currentTrainRoute.getStop(this.currentStopID);
+                this.nextStation = this.currentTrainRoute.getStop(this.currentStopID + 1);
+            } else{
+                this.currentStopID--;
+                this.previousStation = this.currentTrainRoute.getStop(this.currentStopID);
+                this.nextStation = this.currentTrainRoute.getStop(this.currentStopID - 1);
+        }
         }
 
         this.passengers = (int) (Math.random() * this.seats);
@@ -190,4 +196,13 @@ public class Train extends MapObject{
         this.nextStation = route.getStop(1);
         this.linkProgress = 0;
     }
+    public void resetRoute(){
+        this.currentStopID = 0;
+        this.routeDirection = true;
+        this.previousStation = this.currentTrainRoute.getStop(0);
+        this.nextStation = this.currentTrainRoute.getStop(1);
+        this.linkProgress = 0;
+    }
+
+
 }

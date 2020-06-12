@@ -30,13 +30,6 @@ public class Map {
         objects.addAll(stationDatabase.getStationsById().values());
    */
 
-        /* Add a sample train for testing purposes */
-   /*      Train malczewski = new Train(1, "Malczewski", 10, 25, 500,100);
-        malczewski.previousStation = stationDatabase.findStation("Wrocław");
-        malczewski.nextStation = stationDatabase.findStation("Częstochowa");
-        malczewski.linkProgress = 0.5; // 50%
-        objects.add(malczewski);
-   */
         getCanvas().setOnMouseMoved(event -> {
             mouseX = event.getX();
             mouseY = event.getY();
@@ -47,15 +40,7 @@ public class Map {
         // Add stationLinks first so they get drawn first
         objects.addAll(stationDatabase.getStationLinks());
         objects.addAll(stationDatabase.getStationsById().values());
-
         objects.addAll(routeManager.getTrains().values());
-
-        /* Add a sample train for testing purposes */
-        /*Train malczewski = new Train(1, "Malczewski", 10, 25, 500,100,);
-        malczewski.previousStation = stationDatabase.findStation("Wrocław");
-        malczewski.nextStation = stationDatabase.findStation("Częstochowa");
-        malczewski.linkProgress = 0.5; // 50%
-        objects.add(malczewski);*/
     }
 
     public void clearObjects(){

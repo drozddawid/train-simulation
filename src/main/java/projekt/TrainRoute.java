@@ -18,6 +18,11 @@ public class TrainRoute {
         }
     }
 
+    public TrainRoute() {
+        routeID = 0;
+
+    }
+
 
     public ArrayList<Station> getStops(){ return this.stops;}
 

@@ -6,14 +6,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,8 +19,10 @@ import java.util.TimerTask;
 public class MainWindow extends Application{
     private Map map;
     private Timer advancingTimeTimer;
+    private TimerTask timerTask;
     private StationDatabase stationDatabase = new StationDatabase();
     private RouteManagerWindow routeManagerWindow = new RouteManagerWindow(new RouteManager(stationDatabase), stationDatabase, this);
+    private Button timetableEdit;
     Scene mainScene, routeManagerScene;
     Stage mainWindow;
 
@@ -30,14 +30,21 @@ public class MainWindow extends Application{
     }
 
     private void startAdvancingTimeTimer() {
-        TimerTask timerTask = new TimerTask() {
+
+        /*TimerTask */timerTask = new TimerTask() {
             @Override
             public void run() {
                 Platform.runLater(() -> map.advanceTime());
             }
         };
+
         advancingTimeTimer = new Timer();
         advancingTimeTimer.scheduleAtFixedRate(timerTask, 0, 1000/30);
+    }
+
+    private void stopAdvancingTimeTimer(){
+        advancingTimeTimer.cancel();
+        timerTask.cancel();
     }
 
     @Override
@@ -62,7 +69,7 @@ public class MainWindow extends Application{
         startAdvancingTimeTimer();
 
         // TODO: delete
-        startSimulating();
+        //startSimulating();
     }
 
     private HBox bottomHBox() {
@@ -70,11 +77,39 @@ public class MainWindow extends Application{
         hBox.setSpacing(10);
 
         Label time = new Label("Czas w symulacji: 9:15");
-        Label speed = new Label("Prędkość symulacji: 5m/1s");
+        Label speed = new Label("Prędkość symulacji: " + Settings.getSimulationSpeedMultiplier()/60 + "min/1s");
+        TextField setSimulationSpeed = new TextField();
+        setSimulationSpeed.setPrefColumnCount(3);
+        setSimulationSpeed.setPromptText("Prędkość symulacji (x min/1s)");
+        setSimulationSpeed.setOnAction(e -> {
+            int speedGiven;
+            try{
+                speedGiven = Integer.parseInt(setSimulationSpeed.getCharacters().toString());
+                if(speedGiven < 0){
+                    speedGiven *= -1;
+                } if (speedGiven == 0){
+                    Settings.setSimulationSpeedMultiplier(1);
+                    speed.setText("Prędkość symulacji: czas rzeczywisty (1s/1s)");
+                }else if(speedGiven < 121){
+                    Settings.setSimulationSpeedMultiplier(speedGiven*60);
+                    speed.setText("Prędkość symulacji: " + Settings.getSimulationSpeedMultiplier()/60 + "min/1s");
+                }else {
+                    Settings.setSimulationSpeedMultiplier(7201);
+                    speed.setText("Prędkość symulacji: " + Settings.getSimulationSpeedMultiplier() / 60 + "min/1s");
+                }
+            }catch (NumberFormatException f){
+                routeManagerWindow.showError("Wprowadzono niepoprawną wartość. Wprowadź liczbę całkowitą.");
+            }
+        });
 
-        Button timetableEdit = new Button("Ustawienia");
+        timetableEdit = new Button("Ustawienia");
         timetableEdit.setOnAction(e -> {
             mainWindow.setScene(routeManagerScene);
+            for(Train train : routeManagerWindow.routeManager.getTrains().values()){
+                train.resetRoute();
+            }
+            stopAdvancingTimeTimer();
+            StatisticsLogger.reset();
             map.clearObjects();
         });
 
@@ -87,14 +122,25 @@ public class MainWindow extends Application{
         Region filler = new Region();
         HBox.setHgrow(filler, Priority.ALWAYS);
 
-        hBox.getChildren().addAll(time, speed, filler, timetableEdit);
+        hBox.getChildren().addAll(time, speed,setSimulationSpeed, filler, timetableEdit);
         return hBox;
+    }
+    public void refreshTrainTab(Tab trainTab){
+        ArrayList<Tab> tabs = routeManagerWindow.getRouteManagerTabs();
+        TabPane pane = new TabPane();
+        pane.getTabs().addAll(tabs.get(0), trainTab, tabs.get(1));
+        routeManagerScene = new Scene(pane, 900,850);
     }
 
     public void startSimulating(){
+        startAdvancingTimeTimer();
         mainWindow.setScene(mainScene);
+        map.clearObjects();
         map.addObjects(stationDatabase, routeManagerWindow.getRouteManager());
+        StatisticsLogger.setMoney(Settings.getInitialMoneyAmount());
     }
+
+    public void changeSettingsButtonText(String text){ timetableEdit.setText(text);}
 
 
 }
